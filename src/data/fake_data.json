@@ -1,0 +1,259 @@
+{
+  "especies": [
+    { "id": "550e8400-e29b-41d4-a716-446655440001", "nombre": "Perro" },
+    { "id": "550e8400-e29b-41d4-a716-446655440002", "nombre": "Gato" },
+    { "id": "550e8400-e29b-41d4-a716-446655440003", "nombre": "Conejo" },
+    { "id": "550e8400-e29b-41d4-a716-446655440004", "nombre": "Ave" }
+  ],
+  "razas": [
+    {
+      "id": "650e8400-e29b-41d4-a716-446655440001",
+      "nombre": "Labrador",
+      "especie_id": "550e8400-e29b-41d4-a716-446655440001"
+    },
+    {
+      "id": "650e8400-e29b-41d4-a716-446655440002",
+      "nombre": "Golden Retriever",
+      "especie_id": "550e8400-e29b-41d4-a716-446655440001"
+    },
+    {
+      "id": "650e8400-e29b-41d4-a716-446655440003",
+      "nombre": "Pastor Alemán",
+      "especie_id": "550e8400-e29b-41d4-a716-446655440001"
+    },
+    {
+      "id": "650e8400-e29b-41d4-a716-446655440004",
+      "nombre": "Siamés",
+      "especie_id": "550e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": "650e8400-e29b-41d4-a716-446655440005",
+      "nombre": "Persa",
+      "especie_id": "550e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": "650e8400-e29b-41d4-a716-446655440006",
+      "nombre": "Maine Coon",
+      "especie_id": "550e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": "650e8400-e29b-41d4-a716-446655440007",
+      "nombre": "Holandés Enano",
+      "especie_id": "550e8400-e29b-41d4-a716-446655440003"
+    },
+    {
+      "id": "650e8400-e29b-41d4-a716-446655440008",
+      "nombre": "Canario",
+      "especie_id": "550e8400-e29b-41d4-a716-446655440004"
+    }
+  ],
+  "roles": [
+    {
+      "id": "750e8400-e29b-41d4-a716-446655440001",
+      "nombre": "admin",
+      "descripcion": "Administrador del sistema"
+    },
+    {
+      "id": "750e8400-e29b-41d4-a716-446655440002",
+      "nombre": "usuario",
+      "descripcion": "Usuario regular"
+    },
+    {
+      "id": "750e8400-e29b-41d4-a716-446655440003",
+      "nombre": "moderador",
+      "descripcion": "Moderador de contenido"
+    }
+  ],
+  "regiones": [
+    {
+      "id": "850e8400-e29b-41d4-a716-446655440001",
+      "pais_codigo": "CO",
+      "pais_nombre": "Colombia",
+      "departamento": "Cundinamarca",
+      "ciudad": "Bogotá",
+      "estado": true,
+      "fecha_activacion": "2024-01-01T00:00:00.000Z",
+      "latitud": "4.6097",
+      "longitud": "-74.0817",
+      "radio_cobertura_km": "50"
+    },
+    {
+      "id": "850e8400-e29b-41d4-a716-446655440002",
+      "pais_codigo": "CO",
+      "pais_nombre": "Colombia",
+      "departamento": "Antioquia",
+      "ciudad": "Medellín",
+      "estado": true,
+      "fecha_activacion": "2024-01-01T00:00:00.000Z",
+      "latitud": "6.2442",
+      "longitud": "-75.5812",
+      "radio_cobertura_km": "40"
+    },
+    {
+      "id": "850e8400-e29b-41d4-a716-446655440003",
+      "pais_codigo": "CO",
+      "pais_nombre": "Colombia",
+      "departamento": "Valle del Cauca",
+      "ciudad": "Cali",
+      "estado": true,
+      "fecha_activacion": "2024-01-01T00:00:00.000Z",
+      "latitud": "3.4516",
+      "longitud": "-76.5320",
+      "radio_cobertura_km": "35"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440001",
+      "nombre": "María González",
+      "email": "maria.gonzalez@email.com",
+      "telefono": "+57 300 123 4567",
+      "ubicacion": "Bogotá, Colombia",
+      "metodo_registro": "GOOGLE",
+      "autenticado": true,
+      "avatar_url": "https://example.com/avatar1.jpg"
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440002",
+      "nombre": "Carlos Rodríguez",
+      "email": "carlos.rodriguez@email.com",
+      "telefono": "+57 300 234 5678",
+      "ubicacion": "Medellín, Colombia",
+      "metodo_registro": "FACEBOOK",
+      "autenticado": true,
+      "avatar_url": "https://example.com/avatar2.jpg"
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440003",
+      "nombre": "Ana Martínez",
+      "email": "ana.martinez@email.com",
+      "telefono": "+57 300 345 6789",
+      "ubicacion": "Cali, Colombia",
+      "metodo_registro": "EMAIL",
+      "autenticado": true,
+      "avatar_url": "https://example.com/avatar3.jpg"
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440004",
+      "nombre": "Luis Pérez",
+      "email": "luis.perez@email.com",
+      "telefono": "+57 300 456 7890",
+      "ubicacion": "Bogotá, Colombia",
+      "metodo_registro": "GOOGLE",
+      "autenticado": true,
+      "avatar_url": "https://example.com/avatar4.jpg"
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440005",
+      "nombre": "Sofia Herrera",
+      "email": "sofia.herrera@email.com",
+      "telefono": "+57 300 567 8901",
+      "ubicacion": "Medellín, Colombia",
+      "metodo_registro": "TWITTER",
+      "autenticado": true,
+      "avatar_url": "https://example.com/avatar5.jpg"
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440006",
+      "nombre": "Diego Silva",
+      "email": "diego.silva@email.com",
+      "telefono": "+57 300 678 9012",
+      "ubicacion": "Cali, Colombia",
+      "metodo_registro": "EMAIL",
+      "autenticado": true,
+      "avatar_url": "https://example.com/avatar6.jpg"
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440007",
+      "nombre": "Valentina Cruz",
+      "email": "valentina.cruz@email.com",
+      "telefono": "+57 300 789 0123",
+      "ubicacion": "Bogotá, Colombia",
+      "metodo_registro": "GOOGLE",
+      "autenticado": true,
+      "avatar_url": "https://example.com/avatar7.jpg"
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440008",
+      "nombre": "Andrés Morales",
+      "email": "andres.morales@email.com",
+      "telefono": "+57 300 890 1234",
+      "ubicacion": "Medellín, Colombia",
+      "metodo_registro": "FACEBOOK",
+      "autenticado": true,
+      "avatar_url": "https://example.com/avatar8.jpg"
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440009",
+      "nombre": "Camila Vargas",
+      "email": "camila.vargas@email.com",
+      "telefono": "+57 300 901 2345",
+      "ubicacion": "Cali, Colombia",
+      "metodo_registro": "EMAIL",
+      "autenticado": true,
+      "avatar_url": "https://example.com/avatar9.jpg"
+    },
+    {
+      "id": "950e8400-e29b-41d4-a716-446655440010",
+      "nombre": "Sebastián Jiménez",
+      "email": "sebastian.jimenez@email.com",
+      "telefono": "+57 300 012 3456",
+      "ubicacion": "Bogotá, Colombia",
+      "metodo_registro": "GOOGLE",
+      "autenticado": true,
+      "avatar_url": "https://example.com/avatar10.jpg"
+    }
+  ],
+  "usuarios_roles": [
+    {
+      "id": 1,
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440001",
+      "rol_id": "750e8400-e29b-41d4-a716-446655440001"
+    },
+    {
+      "id": 2,
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440002",
+      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": 3,
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440003",
+      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": 4,
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440004",
+      "rol_id": "750e8400-e29b-41d4-a716-446655440003"
+    },
+    {
+      "id": 5,
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440005",
+      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": 6,
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440006",
+      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": 7,
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440007",
+      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": 8,
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440008",
+      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": 9,
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440009",
+      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": 10,
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440010",
+      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+    }
+  ]
+}

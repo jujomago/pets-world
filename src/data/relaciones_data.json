@@ -1,0 +1,402 @@
+{
+  "avistamientos": [
+    {
+      "id": 1,
+      "fecha": "2024-01-16T10:30:00Z",
+      "ubicacion": "Parque 93, Bogotá",
+      "descripcion": "Vi a Max cerca del parqueadero",
+      "fotografia": "https://example.com/avistamiento1.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440001",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": 2,
+      "fecha": "2024-01-21T15:45:00Z",
+      "ubicacion": "Zona Rosa, Bogotá",
+      "descripcion": "Luna estaba en el balcón del edificio",
+      "fotografia": "https://example.com/avistamiento2.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440002",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440003"
+    },
+    {
+      "id": 3,
+      "fecha": "2024-01-26T08:20:00Z",
+      "ubicacion": "El Poblado, Medellín",
+      "descripcion": "Rocky caminaba por la calle principal",
+      "fotografia": "https://example.com/avistamiento3.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440003",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440004"
+    },
+    {
+      "id": 4,
+      "fecha": "2024-02-02T12:15:00Z",
+      "ubicacion": "Centro, Cali",
+      "descripcion": "Mimi estaba en el parqueadero",
+      "fotografia": "https://example.com/avistamiento4.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440004",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440005"
+    },
+    {
+      "id": 5,
+      "fecha": "2024-02-06T16:30:00Z",
+      "ubicacion": "Chapinero, Bogotá",
+      "descripcion": "Bella estaba en el parque",
+      "fotografia": "https://example.com/avistamiento5.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440005",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440006"
+    },
+    {
+      "id": 6,
+      "fecha": "2024-02-11T09:45:00Z",
+      "ubicacion": "Laureles, Medellín",
+      "descripcion": "Simba estaba en el jardín",
+      "fotografia": "https://example.com/avistamiento6.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440006",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440007"
+    },
+    {
+      "id": 7,
+      "fecha": "2024-02-16T14:20:00Z",
+      "ubicacion": "Granada, Medellín",
+      "descripcion": "Thor estaba en el parque",
+      "fotografia": "https://example.com/avistamiento7.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440007",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440008"
+    },
+    {
+      "id": 8,
+      "fecha": "2024-02-21T11:10:00Z",
+      "ubicacion": "San Antonio, Cali",
+      "descripcion": "Nala estaba en el balcón",
+      "fotografia": "https://example.com/avistamiento8.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440008",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440009"
+    },
+    {
+      "id": 9,
+      "fecha": "2024-02-26T13:35:00Z",
+      "ubicacion": "Usaquén, Bogotá",
+      "descripcion": "Zeus estaba en el parque",
+      "fotografia": "https://example.com/avistamiento9.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440009",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440010"
+    },
+    {
+      "id": 10,
+      "fecha": "2024-03-02T17:50:00Z",
+      "ubicacion": "Poblado, Medellín",
+      "descripcion": "Lola estaba en el jardín",
+      "fotografia": "https://example.com/avistamiento10.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440010",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440001"
+    },
+    {
+      "id": 11,
+      "fecha": "2024-03-07T10:25:00Z",
+      "ubicacion": "Teusaquillo, Bogotá",
+      "descripcion": "Coco estaba en el parque",
+      "fotografia": "https://example.com/avistamiento11.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440011",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440002"
+    },
+    {
+      "id": 12,
+      "fecha": "2024-03-12T15:40:00Z",
+      "ubicacion": "Centro, Cali",
+      "descripcion": "Milo estaba en el balcón",
+      "fotografia": "https://example.com/avistamiento12.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440012",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440003"
+    },
+    {
+      "id": 13,
+      "fecha": "2024-03-17T08:15:00Z",
+      "ubicacion": "El Poblado, Medellín",
+      "descripcion": "Rex estaba en la calle",
+      "fotografia": "https://example.com/avistamiento13.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440013",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440004"
+    },
+    {
+      "id": 14,
+      "fecha": "2024-03-22T12:30:00Z",
+      "ubicacion": "Chapinero, Bogotá",
+      "descripcion": "Luna estaba en el parque",
+      "fotografia": "https://example.com/avistamiento14.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440014",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440005"
+    },
+    {
+      "id": 15,
+      "fecha": "2024-03-27T16:45:00Z",
+      "ubicacion": "Laureles, Medellín",
+      "descripcion": "Bruno estaba en el jardín",
+      "fotografia": "https://example.com/avistamiento15.jpg",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440015",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440006"
+    }
+  ],
+  "adopciones": [
+    {
+      "id": "b50e8400-e29b-41d4-a716-446655440001",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440011",
+      "requisitos": "Casa con jardín, experiencia con perros",
+      "informacion_contacto": "maria.gonzalez@email.com"
+    },
+    {
+      "id": "b50e8400-e29b-41d4-a716-446655440002",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440012",
+      "requisitos": "Apartamento, experiencia con gatos",
+      "informacion_contacto": "carlos.rodriguez@email.com"
+    },
+    {
+      "id": "b50e8400-e29b-41d4-a716-446655440003",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440021",
+      "requisitos": "Casa con jardín, experiencia con perros grandes",
+      "informacion_contacto": "ana.martinez@email.com"
+    },
+    {
+      "id": "b50e8400-e29b-41d4-a716-446655440004",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440022",
+      "requisitos": "Apartamento, experiencia con gatos",
+      "informacion_contacto": "luis.perez@email.com"
+    },
+    {
+      "id": "b50e8400-e29b-41d4-a716-446655440005",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440023",
+      "requisitos": "Casa con jardín, experiencia con gatos grandes",
+      "informacion_contacto": "sofia.herrera@email.com"
+    },
+    {
+      "id": "b50e8400-e29b-41d4-a716-446655440006",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440024",
+      "requisitos": "Casa con jardín, experiencia con perros",
+      "informacion_contacto": "diego.silva@email.com"
+    },
+    {
+      "id": "b50e8400-e29b-41d4-a716-446655440007",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440025",
+      "requisitos": "Apartamento, experiencia con gatos",
+      "informacion_contacto": "valentina.cruz@email.com"
+    },
+    {
+      "id": "b50e8400-e29b-41d4-a716-446655440008",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440026",
+      "requisitos": "Casa con jardín, experiencia con perros grandes",
+      "informacion_contacto": "andres.morales@email.com"
+    },
+    {
+      "id": "b50e8400-e29b-41d4-a716-446655440009",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440027",
+      "requisitos": "Apartamento, experiencia con gatos",
+      "informacion_contacto": "camila.vargas@email.com"
+    },
+    {
+      "id": "b50e8400-e29b-41d4-a716-446655440010",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440028",
+      "requisitos": "Casa con jardín, experiencia con perros",
+      "informacion_contacto": "sebastian.jimenez@email.com"
+    }
+  ],
+  "imagenes_mascotas": [
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440001",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440001",
+      "url_imagen": "https://example.com/max1.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440002",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440001",
+      "url_imagen": "https://example.com/max2.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440003",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440002",
+      "url_imagen": "https://example.com/luna1.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440004",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440002",
+      "url_imagen": "https://example.com/luna2.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440005",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440003",
+      "url_imagen": "https://example.com/rocky1.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440006",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440003",
+      "url_imagen": "https://example.com/rocky2.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440007",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440004",
+      "url_imagen": "https://example.com/mimi1.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440008",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440004",
+      "url_imagen": "https://example.com/mimi2.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440009",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440005",
+      "url_imagen": "https://example.com/bella1.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440010",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440005",
+      "url_imagen": "https://example.com/bella2.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440011",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440006",
+      "url_imagen": "https://example.com/simba1.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440012",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440006",
+      "url_imagen": "https://example.com/simba2.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440013",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440007",
+      "url_imagen": "https://example.com/thor1.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440014",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440007",
+      "url_imagen": "https://example.com/thor2.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440015",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440008",
+      "url_imagen": "https://example.com/nala1.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440016",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440008",
+      "url_imagen": "https://example.com/nala2.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440017",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440009",
+      "url_imagen": "https://example.com/zeus1.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440018",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440009",
+      "url_imagen": "https://example.com/zeus2.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440019",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440010",
+      "url_imagen": "https://example.com/lola1.jpg"
+    },
+    {
+      "id": "c50e8400-e29b-41d4-a716-446655440020",
+      "mascota_id": "a50e8400-e29b-41d4-a716-446655440010",
+      "url_imagen": "https://example.com/lola2.jpg"
+    }
+  ],
+  "paseadores": [
+    {
+      "id": "d50e8400-e29b-41d4-a716-446655440001",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440001",
+      "experiencia": "5 años paseando perros",
+      "tarifas": "15000 por hora",
+      "disponibilidad": "Lunes a Viernes 6AM-8PM",
+      "zona_cobertura": "Bogotá Norte"
+    },
+    {
+      "id": "d50e8400-e29b-41d4-a716-446655440002",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440002",
+      "experiencia": "3 años paseando perros y gatos",
+      "tarifas": "12000 por hora",
+      "disponibilidad": "Fines de semana",
+      "zona_cobertura": "Medellín El Poblado"
+    },
+    {
+      "id": "d50e8400-e29b-41d4-a716-446655440003",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440003",
+      "experiencia": "2 años paseando perros",
+      "tarifas": "10000 por hora",
+      "disponibilidad": "Lunes a Domingo 7AM-7PM",
+      "zona_cobertura": "Cali Centro"
+    },
+    {
+      "id": "d50e8400-e29b-41d4-a716-446655440004",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440004",
+      "experiencia": "4 años paseando perros",
+      "tarifas": "18000 por hora",
+      "disponibilidad": "Lunes a Viernes 5AM-9PM",
+      "zona_cobertura": "Bogotá Sur"
+    },
+    {
+      "id": "d50e8400-e29b-41d4-a716-446655440005",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440005",
+      "experiencia": "6 años paseando perros y gatos",
+      "tarifas": "20000 por hora",
+      "disponibilidad": "Lunes a Domingo 6AM-10PM",
+      "zona_cobertura": "Medellín Laureles"
+    },
+    {
+      "id": "d50e8400-e29b-41d4-a716-446655440006",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440006",
+      "experiencia": "1 año paseando perros",
+      "tarifas": "8000 por hora",
+      "disponibilidad": "Fines de semana",
+      "zona_cobertura": "Cali San Antonio"
+    },
+    {
+      "id": "d50e8400-e29b-41d4-a716-446655440007",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440007",
+      "experiencia": "3 años paseando perros",
+      "tarifas": "14000 por hora",
+      "disponibilidad": "Lunes a Viernes 6AM-8PM",
+      "zona_cobertura": "Bogotá Centro"
+    },
+    {
+      "id": "d50e8400-e29b-41d4-a716-446655440008",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440008",
+      "experiencia": "2 años paseando perros y gatos",
+      "tarifas": "11000 por hora",
+      "disponibilidad": "Lunes a Domingo 8AM-6PM",
+      "zona_cobertura": "Medellín Granada"
+    },
+    {
+      "id": "d50e8400-e29b-41d4-a716-446655440009",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440009",
+      "experiencia": "4 años paseando perros",
+      "tarifas": "16000 por hora",
+      "disponibilidad": "Lunes a Viernes 7AM-9PM",
+      "zona_cobertura": "Cali Poblado"
+    },
+    {
+      "id": "d50e8400-e29b-41d4-a716-446655440010",
+      "usuario_id": "950e8400-e29b-41d4-a716-446655440010",
+      "experiencia": "5 años paseando perros",
+      "tarifas": "17000 por hora",
+      "disponibilidad": "Lunes a Domingo 6AM-8PM",
+      "zona_cobertura": "Bogotá Usaquén"
+    }
+  ],
+  "expansiones": [
+    {
+      "id": "e50e8400-e29b-41d4-a716-446655440001",
+      "region_id": "850e8400-e29b-41d4-a716-446655440001",
+      "fecha_expansion": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "e50e8400-e29b-41d4-a716-446655440002",
+      "region_id": "850e8400-e29b-41d4-a716-446655440002",
+      "fecha_expansion": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "e50e8400-e29b-41d4-a716-446655440003",
+      "region_id": "850e8400-e29b-41d4-a716-446655440003",
+      "fecha_expansion": "2024-01-01T00:00:00.000Z"
+    }
+  ]
+}

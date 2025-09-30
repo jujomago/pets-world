@@ -1,0 +1,4 @@
+.container :global(.swiper-button-next),
+.container :global(.swiper-button-prev) {
+  color: white; /* Puedes cambiar el color aquí */
+}
