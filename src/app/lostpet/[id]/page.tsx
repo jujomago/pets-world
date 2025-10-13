@@ -1,6 +1,13 @@
 import { getMascota } from "@/actions/mascotas";
 import { FaRegCalendar } from "react-icons/fa6";
-import { MdCake, MdContactPhone, MdPets, MdPlace } from "react-icons/md";
+import {
+  MdCake,
+  MdContactPhone,
+  MdFavorite,
+  MdFavoriteBorder,
+  MdPets,
+  MdPlace,
+} from "react-icons/md";
 import { IoIosFemale, IoIosMale } from "react-icons/io";
 import {
   PetDetailSlider,
@@ -15,7 +22,10 @@ import AvistamientosSection from "@/components/sections/AvistamientosSection";
 import { Suspense } from "react";
 import { AvistamientoSkeleton } from "@/components/skeletons/AvistamientosSkeleton";
 import Link from "next/link";
-import { Metadata } from "next";
+// import { Metadata } from "next";
+import { Gender } from "@prisma/client";
+import { IoScanCircle } from "react-icons/io5";
+import { FavoriteButton } from "@/components/Favorite/FavoriteButton";
 
 interface LostPetDetailProps {
   params: {
@@ -23,55 +33,49 @@ interface LostPetDetailProps {
   };
 }
 
-export async function generateMetadata({
+/* export async function generateMetadata({
   params,
 }: LostPetDetailProps): Promise<Metadata> {
   const { id } = await params;
 
   const mascota = (await getMascota(id)) || null;
 
-  const petName = mascota?.nombre || "Mascota Desconocida";
-  const lostLocation = mascota?.lugar_perdida || "Lugar no especificado";
-  const petType = mascota?.especies?.nombre || "Animal";
+  const petName = mascota?.name || "Mascota Desconocida";
+  const lostLocation = mascota?.lostLocationDetails || "Lugar no especificado";
+  //const petType = mascota?.species?.name || "Animal";
 
   return {
-    title: `${petName} | ${petType} Perdido en ${lostLocation}`, // Título dinámico
-    description: `Detalles completos sobre la mascota ${petName}, ${petType} perdido en ${lostLocation}. ¡Ayuda a encontrarlo Reportando!`, // Descripción dinámica
+    //title: `${petName} | ${petType} Perdido en ${lostLocation}`, // Título dinámico
+    // description: `Detalles completos sobre la mascota ${petName}, ${petType} perdido en ${lostLocation}. ¡Ayuda a encontrarlo Reportando!`, // Descripción dinámica
     // ... otros metadatos como Open Graph o Twitter
   };
-}
+} */
 
 export default async function LostPetDetail({ params }: LostPetDetailProps) {
   const { id } = await params;
 
-  const mascota = (await getMascota(id)) || {
-    nombre: "",
-    genero: "",
-    fecha_perdida: new Date(),
-    lugar_perdida: "",
-    detalle_perdida: "",
-    edad: 0,
-    color: "",
-    recompensa: 0,
-    imageSrc: "",
-    razas: { nombre: "" },
-    especies: { nombre: "" },
-  };
+  const mascota = await getMascota(id);
+  if (!mascota) return;
+  // console.log(mascota);
 
   return (
-    <PageWithTitle title={mascota?.nombre}>
-      {/* <Topbar showFilters={false} title={mascota?.nombre} /> */}
-      {/* Carrusel de imagenes */}
-      <PetDetailSlider />
-
+    <PageWithTitle title={mascota.name} className="relative">
+      <FavoriteButton isFavorite={mascota.isFavorite as boolean} />
+      <PetDetailSlider images={mascota.images} />
       {/* Detalles de la mascota */}
       <div className="mx-4 mb-5 -mt-6 z-10 relative bg-white p-6 rounded-xl shadow-lg animate-fade-in">
         <div className="flex justify-between items-center mb-4">
-          <Title classes="text-4xl">{mascota?.nombre}</Title>
-          {mascota?.genero === "M" ? (
+          <Title classes="text-4xl">{mascota.name}</Title>
+          {mascota.gender === Gender.MALE && (
             <IoIosMale className="text-2xl text-blue-500 stroke-16 -mb-1" />
-          ) : (
+          )}
+
+          {mascota.gender === Gender.FEMALE && (
             <IoIosFemale className="text-2xl -mb-3 text-pink-600 stroke-16" />
+          )}
+
+          {mascota.gender === Gender.UNKNOWN && (
+            <IoScanCircle className="text-2xl -mb-3 text-pink-600 stroke-16" />
           )}
         </div>
         <div className="flex gap-2 items-center mb-2">
@@ -79,7 +83,7 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
           <span className="-mb-1 text-gray-500 text-sm">
             Perdido en fecha{" "}
             <strong className="text-gray-800">
-              {mascota?.fecha_perdida?.toDateString()}
+              {mascota.lostDate?.toDateString()}
             </strong>
           </span>
         </div>
@@ -87,7 +91,9 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
           <MdPlace className="text-xl text-[var(--rojizo)]" />
           <span className="-mb-1 text-gray-500 text-sm">
             Perdido en{" "}
-            <strong className="text-gray-800">{mascota?.lugar_perdida}</strong>{" "}
+            <strong className="text-gray-800">
+              {mascota?.lostLocationDetails}
+            </strong>{" "}
           </span>
         </div>
 
@@ -96,19 +102,19 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
             <FaMoneyBillWave className="text-2xl -mb-1" /> Recompensa
             {/* <GiTakeMyMoney className="text-5xl" /> Recompensa */}
           </p>
-          <p className="font-bold text-2xl">1000 Bs</p>
+          <p className="font-bold text-2xl">{mascota.rewardAmount} Bs</p>
         </div>
 
         <div className="flex mb-6 gap-3 text-sm">
           <div className="p-2 flex-1 bg-gray-50 rounded-xl   text-center shadow-sm">
             <MdPets className="w-full text-3xl text-green-500 mb-2" />
             <div className="text-gray-400 text-xs">Raza</div>
-            <strong>{mascota.razas?.nombre}</strong>
+            <strong>{mascota.breedName}</strong>
           </div>
           <div className="p-2 flex-1 bg-gray-50 rounded-xl  text-center shadow-sm">
             <MdCake className="w-full text-3xl text-blue-500 mb-2" />
             <div className="text-gray-400 text-xs">Edad</div>
-            <strong>{mascota.edad} anios</strong>
+            <strong>{mascota.age} anios</strong>
           </div>
           <div className="p-2 flex-1 bg-gray-50 rounded-xl text-center shadow-sm">
             <FaPalette className="w-full text-2xl text-orange-500 mb-2" />
@@ -116,12 +122,7 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
             <strong>{mascota.color}</strong>
           </div>
         </div>
-        <p className="text-gray-600 mb-4 balance">
-          {mascota?.detalle_perdida} Lorem ipsum dolor sit amet consectetur
-          adipisicing elit. Ducimus vel reiciendis, fugiat sequi ullam illum, at
-          quibusdam voluptate pariatur fuga corrupti est eius molestiae quod,
-          ipsum dicta commodi perspiciatis! Fugiat.
-        </p>
+        <p className="text-gray-600 mb-4 balance">{mascota.description}</p>
       </div>
 
       {/* Mapa de avistamientos */}

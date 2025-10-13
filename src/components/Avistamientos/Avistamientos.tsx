@@ -2,14 +2,14 @@ import React from "react";
 import { AvistamientoItem } from "../AvistamientoItem/AvistamientoItem";
 import { Title } from "../Title/Title";
 import dynamic from "next/dynamic";
-import { avistamientos } from "../../generated/prisma/index";
+import { Sighting } from "@prisma/client";
 
 interface AvistamientosProps {
   // Define any props if needed in the future
-  avistamientos?: avistamientos[];
+  avistamientos?: Sighting[];
 }
 
-const DynamicMap = dynamic(() => import("@/components/map/Map"), {
+const DynamicMap = dynamic(() => import("@/components/map/Map").then(mod => ({ default: mod.Map })), {
   loading: () => <p>Loading map...</p>,
   ssr: !!false,
 });
@@ -37,8 +37,8 @@ export const Avistamientos = ({ avistamientos }: AvistamientosProps) => {
             avistamientos.map((avistamiento) => (
               <li key={avistamiento.id}>
                 <AvistamientoItem
-                  lugar={avistamiento.ubicacion}
-                  fecha={new Date(avistamiento.fecha).toLocaleDateString()}
+                  lugar={avistamiento.locationDescription || ""}
+                  fecha={new Date(avistamiento.date).toLocaleDateString()}
                 />
               </li>
             ))

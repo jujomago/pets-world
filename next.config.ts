@@ -1,18 +1,27 @@
-import type { NextConfig } from "next";
-import withPWA from 'next-pwa'; 
-
-// Configure next-pwa to generate sw.js into public/ on production builds.
-// It will be disabled in development to avoid caching issues during dev.
-const withPWAWrapped = withPWA({
-  dest: "public",
-  // We register the SW ourselves in a client component; avoid double registration
-  register: true,
-  skipWaiting: true,
-  disable: process.env.NODE_ENV === "development",
-});
-
-const nextConfig: NextConfig = {
-  /* keep your existing config here */
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  // Dejamos únicamente la configuración de imágenes
+  images: {
+    loader: "cloudinary",
+    path: "https://res.cloudinary.com/dkvxndrnd/image/upload/",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "res.cloudinary.com",
+        pathname: "/dkvxndrnd/image/upload/**",
+      },
+      // Dejamos los otros por si los necesitas para la prueba
+      {
+        protocol: "https",
+        hostname: "placehold.co",
+      },
+      {
+        protocol: "https",
+        hostname: "images.dog.ceo",
+      },
+    ],
+  },
 };
 
-export default withPWAWrapped(nextConfig);
+// Exportamos la configuración directamente, sin el wrapper de PWA
+module.exports = nextConfig;

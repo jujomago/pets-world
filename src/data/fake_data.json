@@ -1,259 +1,394 @@
 {
-  "especies": [
-    { "id": "550e8400-e29b-41d4-a716-446655440001", "nombre": "Perro" },
-    { "id": "550e8400-e29b-41d4-a716-446655440002", "nombre": "Gato" },
-    { "id": "550e8400-e29b-41d4-a716-446655440003", "nombre": "Conejo" },
-    { "id": "550e8400-e29b-41d4-a716-446655440004", "nombre": "Ave" }
+  "species": [
+    { "id": "550e8400-e29b-41d4-a716-446655440001", "name": "Perro" },
+    { "id": "550e8400-e29b-41d4-a716-446655440002", "name": "Gato" },
+    { "id": "550e8400-e29b-41d4-a716-446655440003", "name": "Conejo" },
+    { "id": "550e8400-e29b-41d4-a716-446655440004", "name": "Ave" },
+    { "id": "550e8400-e29b-41d4-a716-446655440005", "name": "Tortuga" },
+    { "id": "550e8400-e29b-41d4-a716-446655440006", "name": "Hamster" },
+    { "id": "550e8400-e29b-41d4-a716-446655440007", "name": "Pez" },
+    { "id": "550e8400-e29b-41d4-a716-446655440008", "name": "Hurón" },
+    { "id": "550e8400-e29b-41d4-a716-446655440009", "name": "Caballo" },
+    { "id": "550e8400-e29b-41d4-a716-446655440010", "name": "Cerdo Mini" }
   ],
-  "razas": [
+  "breeds": [
     {
       "id": "650e8400-e29b-41d4-a716-446655440001",
-      "nombre": "Labrador",
-      "especie_id": "550e8400-e29b-41d4-a716-446655440001"
+      "name": "Labrador",
+      "speciesId": "550e8400-e29b-41d4-a716-446655440001"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440002",
-      "nombre": "Golden Retriever",
-      "especie_id": "550e8400-e29b-41d4-a716-446655440001"
+      "name": "Golden Retriever",
+      "speciesId": "550e8400-e29b-41d4-a716-446655440001"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440003",
-      "nombre": "Pastor Alemán",
-      "especie_id": "550e8400-e29b-41d4-a716-446655440001"
+      "name": "Pastor Alemán",
+      "speciesId": "550e8400-e29b-41d4-a716-446655440001"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440004",
-      "nombre": "Siamés",
-      "especie_id": "550e8400-e29b-41d4-a716-446655440002"
+      "name": "Siamés",
+      "speciesId": "550e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440005",
-      "nombre": "Persa",
-      "especie_id": "550e8400-e29b-41d4-a716-446655440002"
+      "name": "Persa",
+      "speciesId": "550e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440006",
-      "nombre": "Maine Coon",
-      "especie_id": "550e8400-e29b-41d4-a716-446655440002"
+      "name": "Maine Coon",
+      "speciesId": "550e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440007",
-      "nombre": "Holandés Enano",
-      "especie_id": "550e8400-e29b-41d4-a716-446655440003"
+      "name": "Holandés Enano",
+      "speciesId": "550e8400-e29b-41d4-a716-446655440003"
     },
     {
       "id": "650e8400-e29b-41d4-a716-446655440008",
-      "nombre": "Canario",
-      "especie_id": "550e8400-e29b-41d4-a716-446655440004"
+      "name": "Canario",
+      "speciesId": "550e8400-e29b-41d4-a716-446655440004"
+    },
+    {
+      "id": "650e8400-e29b-41d4-a716-446655440009",
+      "name": "Bulldog",
+      "speciesId": "550e8400-e29b-41d4-a716-446655440001"
+    },
+    {
+      "id": "650e8400-e29b-41d4-a716-446655440010",
+      "name": "Criollo",
+      "speciesId": "550e8400-e29b-41d4-a716-446655440001"
     }
   ],
   "roles": [
     {
       "id": "750e8400-e29b-41d4-a716-446655440001",
-      "nombre": "admin",
-      "descripcion": "Administrador del sistema"
+      "name": "admin",
+      "description": "Administrador del sistema"
     },
     {
       "id": "750e8400-e29b-41d4-a716-446655440002",
-      "nombre": "usuario",
-      "descripcion": "Usuario regular"
+      "name": "usuario",
+      "description": "Usuario regular"
     },
     {
       "id": "750e8400-e29b-41d4-a716-446655440003",
-      "nombre": "moderador",
-      "descripcion": "Moderador de contenido"
+      "name": "moderador",
+      "description": "Moderador de contenido"
+    },
+    {
+      "id": "750e8400-e29b-41d4-a716-446655440004",
+      "name": "reporter",
+      "description": "Reporta avistamientos"
+    },
+    {
+      "id": "750e8400-e29b-41d4-a716-446655440005",
+      "name": "rescuer",
+      "description": "Voluntario de rescate"
+    },
+    {
+      "id": "750e8400-e29b-41d4-a716-446655440006",
+      "name": "vet",
+      "description": "Veterinario"
+    },
+    {
+      "id": "750e8400-e29b-41d4-a716-446655440007",
+      "name": "shelter",
+      "description": "Refugio"
+    },
+    {
+      "id": "750e8400-e29b-41d4-a716-446655440008",
+      "name": "donor",
+      "description": "Donante"
+    },
+    {
+      "id": "750e8400-e29b-41d4-a716-446655440009",
+      "name": "walker",
+      "description": "Paseador"
+    },
+    {
+      "id": "750e8400-e29b-41d4-a716-446655440010",
+      "name": "adopter",
+      "description": "Adoptante"
     }
   ],
-  "regiones": [
+  "regions": [
     {
       "id": "850e8400-e29b-41d4-a716-446655440001",
-      "pais_codigo": "CO",
-      "pais_nombre": "Colombia",
-      "departamento": "Cundinamarca",
-      "ciudad": "Bogotá",
-      "estado": true,
-      "fecha_activacion": "2024-01-01T00:00:00.000Z",
-      "latitud": "4.6097",
-      "longitud": "-74.0817",
-      "radio_cobertura_km": "50"
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "department": "Cundinamarca",
+      "city": "Bogotá",
+      "isActive": true,
+      "activationDate": "2024-01-01T00:00:00.000Z",
+      "latitude": 4.6097,
+      "longitude": -74.0817,
+      "coverageRadiusKm": 50
     },
     {
       "id": "850e8400-e29b-41d4-a716-446655440002",
-      "pais_codigo": "CO",
-      "pais_nombre": "Colombia",
-      "departamento": "Antioquia",
-      "ciudad": "Medellín",
-      "estado": true,
-      "fecha_activacion": "2024-01-01T00:00:00.000Z",
-      "latitud": "6.2442",
-      "longitud": "-75.5812",
-      "radio_cobertura_km": "40"
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "department": "Antioquia",
+      "city": "Medellín",
+      "isActive": true,
+      "activationDate": "2024-01-01T00:00:00.000Z",
+      "latitude": 6.2442,
+      "longitude": -75.5812,
+      "coverageRadiusKm": 40
     },
     {
       "id": "850e8400-e29b-41d4-a716-446655440003",
-      "pais_codigo": "CO",
-      "pais_nombre": "Colombia",
-      "departamento": "Valle del Cauca",
-      "ciudad": "Cali",
-      "estado": true,
-      "fecha_activacion": "2024-01-01T00:00:00.000Z",
-      "latitud": "3.4516",
-      "longitud": "-76.5320",
-      "radio_cobertura_km": "35"
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "department": "Valle del Cauca",
+      "city": "Cali",
+      "isActive": true,
+      "activationDate": "2024-01-01T00:00:00.000Z",
+      "latitude": 3.4516,
+      "longitude": -76.532,
+      "coverageRadiusKm": 35
+    },
+    {
+      "id": "850e8400-e29b-41d4-a716-446655440004",
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "department": "Atlántico",
+      "city": "Barranquilla",
+      "isActive": false,
+      "activationDate": "2024-01-01T00:00:00.000Z",
+      "latitude": 10.9685,
+      "longitude": -74.7813,
+      "coverageRadiusKm": 30
+    },
+    {
+      "id": "850e8400-e29b-41d4-a716-446655440005",
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "department": "Bolívar",
+      "city": "Cartagena",
+      "isActive": false,
+      "activationDate": "2024-01-01T00:00:00.000Z",
+      "latitude": 10.391,
+      "longitude": -75.4794,
+      "coverageRadiusKm": 30
+    },
+    {
+      "id": "850e8400-e29b-41d4-a716-446655440006",
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "department": "Santander",
+      "city": "Bucaramanga",
+      "isActive": false,
+      "activationDate": "2024-01-01T00:00:00.000Z",
+      "latitude": 7.1193,
+      "longitude": -73.1227,
+      "coverageRadiusKm": 25
+    },
+    {
+      "id": "850e8400-e29b-41d4-a716-446655440007",
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "department": "Risaralda",
+      "city": "Pereira",
+      "isActive": false,
+      "activationDate": "2024-01-01T00:00:00.000Z",
+      "latitude": 4.8087,
+      "longitude": -75.6906,
+      "coverageRadiusKm": 25
+    },
+    {
+      "id": "850e8400-e29b-41d4-a716-446655440008",
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "department": "Caldas",
+      "city": "Manizales",
+      "isActive": false,
+      "activationDate": "2024-01-01T00:00:00.000Z",
+      "latitude": 5.0703,
+      "longitude": -75.5138,
+      "coverageRadiusKm": 25
+    },
+    {
+      "id": "850e8400-e29b-41d4-a716-446655440009",
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "department": "Nariño",
+      "city": "Pasto",
+      "isActive": false,
+      "activationDate": "2024-01-01T00:00:00.000Z",
+      "latitude": 1.2136,
+      "longitude": -77.2811,
+      "coverageRadiusKm": 20
+    },
+    {
+      "id": "850e8400-e29b-41d4-a716-446655440010",
+      "countryCode": "CO",
+      "countryName": "Colombia",
+      "department": "Meta",
+      "city": "Villavicencio",
+      "isActive": false,
+      "activationDate": "2024-01-01T00:00:00.000Z",
+      "latitude": 4.142,
+      "longitude": -73.6266,
+      "coverageRadiusKm": 20
     }
   ],
-  "usuarios": [
+  "users": [
     {
       "id": "950e8400-e29b-41d4-a716-446655440001",
-      "nombre": "María González",
+      "name": "María González",
       "email": "maria.gonzalez@email.com",
-      "telefono": "+57 300 123 4567",
-      "ubicacion": "Bogotá, Colombia",
-      "metodo_registro": "GOOGLE",
-      "autenticado": true,
-      "avatar_url": "https://example.com/avatar1.jpg"
+      "phone": "+57 300 123 4567",
+      "locationDescription": "Bogotá, Colombia",
+      "registrationMethod": "GOOGLE",
+      "isAuthenticated": true,
+      "avatarUrl": "https://i.pravatar.cc/150?u=1"
     },
     {
       "id": "950e8400-e29b-41d4-a716-446655440002",
-      "nombre": "Carlos Rodríguez",
+      "name": "Carlos Rodríguez",
       "email": "carlos.rodriguez@email.com",
-      "telefono": "+57 300 234 5678",
-      "ubicacion": "Medellín, Colombia",
-      "metodo_registro": "FACEBOOK",
-      "autenticado": true,
-      "avatar_url": "https://example.com/avatar2.jpg"
+      "phone": "+57 300 234 5678",
+      "locationDescription": "Medellín, Colombia",
+      "registrationMethod": "FACEBOOK",
+      "isAuthenticated": true,
+      "avatarUrl": "https://i.pravatar.cc/150?u=2"
     },
     {
       "id": "950e8400-e29b-41d4-a716-446655440003",
-      "nombre": "Ana Martínez",
+      "name": "Ana Martínez",
       "email": "ana.martinez@email.com",
-      "telefono": "+57 300 345 6789",
-      "ubicacion": "Cali, Colombia",
-      "metodo_registro": "EMAIL",
-      "autenticado": true,
-      "avatar_url": "https://example.com/avatar3.jpg"
+      "phone": "+57 300 345 6789",
+      "locationDescription": "Cali, Colombia",
+      "registrationMethod": "EMAIL",
+      "isAuthenticated": true,
+      "avatarUrl": "https://i.pravatar.cc/150?u=3"
     },
     {
       "id": "950e8400-e29b-41d4-a716-446655440004",
-      "nombre": "Luis Pérez",
+      "name": "Luis Pérez",
       "email": "luis.perez@email.com",
-      "telefono": "+57 300 456 7890",
-      "ubicacion": "Bogotá, Colombia",
-      "metodo_registro": "GOOGLE",
-      "autenticado": true,
-      "avatar_url": "https://example.com/avatar4.jpg"
+      "phone": "+57 300 456 7890",
+      "locationDescription": "Bogotá, Colombia",
+      "registrationMethod": "GOOGLE",
+      "isAuthenticated": true,
+      "avatarUrl": "https://i.pravatar.cc/150?u=4"
     },
     {
       "id": "950e8400-e29b-41d4-a716-446655440005",
-      "nombre": "Sofia Herrera",
+      "name": "Sofia Herrera",
       "email": "sofia.herrera@email.com",
-      "telefono": "+57 300 567 8901",
-      "ubicacion": "Medellín, Colombia",
-      "metodo_registro": "TWITTER",
-      "autenticado": true,
-      "avatar_url": "https://example.com/avatar5.jpg"
+      "phone": "+57 300 567 8901",
+      "locationDescription": "Medellín, Colombia",
+      "registrationMethod": "TWITTER",
+      "isAuthenticated": true,
+      "avatarUrl": "https://i.pravatar.cc/150?u=5"
     },
     {
       "id": "950e8400-e29b-41d4-a716-446655440006",
-      "nombre": "Diego Silva",
+      "name": "Diego Silva",
       "email": "diego.silva@email.com",
-      "telefono": "+57 300 678 9012",
-      "ubicacion": "Cali, Colombia",
-      "metodo_registro": "EMAIL",
-      "autenticado": true,
-      "avatar_url": "https://example.com/avatar6.jpg"
+      "phone": "+57 300 678 9012",
+      "locationDescription": "Cali, Colombia",
+      "registrationMethod": "EMAIL",
+      "isAuthenticated": true,
+      "avatarUrl": "https://i.pravatar.cc/150?u=6"
     },
     {
       "id": "950e8400-e29b-41d4-a716-446655440007",
-      "nombre": "Valentina Cruz",
+      "name": "Valentina Cruz",
       "email": "valentina.cruz@email.com",
-      "telefono": "+57 300 789 0123",
-      "ubicacion": "Bogotá, Colombia",
-      "metodo_registro": "GOOGLE",
-      "autenticado": true,
-      "avatar_url": "https://example.com/avatar7.jpg"
+      "phone": "+57 300 789 0123",
+      "locationDescription": "Bogotá, Colombia",
+      "registrationMethod": "GOOGLE",
+      "isAuthenticated": true,
+      "avatarUrl": "https://i.pravatar.cc/150?u=7"
     },
     {
       "id": "950e8400-e29b-41d4-a716-446655440008",
-      "nombre": "Andrés Morales",
+      "name": "Andrés Morales",
       "email": "andres.morales@email.com",
-      "telefono": "+57 300 890 1234",
-      "ubicacion": "Medellín, Colombia",
-      "metodo_registro": "FACEBOOK",
-      "autenticado": true,
-      "avatar_url": "https://example.com/avatar8.jpg"
+      "phone": "+57 300 890 1234",
+      "locationDescription": "Medellín, Colombia",
+      "registrationMethod": "FACEBOOK",
+      "isAuthenticated": true,
+      "avatarUrl": "https://i.pravatar.cc/150?u=8"
     },
     {
       "id": "950e8400-e29b-41d4-a716-446655440009",
-      "nombre": "Camila Vargas",
+      "name": "Camila Vargas",
       "email": "camila.vargas@email.com",
-      "telefono": "+57 300 901 2345",
-      "ubicacion": "Cali, Colombia",
-      "metodo_registro": "EMAIL",
-      "autenticado": true,
-      "avatar_url": "https://example.com/avatar9.jpg"
+      "phone": "+57 300 901 2345",
+      "locationDescription": "Cali, Colombia",
+      "registrationMethod": "EMAIL",
+      "isAuthenticated": true,
+      "avatarUrl": "https://i.pravatar.cc/150?u=9"
     },
     {
       "id": "950e8400-e29b-41d4-a716-446655440010",
-      "nombre": "Sebastián Jiménez",
+      "name": "Sebastián Jiménez",
       "email": "sebastian.jimenez@email.com",
-      "telefono": "+57 300 012 3456",
-      "ubicacion": "Bogotá, Colombia",
-      "metodo_registro": "GOOGLE",
-      "autenticado": true,
-      "avatar_url": "https://example.com/avatar10.jpg"
+      "phone": "+57 300 012 3456",
+      "locationDescription": "Bogotá, Colombia",
+      "registrationMethod": "GOOGLE",
+      "isAuthenticated": true,
+      "avatarUrl": "https://i.pravatar.cc/150?u=10"
     }
   ],
-  "usuarios_roles": [
+  "userRoles": [
     {
       "id": 1,
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440001",
-      "rol_id": "750e8400-e29b-41d4-a716-446655440001"
+      "userId": "950e8400-e29b-41d4-a716-446655440001",
+      "roleId": "750e8400-e29b-41d4-a716-446655440001"
     },
     {
       "id": 2,
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440002",
-      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+      "userId": "950e8400-e29b-41d4-a716-446655440002",
+      "roleId": "750e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": 3,
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440003",
-      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+      "userId": "950e8400-e29b-41d4-a716-446655440003",
+      "roleId": "750e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": 4,
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440004",
-      "rol_id": "750e8400-e29b-41d4-a716-446655440003"
+      "userId": "950e8400-e29b-41d4-a716-446655440004",
+      "roleId": "750e8400-e29b-41d4-a716-446655440003"
     },
     {
       "id": 5,
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440005",
-      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+      "userId": "950e8400-e29b-41d4-a716-446655440005",
+      "roleId": "750e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": 6,
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440006",
-      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+      "userId": "950e8400-e29b-41d4-a716-446655440006",
+      "roleId": "750e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": 7,
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440007",
-      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+      "userId": "950e8400-e29b-41d4-a716-446655440007",
+      "roleId": "750e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": 8,
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440008",
-      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+      "userId": "950e8400-e29b-41d4-a716-446655440008",
+      "roleId": "750e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": 9,
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440009",
-      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+      "userId": "950e8400-e29b-41d4-a716-446655440009",
+      "roleId": "750e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": 10,
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440010",
-      "rol_id": "750e8400-e29b-41d4-a716-446655440002"
+      "userId": "950e8400-e29b-41d4-a716-446655440010",
+      "roleId": "750e8400-e29b-41d4-a716-446655440002"
     }
   ]
 }

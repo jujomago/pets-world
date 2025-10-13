@@ -1,43 +1,46 @@
-import { getMascotasSinRecompensa } from "@/actions/mascotas";
+// En PetsGridSection.tsx
+
+import { getMascotas } from "@/actions/mascotas";
 import { EmptySection, PetCard } from "@/components";
+import { CardsGridSkeleton } from "@/components/skeletons";
+import { Pet } from "@/interfaces/Pets";
+import delay from "@/utils/delay";
+import { Suspense } from "react";
+
+// export const dynamic = "force-dynamic";
 
 interface Props {
-  searchParams: { especie?: string };
+  searchParams: { especie?: string; q?: string };
 }
 
-// Server Component that streams the pets grid
-export default async function PetsGridSection({ searchParams }: Props) {
-  const mascotasSinRecompensa = await getMascotasSinRecompensa();
-  const { especie } = await searchParams;
-  const mascotasFiltradas = especie
-    ? mascotasSinRecompensa.filter((mascota) => mascota.especie_id === especie)
-    : mascotasSinRecompensa;
+async function PetsGrid({ searchParams }: Props) {
+  const { especie, q } = await searchParams;
 
-  if (mascotasFiltradas.length === 0) {
+  const filters = {
+    speciesName: especie,
+    rewardType: "noReward" as const,
+    q: q,
+  };
+
+  const mascotasFiltradas = await getMascotas(filters);
+
+  if (mascotasFiltradas === null || mascotasFiltradas.length === 0) {
     return <EmptySection />;
   }
 
-  const mascotasFormateadas = mascotasFiltradas.map((mascota) => ({
-    ...mascota,
-    recompensa: (mascota as any).recompensa?.toNumber
-      ? (mascota as any).recompensa.toNumber()
-      : (mascota as any).recompensa ?? null,
-  }));
-
   return (
     <div className="grid grid-cols-2 gap-x-3 gap-y-3 mb-16 p-3">
-      {mascotasFormateadas.map((mascota, index) => {
-        const imageSrc =
-          index % 2 === 0 ? "/images/husky.webp" : "/images/crillo.jpeg";
-        return (
-          <PetCard
-            key={mascota.id}
-            mascota={mascota}
-            imageSrc={imageSrc}
-            vip={false}
-          />
-        );
+      {mascotasFiltradas.map((mascota) => {
+        return <PetCard key={mascota.id} mascota={mascota} vip={false} />;
       })}
     </div>
+  );
+}
+
+export default function PetsGridSection({ searchParams }: Props) {
+  return (
+    <Suspense fallback={<CardsGridSkeleton />}>
+      <PetsGrid searchParams={searchParams} />
+    </Suspense>
   );
 }

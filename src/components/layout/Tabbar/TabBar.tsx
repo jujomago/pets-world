@@ -1,77 +1,106 @@
 "use client";
 
 import { comicRelief } from "@/fonts/fonts";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import { FaSearchLocation, FaUser } from "react-icons/fa";
-import styles from "./Tabbar.module.css";
+
 import Link from "next/link";
-import { MdFavorite, MdPets } from "react-icons/md";
+import { MdFavorite } from "react-icons/md";
+import { FaCirclePlus } from "react-icons/fa6";
+import { usePathname } from "next/navigation";
 
 const menuItems = [
   { icon: FaSearchLocation, name: "Perdidos", to: "/" },
-  { icon: MdPets, name: "Reportar", to: "/reportar_lost" },
-  { icon: FaUser, name: "Profile", to: "/profile" },
+  // { icon: MdPets, name: "Reportar", to: "/reportar_lost" },
+  { icon: FaCirclePlus, name: "Anunciar", to: "/post-lost" },
   { icon: MdFavorite, name: "Favoritos", to: "/favoritos" },
+  { icon: FaUser, name: "Perfil", to: "/profile" },
 ];
 
 export const TabBar = () => {
-  const [activeIndex, setActiveIndex] = useState(0); // Default to the center 'Add' icon
+  const pathname = usePathname();
+  const activeIndex = menuItems.findIndex((item) => item.to === pathname);
 
   // Tipado explícito de la referencia
   const indicatorRef = useRef<HTMLSpanElement | null>(null);
-
+  const handleItemClick = useCallback((index: number) => {
+    // La navegación la maneja el componente Link.
+    // Este callback podría usarse para lógica adicional si fuera necesario.
+  }, []);
   useEffect(() => {
-    const newLeft = activeIndex * 90 + 60 - 45;
-    // Comprueba que `current` no sea nulo antes de usarlo
-    if (indicatorRef.current) {
-      indicatorRef.current.style.left = `calc(${newLeft}px)`;
+    // Get the active menu item element
+    const activeItem = document.querySelector(
+      `li:nth-of-type(${activeIndex + 1})`
+    );
+
+    if (activeItem && indicatorRef.current) {
+      if (activeIndex === -1) return;
+
+      // Get the active item's position relative to the container
+      const itemRect = activeItem.getBoundingClientRect();
+      const containerRect = activeItem.parentElement?.getBoundingClientRect();
+
+      if (containerRect) {
+        // Calculate the left position relative to the container
+        const left =
+          itemRect.left - containerRect.left + itemRect.width / 2 - 42;
+        indicatorRef.current.style.left = `${left}px`;
+      }
     }
   }, [activeIndex]);
-
   return (
-    <>
-      <div
-        className={`sticky bottom-0 inline-flex w-full right-0 justify-center items-center ${comicRelief.className}`}
-      >
-        <ul className={`${styles.nav} `}>
-          <span ref={indicatorRef} className={`${styles.navIndicator}`}></span>
-          {menuItems.map((item, index) => (
-            <li key={item.name} onClick={() => setActiveIndex(index)}>
-              <Link
-                href={item.to}
-                className={
-                  index === activeIndex ? styles["nav-item-active"] : ""
-                }
-              >
-                <item.icon />
-                <span className={`${styles.title}`}>{item.name}</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          version="1.1"
-          className={`${styles["filter-svg"]}`}
-        >
-          <defs>
-            <filter id="goo">
-              <feGaussianBlur
-                in="SourceGraphic"
-                stdDeviation="10"
-                result="blur"
+    <div className="sticky bottom-2 w-[96%]  mx-auto rounded-3xl  bg-rojillo  filter-[url('#goo')]">
+      <ul className="flex justify-evenly">
+        <span
+          ref={indicatorRef}
+          className="w-[80px] h-[86px]  rounded-full  bg-rojillo absolute  -top-[29px]   left-[40px]   -z-10  transition-[left]   duration-500  ease-[cubic-bezier(0.175,0.885,0.32,1.275)]"
+        ></span>
+        {menuItems.map((item, index) => (
+          <li
+            key={item.name + index}
+            onClick={() => handleItemClick(index)}
+            className="items-center flex"
+          >
+            <Link
+              href={item.to}
+              className={`flex flex-col items-center p-3 ${
+                comicRelief.className
+              } ${index === activeIndex ? "text-white" : ""}`}
+            >
+              <item.icon
+                className={`text-xl fill-amber-500 transition-all ${
+                  index === activeIndex
+                    ? "-translate-y-6 scale-150 fill-black/50"
+                    : ""
+                }`}
               />
-              <feColorMatrix
-                in="blur"
-                mode="matrix"
-                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
-                result="goo"
-              />
-              <feBlend in="SourceGraphic" in2="goo" />
-            </filter>
-          </defs>
-        </svg>
-      </div>
-    </>
+              {index === activeIndex && (
+                <span className="animate-slide-up -translate-y-2 text-sm font-bold">
+                  {item.name}
+                </span>
+              )}
+            </Link>
+          </li>
+        ))}
+      </ul>
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1" className="hidden">
+        <defs>
+          <filter id="goo">
+            <feGaussianBlur
+              in="SourceGraphic"
+              stdDeviation="10"
+              result="blur"
+            />
+            <feColorMatrix
+              in="blur"
+              mode="matrix"
+              values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+              result="goo"
+            />
+            <feBlend in="SourceGraphic" in2="goo" />
+          </filter>
+        </defs>
+      </svg>
+    </div>
   );
 };

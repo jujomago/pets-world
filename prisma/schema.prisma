@@ -7,156 +7,287 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model adopciones {
-  id                   String    @id @default(uuid())
-  mascota_id           String?
-  requisitos           String?
-  informacion_contacto String?
-  mascotas             mascotas? @relation(fields: [mascota_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+// =======================
+// ENUMS para Estandarización
+// =======================
 
-  @@index([mascota_id], name: "idx_adopciones_mascota_id")
-}
-
-model avistamientos {
-  id          Int       @id @default(autoincrement())
-  fecha       DateTime  @db.Timestamptz(6)
-  ubicacion   String
-  descripcion String?
-  fotografia  String?
-  mascota_id  String?
-  usuario_id  String?
-  mascotas    mascotas? @relation(fields: [mascota_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuarios    usuarios? @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@index([mascota_id], name: "idx_avistamientos_mascota_id")
-  @@index([usuario_id], name: "idx_avistamientos_usuario_id")
-  @@index([fecha], name: "idx_avistamientos_fecha")
-  @@index([ubicacion], name: "idx_avistamientos_ubicacion")
-}
-
-model especies {
-  id       String     @id @default(uuid())
-  nombre   String     @unique
-  mascotas mascotas[]
-  razas    razas[]
-}
-
-model expansiones {
-  id              String    @id @default(uuid())
-  region_id       String?
-  fecha_expansion DateTime  @db.Date
-  regiones        regiones? @relation(fields: [region_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model imagenes_mascotas {
-  id         String    @id @default(uuid())
-  mascota_id String?
-  url_imagen String
-  mascotas   mascotas? @relation(fields: [mascota_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@index([mascota_id], name: "idx_imagenes_mascota_id")
-}
-
-model mascotas {
-  id                String              @id @default(uuid())
-  nombre            String
-  edad              Int?
-  color             String?
-  genero            String?
-  descripcion       String?
-  fecha_perdida     DateTime            @db.Date
-  lugar_perdida     String
-  recompensa        Decimal?            @db.Decimal
-  usuario_id        String?
-  especie_id        String?
-  raza_id           String?
-  esta_perdida      Boolean?            @default(false)
-  detalle_perdida   String?
-  adopciones        adopciones[]
-  avistamientos     avistamientos[]
-  imagenes_mascotas imagenes_mascotas[]
-  especies          especies?           @relation(fields: [especie_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  razas             razas?              @relation(fields: [raza_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  usuarios          usuarios?           @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@index([especie_id], name: "idx_especie_id")
-  @@index([raza_id], name: "idx_raza_id")
-  @@index([esta_perdida], name: "idx_esta_perdida")
-  @@index([fecha_perdida], name: "idx_fecha_perdida")
-  @@index([lugar_perdida], name: "idx_lugar_perdida")
-  @@index([usuario_id], name: "idx_usuario_id")
-}
-
-model paseadores {
-  id             String    @id @default(uuid())
-  usuario_id     String?
-  experiencia    String?
-  tarifas        String?
-  disponibilidad String?
-  zona_cobertura String?
-  usuarios       usuarios? @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model razas {
-  id         String     @id @default(uuid())
-  nombre     String
-  especie_id String?
-  mascotas   mascotas[]
-  especies   especies?  @relation(fields: [especie_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-}
-
-model regiones {
-  id                 String        @id @default(uuid())
-  pais_codigo        String
-  pais_nombre        String
-  departamento       String
-  ciudad             String
-  estado             Boolean?      @default(true)
-  fecha_activacion   DateTime?     @db.Date
-  latitud            Decimal?      @db.Decimal
-  longitud           Decimal?      @db.Decimal
-  radio_cobertura_km Decimal?      @db.Decimal
-  expansiones        expansiones[]
-}
-
-/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
-model usuarios {
-  id              String           @id @default(uuid())
-  nombre          String
-  email           String           @unique
-  telefono        String?
-  ubicacion       String?
-  metodo_registro String
-  autenticado     Boolean?         @default(false)
-  avatar_url      String?
-  avistamientos   avistamientos[]
-  mascotas        mascotas[]
-  paseadores      paseadores[]
-  usuarios_roles  usuarios_roles[] // Added opposite relation
-}
-
-model roles {
-  id          String  @id @default(uuid())
-  nombre      String
-  descripcion String?
-
-  usuarios_roles usuarios_roles[]
-}
-
-model usuarios_roles {
-  id         Int       @id @default(autoincrement())
-  usuario_id String?
-  rol_id     String?
-  usuarios   usuarios? @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  roles      roles?    @relation(fields: [rol_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@unique([usuario_id, rol_id])
-}
-
-enum MetodoRegistro {
+enum RegistrationMethod {
   GOOGLE
   FACEBOOK
   EMAIL
   TWITTER
 }
 
+enum PetStatus {
+  LOST // Pérdida activa
+  FOUND // Encontrada, no adoptada/reunida
+  ADOPTION // En proceso de adopción
+  REUNITED // Devuelta al dueño
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  UNKNOWN
+}
+
+// =======================
+// CORE MODELS (Usuarios, Roles)
+// =======================
+
+/// Representa a un usuario de la aplicación.
+model User {
+  id                  String             @id @default(uuid())
+  name                String
+  email               String             @unique
+  phone               String?
+  locationDescription String? // Ubicación general
+  registrationMethod  RegistrationMethod
+  isAuthenticated     Boolean?           @default(false)
+  avatarUrl           String?
+
+  // 🚨 CAMPOS PARA NOTIFICACIONES POR GEOLOCALIZACIÓN 🚨
+  // Preferencia del usuario
+  acceptNotifications  Boolean  @default(false)
+  // Coordenadas del centro de su zona de interés para alertas
+  notificationLat      Decimal? @db.Decimal(10, 8)
+  notificationLon      Decimal? @db.Decimal(11, 8)
+  // Radio de búsqueda en kilómetros
+  notificationRadiusKm Decimal? @db.Decimal(6, 2)
+
+  // Relaciones
+  sightings     Sighting[] // Avistamientos reportados
+  pets          Pet[] // Mascotas registradas por el usuario (dueño/reportante)
+  walkerProfile Walker? // Perfil de paseador (relación 1:1)
+  userRoles     UserRole[]
+  favorites     Favorite[] // Mascotas favoritas del usuario
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([acceptNotifications])
+}
+
+/// Define los roles que puede tener un usuario (ej: Admin, User, Reporter).
+model Role {
+  id          String  @id @default(uuid())
+  name        String  @unique
+  description String?
+
+  // Relaciones
+  userRoles UserRole[]
+
+  @@index([name])
+}
+
+/// Tabla de unión para la relación muchos a muchos entre User y Role.
+model UserRole {
+  id     Int    @id @default(autoincrement())
+  userId String
+  roleId String
+
+  // Relaciones: Cascade para mantener la integridad si se elimina el User/Role
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role Role @relation(fields: [roleId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, roleId])
+  @@index([userId])
+  @@index([roleId])
+}
+
+// =======================
+// PETS & RELATED MODELS (Mascotas, Razas, Avistamientos, Adopciones)
+// =======================
+
+/// Catálogo de especies (ej: perro, gato).
+model Species {
+  id   String @id @default(uuid())
+  name String @unique
+
+  // Relaciones
+  pets   Pet[]
+  breeds Breed[]
+}
+
+/// Catálogo de razas (ej: Labrador, Persa).
+model Breed {
+  id        String  @id @default(uuid())
+  name      String
+  speciesId String?
+
+  // Relaciones
+  pets    Pet[]
+  // SetNull: Si se elimina una especie, la raza se queda sin especie asociada (aunque no debería ocurrir)
+  species Species? @relation(fields: [speciesId], references: [id], onDelete: SetNull)
+
+  @@unique([name, speciesId])
+  @@index([speciesId])
+}
+
+/// Representa una mascota registrada (perdida o para adopción).
+model Pet {
+  id          String    @id @default(uuid())
+  name        String?
+  age         Int?
+  color       String?
+  gender      Gender? // Usando el enum Gender
+  description String?
+  status      PetStatus @default(LOST) // Usando el enum PetStatus
+
+  // 🚨 UBICACIÓN EXACTA DE PÉRDIDA/HALLAZGO 🚨
+  lostDate            DateTime @db.Date
+  lostLocationLat     Decimal  @db.Decimal(10, 8) // Latitud de la pérdida (OBLIGATORIO)
+  lostLocationLon     Decimal  @db.Decimal(11, 8) // Longitud de la pérdida (OBLIGATORIO)
+  lostLocationDetails String? // Texto descriptivo del lugar
+
+  rewardAmount Decimal? @db.Decimal(10, 2) // Recompensa
+
+  // Claves Foráneas
+  ownerId   String?
+  speciesId String?
+  breedId   String?
+
+  // Relaciones
+  adoptions   Adoption[]
+  sightings   Sighting[]
+  images      PetImage[]
+  favoritedBy Favorite[] // Usuarios que han marcado esta mascota como favorita
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  species Species? @relation(fields: [speciesId], references: [id], onDelete: SetNull)
+  breed   Breed?   @relation(fields: [breedId], references: [id], onDelete: SetNull)
+  owner   User?    @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+
+  @@index([speciesId])
+  @@index([breedId])
+  @@index([ownerId])
+  @@index([status])
+  @@index([lostLocationLat, lostLocationLon]) // Índice compuesto para búsquedas geoespaciales
+}
+
+/// Imágenes asociadas a una mascota.
+model PetImage {
+  id        String  @id @default(uuid())
+  petId     String
+  url       String
+  isPrimary Boolean @default(false)
+
+  // Relación: Cascade, si la mascota se elimina, sus imágenes también.
+  pet Pet @relation(fields: [petId], references: [id], onDelete: Cascade)
+
+  @@index([petId])
+}
+
+/// Reporte de un avistamiento de una mascota.
+model Sighting {
+  id          Int      @id @default(autoincrement())
+  date        DateTime @db.Timestamptz(6)
+  // Ubicación del avistamiento (coordenadas)
+  sightingLat Decimal  @db.Decimal(10, 8)
+  sightingLon Decimal  @db.Decimal(11, 8)
+
+  // Campo textual reincorporado
+  locationDescription String?
+
+  description String?
+  photoUrl    String?
+
+  // Claves Foráneas
+  petId      String?
+  reporterId String?
+
+  // Relaciones
+  pet      Pet?  @relation(fields: [petId], references: [id], onDelete: SetNull)
+  reporter User? @relation(fields: [reporterId], references: [id], onDelete: SetNull)
+
+  @@index([petId])
+  @@index([reporterId])
+  @@index([date])
+  @@index([sightingLat, sightingLon])
+}
+
+/// Procesos de adopción de mascotas.
+model Adoption {
+  id           String  @id @default(uuid())
+  petId        String  @unique // Una mascota solo puede estar en un proceso de adopción
+  requirements String?
+  contactInfo  String?
+
+  // Relación: Cascade, si el registro de la mascota se elimina, el proceso de adopción termina.
+  pet Pet @relation(fields: [petId], references: [id], onDelete: Cascade)
+
+  @@index([petId])
+}
+
+/// Relaciona a un usuario con una mascota que ha marcado como favorita.
+model Favorite {
+  userId    String
+  petId     String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  pet  Pet  @relation(fields: [petId], references: [id], onDelete: Cascade)
+
+  @@id([userId, petId])
+  @@index([userId])
+  @@index([petId])
+}
+
+// =======================
+// SERVICE & REGIONAL MODELS (Paseadores, Regiones)
+// =======================
+
+/// Perfil de un paseador de mascotas.
+model Walker {
+  id       String  @id @default(uuid())
+  userId   String  @unique // Relación 1:1 con el User
+  regionId String? // Asociación a una región (para facilitar búsquedas)
+
+  experience   String?
+  hourlyRate   Decimal? @db.Decimal(5, 2)
+  availability String?
+  coverageArea String?
+
+  // Relaciones
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  region Region? @relation(fields: [regionId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([regionId])
+}
+
+/// Define las áreas geográficas donde opera la aplicación.
+model Region {
+  id               String    @id @default(uuid())
+  countryCode      String
+  countryName      String
+  department       String
+  city             String
+  isActive         Boolean?  @default(false) // 👈 CLAVE: Inicialmente 'false' para nuevas áreas, 'true' para Tarija.
+  activationDate   DateTime? @db.Date
+  latitude         Decimal?  @db.Decimal(10, 8)
+  longitude        Decimal?  @db.Decimal(11, 8)
+  coverageRadiusKm Decimal?  @db.Decimal(6, 2) // Usar este radio para definir el área de restricción
+
+  // Relaciones
+  expansions Expansion[]
+  walkers    Walker[]
+
+  @@unique([countryCode, city])
+  @@index([isActive])
+}
+
+/// Registro histórico de cuándo se activó una región.
+model Expansion {
+  id            String   @id @default(uuid())
+  regionId      String
+  expansionDate DateTime @db.Date
+
+  // Relación
+  region Region @relation(fields: [regionId], references: [id], onDelete: Cascade)
+
+  @@index([regionId])
+}

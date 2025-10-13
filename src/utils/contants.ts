@@ -4,3 +4,9 @@ export const enum Especies {
   AVE = "ave",
   CONEJO = "conejo",
 }
+
+// export const enum Gender {
+//   MALE = "MALE",
+//   FEMALE = "FEMALE",
+//   UNKNOWN = "UNKNOWN",
+// }

@@ -1,0 +1,69 @@
+import { comicRelief } from "@/fonts/fonts";
+import { RegisterFormPet } from "@/interfaces/Forms";
+import React from "react";
+import { ControllerRenderProps } from "react-hook-form";
+type InputType = "text" | "number" | "date";
+interface InputProps {
+  label: string;
+  error?: string;
+  placeholder?: string;
+  prefixIcon?: React.ReactNode;
+  type?: InputType;
+  containerClasses?: string;
+  loading?: boolean;
+  readonly?: boolean;
+  // value?: string;
+  field?: ControllerRenderProps<RegisterFormPet, keyof RegisterFormPet>;
+}
+
+const labelClass = `block text-gray-800 font-bold mb-1 ${comicRelief.className}`;
+
+export const Input = ({
+  prefixIcon,
+  label,
+  placeholder = "",
+  type = "text",
+  containerClasses = "",
+  error,
+  field,
+  loading = false,
+  readonly = false,
+}: InputProps) => {
+  const inputClass = `w-full px-3 py-2 border border-gray-300  rounded-2xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition ${
+    comicRelief.className
+  }  ${prefixIcon ? "pl-11" : ""}  ${
+    readonly ? "cursor-not-allowed bg-gray-200/70" : "bg-gray-50"
+  }`;
+
+  return (
+    <div className={`relative ${containerClasses}`}>
+      {prefixIcon && !loading && (
+        <div className="absolute top-9 left-3 text-2xl text-gray-400 pointer-events-none">
+          {prefixIcon}
+        </div>
+      )}
+      <label htmlFor={field?.name} className={labelClass}>
+        {label}
+      </label>
+      {loading && (
+        <div className="bg-gray-100 text-sm rounded-2xl px-3 py-2 animate-pulse">
+          Obteniendo el lugar
+        </div>
+      )}
+      {!loading && (
+        <input
+          id={field?.name}
+          className={inputClass}
+          placeholder={placeholder}
+          type={type}
+          readOnly={readonly}
+          step={type === "number" ? "1" : undefined}
+          {...field}
+          //value={inputValue}
+          //onChange={(e) => setValue(e.target.value)}
+        />
+      )}
+      {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+    </div>
+  );
+};

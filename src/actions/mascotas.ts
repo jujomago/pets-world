@@ -1,61 +1,179 @@
 "use server";
 
+import { RegisterFormPet } from "@/interfaces/Forms";
+import { Pet } from "@/interfaces/Pets";
+
 import prisma from "@/lib/prisma";
+import { handlePrismaError } from "@/utils/priisma-errors";
+import { Gender, PetStatus } from "@prisma/client";
 
-export async function getMascotasConRecompensa() {
-  const mascotas = await prisma.mascotas.findMany({
-    where: { recompensa: { gt: 0 } },
-  });
-  return mascotas;
+import { revalidatePath } from "next/cache";
+import { NextResponse } from "next/server";
+//import type { Pet, Sighting } from "@prisma/client";
+
+// Define la interfaz de los filtros para la función unificada
+interface PetFilters {
+  speciesName?: string; // Ahora filtramos por nombre de especie
+  rewardType: "all" | "withReward" | "noReward"; // Define el tipo de recompensa
+  q?: string;
 }
 
-export async function getMascotasSinRecompensa() {
-  const mascotas = await prisma.mascotas.findMany({
-    where: { recompensa: 0 },
-  });
-  return mascotas;
+/**
+ * Obtiene mascotas con filtrado opcional por especie y tipo de recompensa.
+ * El filtrado se realiza directamente en la consulta de Prisma (la base de datos).
+ */
+export async function getMascotas(filters: PetFilters): Promise<Pet[] | null> {
+  // 1. Construye el objeto 'where' dinámicamente
+  const whereConditions: { [key: string]: any } = { status: PetStatus.LOST };
+
+  // Filtro por nombre de especie (si existe)
+  // Esto utiliza una consulta relacional.
+  if (filters.speciesName) {
+    whereConditions.species = {
+      name: filters.speciesName,
+    };
+  }
+
+  // Filtro por recompensa
+  if (filters.rewardType === "withReward") {
+    whereConditions.rewardAmount = { gt: 0 }; // Recompensa mayor a 0
+  } else if (filters.rewardType === "noReward") {
+    whereConditions.rewardAmount = 0; // Recompensa igual a 0
+  }
+
+  if (filters.q) {
+    whereConditions.OR = [
+      {
+        name: {
+          contains: filters.q,
+          mode: "insensitive",
+        },
+      },
+      {
+        description: {
+          contains: filters.q,
+          mode: "insensitive",
+        },
+      },
+    ];
+  }
+
+  try {
+    // 2. Ejecuta la consulta a Prisma con las condiciones
+    const mascotas = await prisma.pet.findMany({
+      where: whereConditions,
+      include: {
+        images: true, // Incluye las imágenes relacionadas
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+      ...(filters.rewardType === "withReward" && { take: 3 }),
+    });
+
+    // 3. Mapeo para normalizar los datos al formato de tu interfaz Pet[]
+    const newMascotas = mascotas.map((mascota) => {
+      // Nota: El ownerId fijo (950e8400-...) parece ser un placeholder;
+      // asegúrate de reemplazarlo si tienes un owner real en tu esquema.
+      return {
+        id: mascota.id,
+        name: mascota.name ?? "",
+        age: mascota.age ?? 0,
+        color: mascota.color ?? "",
+        gender: mascota.gender ?? "",
+        description: mascota.description ?? "",
+        lostDate: mascota.lostDate,
+        lostLocationLat: Number(mascota.lostLocationLat),
+        lostLocationLon: Number(mascota.lostLocationLon),
+        lostLocationDetails: mascota.lostLocationDetails ?? "",
+        rewardAmount: Number(mascota.rewardAmount),
+        ownerId: "950e8400-e29b-41d4-a716-446655440005",
+        speciesId: mascota.speciesId ?? "",
+        breedId: mascota.breedId ?? "",
+        images: mascota.images ?? [],
+      };
+    });
+
+    return newMascotas;
+  } catch (error) {
+    const errorInfo = handlePrismaError(error);
+    // Si handlePrismaError devuelve información, la mostramos.
+    // Si no, mostramos un error genérico.
+    if (errorInfo) {
+      console.error("=== ERROR CONTROLADO EN getMascotas ===");
+      console.error(
+        `Código: ${errorInfo.code} | Mensaje: ${errorInfo.message}`
+      );
+    } else {
+      // Si el error no es de Prisma, lo mostramos para depuración.
+      console.error("=== ERROR NO CONTROLADO EN getMascotas ===", error);
+    }
+    return null; // Devolvemos null para que la UI pueda manejarlo
+  }
 }
 
-export async function getMascota(id: string) {
-  const mascota = await prisma.mascotas.findUnique({
+export async function getMascota(id: string): Promise<Pet | null> {
+  const mascota = await prisma.pet.findUnique({
     where: { id },
     include: {
-      especies: true,
-      razas: true,
-      avistamientos: true,
+      // species: true,
+      breed: true,
+      sightings: true,
+      images: true,
+      favoritedBy: true,
     },
   });
-  return mascota;
+  if (!mascota) return null;
+  return {
+    id: mascota.id,
+    name: mascota.name ?? "",
+    age: mascota.age ?? 0,
+    color: mascota.color ?? "",
+    gender: mascota.gender ?? "",
+    description: mascota.description ?? "",
+    lostDate: mascota.lostDate,
+    lostLocationLat: Number(mascota.lostLocationLat),
+    lostLocationLon: Number(mascota.lostLocationLon),
+    lostLocationDetails: mascota.lostLocationDetails ?? "",
+    rewardAmount: Number(mascota.rewardAmount),
+    ownerId: "950e8400-e29b-41d4-a716-446655440005",
+    breedName: mascota.breed?.name,
+    images: mascota.images ?? [],
+    isFavorite: mascota.favoritedBy.length > 0,
+  };
 }
 
 export async function getEspecies() {
-  const especies = await prisma.especies.findMany();
-  return especies;
+  try {
+    const especies = await prisma.species.findMany();
+    return especies;
+  } catch (error) {
+    const errorInfo = handlePrismaError(error);
+
+    if (errorInfo) {
+      console.error("=== ERROR CONTROLADO EN getEspecies ===");
+      console.error(
+        `Código: ${errorInfo.code} | Mensaje: ${errorInfo.message}`
+      );
+    } else {
+      // Si el error no es de Prisma, lo mostramos para depuración.
+      console.error("=== ERROR NO CONTROLADO EN getEspecies ===", error);
+    }
+    return [];
+  }
 }
 
 export async function getRazasByEspecie(especieId: string) {
-  const razas = await prisma.razas.findMany({
-    where: { especie_id: especieId },
+  const razas = await prisma.breed.findMany({
+    where: { speciesId: especieId },
   });
   return razas;
 }
 
-export async function searchMascotasByName(name: string) {
-  const mascotas = await prisma.mascotas.findMany({
-    where: {
-      nombre: {
-        contains: name,
-        mode: "insensitive",
-      },
-    },
-  });
-  return mascotas;
-}
-
 export async function getAvistamientosByMascotaId(mascotaId: string) {
-  const avistamientos = await prisma.avistamientos.findMany({
-    where: { mascota_id: mascotaId },
-    orderBy: { fecha: "desc" },
+  const avistamientos = await prisma.sighting.findMany({
+    where: { petId: mascotaId },
+    orderBy: { date: "desc" },
   });
   return avistamientos;
 }
@@ -70,17 +188,22 @@ interface AvistamientoData {
 
 export async function createAvistamiento(data: AvistamientoData) {
   try {
-    const avistamiento = await prisma.avistamientos.create({
+    const sighting = await prisma.sighting.create({
       data: {
-        mascota_id: data.mascotaId,
-        fecha: new Date(data.fecha),
-        ubicacion: data.lugar,
-        descripcion: data.detalles,
+        petId: data.mascotaId,
+        date: new Date(data.fecha),
+        sightingLat: data.lugar,
+        sightingLon: data.detalles,
+        description: data.detalles,
       },
     });
-    return avistamiento;
+    return sighting;
   } catch (error) {
     console.error("Error creating avistamiento:", error);
     throw new Error("Failed to create avistamiento");
   }
+}
+
+export async function revalidateHomePage() {
+  revalidatePath("/");
 }

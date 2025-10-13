@@ -1,101 +1,57 @@
-# Datos de Prueba - Mascotas Perdidas
+# Datos de Prueba (normalizados)
 
-Este directorio contiene datos fake para poblar la base de datos de la aplicación de mascotas perdidas.
+Este directorio contiene datos normalizados para poblar la base de datos.
 
 **Ubicación:** `src/data/`
 
 ## Archivos de Datos
 
 ### `fake_data.json`
-Contiene los datos base del sistema:
-- **4 especies** (Perro, Gato, Conejo, Ave)
-- **8 razas** (Labrador, Golden Retriever, Pastor Alemán, Siamés, Persa, Maine Coon, Holandés Enano, Canario)
-- **3 roles** (admin, usuario, moderador)
-- **3 regiones** (Bogotá, Medellín, Cali)
-- **10 usuarios** con datos completos
-- **10 usuarios_roles** (asignaciones de roles)
+Catálogos base con claves alineadas al schema:
+- `species[]`: `{ id, name }`
+- `breeds[]`: `{ id, name, speciesId }`
+- `roles[]`: `{ id, name, description? }`
+- `regions[]`: `{ id, countryCode, countryName, department, city, isActive?, activationDate?, latitude?, longitude?, coverageRadiusKm? }`
+- `users[]`: `{ id, name, email, phone?, locationDescription?, registrationMethod, isAuthenticated?, avatarUrl? }`
+- `userRoles[]`: `{ id, userId, roleId }`
+
+#### Razas disponibles (ejemplos incluidos):
+- Labrador, Golden Retriever, Pastor Alemán
+- Siamés, Persa, Maine Coon
+- Holandés Enano, Canario
+- Bulldog, Criollo
+
+#### Roles disponibles:
+- admin, usuario, moderador, reporter, rescuer
+- vet, shelter, donor, walker, adopter
 
 ### `mascotas_data.json`
-Contiene las mascotas del sistema:
-- **30 mascotas** con datos realistas
-- Mezcla de mascotas perdidas y encontradas
-- Diferentes especies, razas, edades y colores
-- Ubicaciones en las 3 ciudades principales
-- Recompensas variadas
+Mascotas en formato Prisma:
+- `pets[]`: `{ id, name?, age?, color?, gender?, description?, status, lostDate, lostLocationLat, lostLocationLon, lostLocationDetails?, rewardAmount?, ownerId?, speciesId?, breedId? }`
 
 ### `relaciones_data.json`
-Contiene los datos relacionados:
+Relaciones normalizadas:
+- `sightings[]`: `{ id, date, sightingLat, sightingLon, locationDescription?, description?, photoUrl?, petId?, reporterId? }`
+- `adoptions[]`: `{ id, petId, requirements?, contactInfo? }`
+- `petImages[]`: `{ id, petId, url, isPrimary? }`
+- `walkers[]`: `{ id, userId, regionId?, experience?, hourlyRate?, availability?, coverageArea? }`
+- `expansions[]`: `{ id, regionId, expansionDate }`
+
+#### Contiene los datos relacionados (resumen legible):
 - **15 avistamientos** con fechas, ubicaciones y descripciones
 - **10 adopciones** con requisitos e información de contacto
 - **20 imágenes** de mascotas (2 por mascota)
 - **10 paseadores** con experiencia y tarifas
 - **3 expansiones** de regiones
 
+## Imágenes (Dog CEO)
+- Si `photoUrl` o `url` están vacíos, el seed obtiene y cachea URLs desde la Dog CEO API al ejecutar.
+- Fuente: https://dog.ceo/dog-api/
+
 ## Cómo Usar
-
-### Opción 1: Script de Seed (Recomendado)
 ```bash
-# Ejecutar solo el seed
-npm run db:seed
-
-# Resetear la BD y ejecutar seed
-npm run db:reset
+pnpm ts-node prisma/cleanup.ts && pnpm ts-node prisma/seed.ts
 ```
-
-### Opción 2: Comandos Prisma
-```bash
-# Generar el cliente de Prisma
-npx prisma generate
-
-# Ejecutar migraciones
-npx prisma migrate dev
-
-# Ejecutar el seed
-npx prisma db seed
-```
-
-## Cómo Borrar los Datos Fake
-
-### Opción 1: Limpieza selectiva (Recomendado)
-```bash
-# Borrar solo los datos fake (mantiene otros datos)
-npm run db:cleanup
-```
-
-### Opción 2: Reset completo
-```bash
-# Borra toda la BD y la recrea sin datos
-npx prisma migrate reset --force
-```
-
-### Opción 3: Borrado manual por tabla
-```sql
--- Conectarse a la BD y ejecutar:
-DELETE FROM avistamientos WHERE id IN ('id1', 'id2', ...);
-DELETE FROM adopciones WHERE id IN ('id1', 'id2', ...);
-DELETE FROM imagenes_mascotas WHERE id IN ('id1', 'id2', ...);
--- ... etc
-```
-
-## Características de los Datos
-
-✅ **Compatibles con Prisma** - Todos los campos coinciden con el esquema
-✅ **Relaciones correctas** - Foreign keys válidos entre tablas
-✅ **Datos realistas** - Nombres, ubicaciones y descripciones colombianas
-✅ **Variedad** - Diferentes estados, fechas y tipos de datos
-✅ **UUIDs válidos** - Formato correcto para PostgreSQL
-
-## Estructura de Datos
-
-Los datos están organizados de manera que respetan las dependencias:
-1. **Datos base** (especies, razas, roles, regiones)
-2. **Usuarios** y sus roles
-3. **Mascotas** (dependen de especies, razas y usuarios)
-4. **Datos relacionados** (avistamientos, adopciones, imágenes, paseadores)
 
 ## Notas
-
-- Los datos usan UUIDs reales para mantener consistencia
-- Las fechas están en formato ISO 8601
-- Los precios están en pesos colombianos
-- Las ubicaciones son reales de Colombia
+- Fechas ISO 8601, UUIDs válidos, y relaciones consistentes.

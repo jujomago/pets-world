@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model adopciones {
+  id                   String    @id @default(uuid())
+  mascota_id           String?
+  requisitos           String?
+  informacion_contacto String?
+  mascotas             mascotas? @relation(fields: [mascota_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([mascota_id], name: "idx_adopciones_mascota_id")
+}
+
+model avistamientos {
+  id          Int       @id @default(autoincrement())
+  fecha       DateTime  @db.Timestamptz(6)
+  ubicacion   String
+  descripcion String?
+  fotografia  String?
+  mascota_id  String?
+  usuario_id  String?
+  mascotas    mascotas? @relation(fields: [mascota_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuarios    usuarios? @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([mascota_id], name: "idx_avistamientos_mascota_id")
+  @@index([usuario_id], name: "idx_avistamientos_usuario_id")
+  @@index([fecha], name: "idx_avistamientos_fecha")
+  @@index([ubicacion], name: "idx_avistamientos_ubicacion")
+}
+
+model especies {
+  id       String     @id @default(uuid())
+  nombre   String     @unique
+  mascotas mascotas[]
+  razas    razas[]
+}
+
+model expansiones {
+  id              String    @id @default(uuid())
+  region_id       String?
+  fecha_expansion DateTime  @db.Date
+  regiones        regiones? @relation(fields: [region_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model imagenes_mascotas {
+  id         String    @id @default(uuid())
+  mascota_id String?
+  url_imagen String
+  mascotas   mascotas? @relation(fields: [mascota_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([mascota_id], name: "idx_imagenes_mascota_id")
+}
+
+model mascotas {
+  id                String              @id @default(uuid())
+  nombre            String
+  edad              Int?
+  color             String?
+  genero            String?
+  descripcion       String?
+  fecha_perdida     DateTime            @db.Date
+  lugar_perdida     String
+  recompensa        Decimal?            @db.Decimal
+  usuario_id        String?
+  especie_id        String?
+  raza_id           String?
+  esta_perdida      Boolean?            @default(false)
+  detalle_perdida   String?
+  adopciones        adopciones[]
+  avistamientos     avistamientos[]
+  imagenes_mascotas imagenes_mascotas[]
+  especies          especies?           @relation(fields: [especie_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  razas             razas?              @relation(fields: [raza_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  usuarios          usuarios?           @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@index([especie_id], name: "idx_especie_id")
+  @@index([raza_id], name: "idx_raza_id")
+  @@index([esta_perdida], name: "idx_esta_perdida")
+  @@index([fecha_perdida], name: "idx_fecha_perdida")
+  @@index([lugar_perdida], name: "idx_lugar_perdida")
+  @@index([usuario_id], name: "idx_usuario_id")
+}
+
+model paseadores {
+  id             String    @id @default(uuid())
+  usuario_id     String?
+  experiencia    String?
+  tarifas        String?
+  disponibilidad String?
+  zona_cobertura String?
+  usuarios       usuarios? @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model razas {
+  id         String     @id @default(uuid())
+  nombre     String
+  especie_id String?
+  mascotas   mascotas[]
+  especies   especies?  @relation(fields: [especie_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model regiones {
+  id                 String        @id @default(uuid())
+  pais_codigo        String
+  pais_nombre        String
+  departamento       String
+  ciudad             String
+  estado             Boolean?      @default(true)
+  fecha_activacion   DateTime?     @db.Date
+  latitud            Decimal?      @db.Decimal
+  longitud           Decimal?      @db.Decimal
+  radio_cobertura_km Decimal?      @db.Decimal
+  expansiones        expansiones[]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model usuarios {
+  id              String           @id @default(uuid())
+  nombre          String
+  email           String           @unique
+  telefono        String?
+  ubicacion       String?
+  metodo_registro String
+  autenticado     Boolean?         @default(false)
+  avatar_url      String?
+  avistamientos   avistamientos[]
+  mascotas        mascotas[]
+  paseadores      paseadores[]
+  usuarios_roles  usuarios_roles[] // Added opposite relation
+}
+
+model roles {
+  id          String  @id @default(uuid())
+  nombre      String
+  descripcion String?
+
+  usuarios_roles usuarios_roles[]
+}
+
+model usuarios_roles {
+  id         Int       @id @default(autoincrement())
+  usuario_id String?
+  rol_id     String?
+  usuarios   usuarios? @relation(fields: [usuario_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  roles      roles?    @relation(fields: [rol_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([usuario_id, rol_id])
+}
+
+enum MetodoRegistro {
+  GOOGLE
+  FACEBOOK
+  EMAIL
+  TWITTER
+}
+

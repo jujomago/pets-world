@@ -1,29 +1,26 @@
 import React from "react";
 
 interface FilterPillProps {
-  filterId: string;
   text: string;
   icon?: React.ReactNode;
-  onHandleClick?: (filterId: string) => void;
+  onSelectFilter?: (filterValue: string) => void;
   isActive?: boolean;
 }
 
 export const FilterPill = ({
-  filterId,
   text,
   icon,
-  onHandleClick,
+  onSelectFilter,
   isActive,
 }: FilterPillProps) => {
   return (
     <div
       className={`${
         isActive ? "bg-orange-600 text-white" : " bg-white"
-      } cursor-pointer
-        rounded-full flex items-center justify-center px-3 py-1 gap-2 shadow-xs shadow-black/20
-        hover:bg-orange-400 hover:text-white transition
+      } flex cursor-pointer items-center justify-center gap-2 rounded-full px-3 py-1 shadow-xs shadow-black/20
+      transition hover:bg-orange-400 hover:text-white
       `}
-      onClick={() => onHandleClick && onHandleClick(filterId)}
+      onClick={() => onSelectFilter && onSelectFilter(text)}
     >
       {icon}
       <span>{text}</span>

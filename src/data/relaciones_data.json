@@ -1,402 +1,462 @@
 {
-  "avistamientos": [
+  "sightings": [
     {
       "id": 1,
-      "fecha": "2024-01-16T10:30:00Z",
-      "ubicacion": "Parque 93, Bogotá",
-      "descripcion": "Vi a Max cerca del parqueadero",
-      "fotografia": "https://example.com/avistamiento1.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440001",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440002"
+      "date": "2024-01-16T10:30:00Z",
+      "locationDescription": "Parque 93, Bogotá",
+      "description": "Vi a Max cerca del parqueadero",
+      "photoUrl": "https://images.dog.ceo/breeds/mastiff-bull/n02108422_2949.jpg",
+      "sightingLat": 4.675,
+      "sightingLon": -74.055,
+      "petId": "a50e8400-e29b-41d4-a716-446655440001",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": 2,
-      "fecha": "2024-01-21T15:45:00Z",
-      "ubicacion": "Zona Rosa, Bogotá",
-      "descripcion": "Luna estaba en el balcón del edificio",
-      "fotografia": "https://example.com/avistamiento2.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440002",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440003"
+      "date": "2024-01-21T15:45:00Z",
+      "locationDescription": "Zona Rosa, Bogotá",
+      "description": "Luna estaba en el balcón del edificio",
+      "photoUrl": "https://images.dog.ceo/breeds/buhund-norwegian/hakon2.jpg",
+      "sightingLat": 4.665,
+      "sightingLon": -74.06,
+      "petId": "a50e8400-e29b-41d4-a716-446655440002",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440003"
     },
     {
       "id": 3,
-      "fecha": "2024-01-26T08:20:00Z",
-      "ubicacion": "El Poblado, Medellín",
-      "descripcion": "Rocky caminaba por la calle principal",
-      "fotografia": "https://example.com/avistamiento3.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440003",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440004"
+      "date": "2024-01-26T08:20:00Z",
+      "locationDescription": "El Poblado, Medellín",
+      "description": "Rocky caminaba por la calle principal",
+      "photoUrl": "https://images.dog.ceo/breeds/bullterrier-staffordshire/n02093256_8691.jpg",
+      "sightingLat": 6.21,
+      "sightingLon": -75.57,
+      "petId": "a50e8400-e29b-41d4-a716-446655440003",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440004"
     },
     {
       "id": 4,
-      "fecha": "2024-02-02T12:15:00Z",
-      "ubicacion": "Centro, Cali",
-      "descripcion": "Mimi estaba en el parqueadero",
-      "fotografia": "https://example.com/avistamiento4.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440004",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440005"
+      "date": "2024-02-02T12:15:00Z",
+      "locationDescription": "Centro, Cali",
+      "description": "Mimi estaba en el parqueadero",
+      "photoUrl": "https://images.dog.ceo/breeds/beagle/n02088364_5123.jpg",
+      "sightingLat": 3.44,
+      "sightingLon": -76.53,
+      "petId": "a50e8400-e29b-41d4-a716-446655440004",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440005"
     },
     {
       "id": 5,
-      "fecha": "2024-02-06T16:30:00Z",
-      "ubicacion": "Chapinero, Bogotá",
-      "descripcion": "Bella estaba en el parque",
-      "fotografia": "https://example.com/avistamiento5.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440005",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440006"
+      "date": "2024-02-06T16:30:00Z",
+      "locationDescription": "Chapinero, Bogotá",
+      "description": "Bella estaba en el parque",
+      "photoUrl": "https://images.dog.ceo/breeds/maltese/n02085936_1739.jpg",
+      "sightingLat": 4.64,
+      "sightingLon": -74.06,
+      "petId": "a50e8400-e29b-41d4-a716-446655440005",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440006"
     },
     {
       "id": 6,
-      "fecha": "2024-02-11T09:45:00Z",
-      "ubicacion": "Laureles, Medellín",
-      "descripcion": "Simba estaba en el jardín",
-      "fotografia": "https://example.com/avistamiento6.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440006",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440007"
+      "date": "2024-02-11T09:45:00Z",
+      "locationDescription": "Laureles, Medellín",
+      "description": "Simba estaba en el jardín",
+      "photoUrl": "https://images.dog.ceo/breeds/terrier-wheaten/n02098105_4260.jpg",
+      "sightingLat": 6.24,
+      "sightingLon": -75.58,
+      "petId": "a50e8400-e29b-41d4-a716-446655440006",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440007"
     },
     {
       "id": 7,
-      "fecha": "2024-02-16T14:20:00Z",
-      "ubicacion": "Granada, Medellín",
-      "descripcion": "Thor estaba en el parque",
-      "fotografia": "https://example.com/avistamiento7.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440007",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440008"
+      "date": "2024-02-16T14:20:00Z",
+      "locationDescription": "Granada, Medellín",
+      "description": "Thor estaba en el parque",
+      "photoUrl": "https://images.dog.ceo/breeds/airedale/n02096051_2432.jpg",
+      "sightingLat": 6.26,
+      "sightingLon": -75.57,
+      "petId": "a50e8400-e29b-41d4-a716-446655440007",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440008"
     },
     {
       "id": 8,
-      "fecha": "2024-02-21T11:10:00Z",
-      "ubicacion": "San Antonio, Cali",
-      "descripcion": "Nala estaba en el balcón",
-      "fotografia": "https://example.com/avistamiento8.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440008",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440009"
+      "date": "2024-02-21T11:10:00Z",
+      "locationDescription": "San Antonio, Cali",
+      "description": "Nala estaba en el balcón",
+      "photoUrl": "https://images.dog.ceo/breeds/danish-swedish-farmdog/ebba_002.jpg",
+      "sightingLat": 3.45,
+      "sightingLon": -76.53,
+      "petId": "a50e8400-e29b-41d4-a716-446655440008",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440009"
     },
     {
       "id": 9,
-      "fecha": "2024-02-26T13:35:00Z",
-      "ubicacion": "Usaquén, Bogotá",
-      "descripcion": "Zeus estaba en el parque",
-      "fotografia": "https://example.com/avistamiento9.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440009",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440010"
+      "date": "2024-02-26T13:35:00Z",
+      "locationDescription": "Usaquén, Bogotá",
+      "description": "Zeus estaba en el parque",
+      "photoUrl": "https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg",
+      "sightingLat": 4.7,
+      "sightingLon": -74.03,
+      "petId": "a50e8400-e29b-41d4-a716-446655440009",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440010"
     },
     {
       "id": 10,
-      "fecha": "2024-03-02T17:50:00Z",
-      "ubicacion": "Poblado, Medellín",
-      "descripcion": "Lola estaba en el jardín",
-      "fotografia": "https://example.com/avistamiento10.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440010",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440001"
+      "date": "2024-03-02T17:50:00Z",
+      "locationDescription": "Poblado, Medellín",
+      "description": "Lola estaba en el jardín",
+      "photoUrl": "https://images.dog.ceo/breeds/hound-afghan/n02088094_515.jpg",
+      "sightingLat": 6.21,
+      "sightingLon": -75.57,
+      "petId": "a50e8400-e29b-41d4-a716-446655440010",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440001"
     },
     {
       "id": 11,
-      "fecha": "2024-03-07T10:25:00Z",
-      "ubicacion": "Teusaquillo, Bogotá",
-      "descripcion": "Coco estaba en el parque",
-      "fotografia": "https://example.com/avistamiento11.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440011",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440002"
+      "date": "2024-03-07T10:25:00Z",
+      "locationDescription": "Teusaquillo, Bogotá",
+      "description": "Coco estaba en el parque",
+      "photoUrl": "https://images.dog.ceo/breeds/spaniel-blenheim/n02086646_3917.jpg",
+      "sightingLat": 4.64,
+      "sightingLon": -74.08,
+      "petId": "a50e8400-e29b-41d4-a716-446655440011",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": 12,
-      "fecha": "2024-03-12T15:40:00Z",
-      "ubicacion": "Centro, Cali",
-      "descripcion": "Milo estaba en el balcón",
-      "fotografia": "https://example.com/avistamiento12.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440012",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440003"
+      "date": "2024-03-12T15:40:00Z",
+      "locationDescription": "Centro, Cali",
+      "description": "Milo estaba en el balcón",
+      "photoUrl": "https://images.dog.ceo/breeds/pembroke/n02113023_1258.jpg",
+      "sightingLat": 3.44,
+      "sightingLon": -76.53,
+      "petId": "a50e8400-e29b-41d4-a716-446655440012",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440003"
     },
     {
       "id": 13,
-      "fecha": "2024-03-17T08:15:00Z",
-      "ubicacion": "El Poblado, Medellín",
-      "descripcion": "Rex estaba en la calle",
-      "fotografia": "https://example.com/avistamiento13.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440013",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440004"
+      "date": "2024-03-17T08:15:00Z",
+      "locationDescription": "El Poblado, Medellín",
+      "description": "Rex estaba en la calle",
+      "photoUrl": "https://images.dog.ceo/breeds/mexicanhairless/n02113978_2306.jpg",
+      "sightingLat": 6.22,
+      "sightingLon": -75.56,
+      "petId": "a50e8400-e29b-41d4-a716-446655440013",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440004"
     },
     {
       "id": 14,
-      "fecha": "2024-03-22T12:30:00Z",
-      "ubicacion": "Chapinero, Bogotá",
-      "descripcion": "Luna estaba en el parque",
-      "fotografia": "https://example.com/avistamiento14.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440014",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440005"
+      "date": "2024-03-22T12:30:00Z",
+      "locationDescription": "Chapinero, Bogotá",
+      "description": "Luna estaba en el parque",
+      "photoUrl": "https://images.dog.ceo/breeds/terrier-russell/IMG_7468.jpg",
+      "sightingLat": 4.64,
+      "sightingLon": -74.06,
+      "petId": "a50e8400-e29b-41d4-a716-446655440014",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440005"
     },
     {
       "id": 15,
-      "fecha": "2024-03-27T16:45:00Z",
-      "ubicacion": "Laureles, Medellín",
-      "descripcion": "Bruno estaba en el jardín",
-      "fotografia": "https://example.com/avistamiento15.jpg",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440015",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440006"
+      "date": "2024-03-27T16:45:00Z",
+      "locationDescription": "Laureles, Medellín",
+      "description": "Bruno estaba en el jardín",
+      "photoUrl": "https://images.dog.ceo/breeds/terrier-toy/n02087046_267.jpg",
+      "sightingLat": 6.24,
+      "sightingLon": -75.59,
+      "petId": "a50e8400-e29b-41d4-a716-446655440015",
+      "reporterId": "950e8400-e29b-41d4-a716-446655440006"
     }
   ],
-  "adopciones": [
+  "adoptions": [
     {
       "id": "b50e8400-e29b-41d4-a716-446655440001",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440011",
-      "requisitos": "Casa con jardín, experiencia con perros",
-      "informacion_contacto": "maria.gonzalez@email.com"
+      "petId": "a50e8400-e29b-41d4-a716-446655440011",
+      "requirements": "Casa con jardín, experiencia con perros",
+      "contactInfo": "maria.gonzalez@email.com"
     },
     {
       "id": "b50e8400-e29b-41d4-a716-446655440002",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440012",
-      "requisitos": "Apartamento, experiencia con gatos",
-      "informacion_contacto": "carlos.rodriguez@email.com"
+      "petId": "a50e8400-e29b-41d4-a716-446655440012",
+      "requirements": "Apartamento, experiencia con gatos",
+      "contactInfo": "carlos.rodriguez@email.com"
     },
     {
       "id": "b50e8400-e29b-41d4-a716-446655440003",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440021",
-      "requisitos": "Casa con jardín, experiencia con perros grandes",
-      "informacion_contacto": "ana.martinez@email.com"
+      "petId": "a50e8400-e29b-41d4-a716-446655440021",
+      "requirements": "Casa con jardín, experiencia con perros grandes",
+      "contactInfo": "ana.martinez@email.com"
     },
     {
       "id": "b50e8400-e29b-41d4-a716-446655440004",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440022",
-      "requisitos": "Apartamento, experiencia con gatos",
-      "informacion_contacto": "luis.perez@email.com"
+      "petId": "a50e8400-e29b-41d4-a716-446655440022",
+      "requirements": "Apartamento, experiencia con gatos",
+      "contactInfo": "luis.perez@email.com"
     },
     {
       "id": "b50e8400-e29b-41d4-a716-446655440005",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440023",
-      "requisitos": "Casa con jardín, experiencia con gatos grandes",
-      "informacion_contacto": "sofia.herrera@email.com"
+      "petId": "a50e8400-e29b-41d4-a716-446655440023",
+      "requirements": "Casa con jardín, experiencia con gatos grandes",
+      "contactInfo": "sofia.herrera@email.com"
     },
     {
       "id": "b50e8400-e29b-41d4-a716-446655440006",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440024",
-      "requisitos": "Casa con jardín, experiencia con perros",
-      "informacion_contacto": "diego.silva@email.com"
+      "petId": "a50e8400-e29b-41d4-a716-446655440024",
+      "requirements": "Casa con jardín, experiencia con perros",
+      "contactInfo": "diego.silva@email.com"
     },
     {
       "id": "b50e8400-e29b-41d4-a716-446655440007",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440025",
-      "requisitos": "Apartamento, experiencia con gatos",
-      "informacion_contacto": "valentina.cruz@email.com"
+      "petId": "a50e8400-e29b-41d4-a716-446655440025",
+      "requirements": "Apartamento, experiencia con gatos",
+      "contactInfo": "valentina.cruz@email.com"
     },
     {
       "id": "b50e8400-e29b-41d4-a716-446655440008",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440026",
-      "requisitos": "Casa con jardín, experiencia con perros grandes",
-      "informacion_contacto": "andres.morales@email.com"
+      "petId": "a50e8400-e29b-41d4-a716-446655440026",
+      "requirements": "Casa con jardín, experiencia con perros grandes",
+      "contactInfo": "andres.morales@email.com"
     },
     {
       "id": "b50e8400-e29b-41d4-a716-446655440009",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440027",
-      "requisitos": "Apartamento, experiencia con gatos",
-      "informacion_contacto": "camila.vargas@email.com"
+      "petId": "a50e8400-e29b-41d4-a716-446655440027",
+      "requirements": "Apartamento, experiencia con gatos",
+      "contactInfo": "camila.vargas@email.com"
     },
     {
       "id": "b50e8400-e29b-41d4-a716-446655440010",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440028",
-      "requisitos": "Casa con jardín, experiencia con perros",
-      "informacion_contacto": "sebastian.jimenez@email.com"
+      "petId": "a50e8400-e29b-41d4-a716-446655440028",
+      "requirements": "Casa con jardín, experiencia con perros",
+      "contactInfo": "sebastian.jimenez@email.com"
     }
   ],
-  "imagenes_mascotas": [
+  "petImages": [
     {
       "id": "c50e8400-e29b-41d4-a716-446655440001",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440001",
-      "url_imagen": "https://example.com/max1.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440001",
+      "url": "https://images.dog.ceo/breeds/clumber/n02101556_5694.jpg",
+      "isPrimary": true
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440002",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440001",
-      "url_imagen": "https://example.com/max2.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440001",
+      "url": "https://images.dog.ceo/breeds/terrier-welsh/lucy.jpg",
+      "isPrimary": false
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440003",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440002",
-      "url_imagen": "https://example.com/luna1.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440002",
+      "url": "https://images.dog.ceo/breeds/terrier-dandie/n02096437_842.jpg",
+      "isPrimary": true
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440004",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440002",
-      "url_imagen": "https://example.com/luna2.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440002",
+      "url": "https://images.dog.ceo/breeds/wolfhound-irish/n02090721_550.jpg",
+      "isPrimary": false
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440005",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440003",
-      "url_imagen": "https://example.com/rocky1.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440003",
+      "url": "https://images.dog.ceo/breeds/terrier-fox/n02095314_2687.jpg",
+      "isPrimary": true
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440006",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440003",
-      "url_imagen": "https://example.com/rocky2.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440003",
+      "url": "https://images.dog.ceo/breeds/mastiff-tibetan/n02108551_1409.jpg",
+      "isPrimary": false
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440007",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440004",
-      "url_imagen": "https://example.com/mimi1.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440004",
+      "url": "https://images.dog.ceo/breeds/setter-irish/n02100877_2686.jpg",
+      "isPrimary": true
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440008",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440004",
-      "url_imagen": "https://example.com/mimi2.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440004",
+      "url": "https://images.dog.ceo/breeds/terrier-andalusian/El-Bodeguero-Andaluz-caracteristicas-de-un-perro-ratonero-cachorro_9f98dd41-7aa4-4bd7-9554-eb616aafa4a0.jpg",
+      "isPrimary": false
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440009",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440005",
-      "url_imagen": "https://example.com/bella1.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440005",
+      "url": "https://images.dog.ceo/breeds/chippiparai-indian/Indian-Chippiparai.jpg",
+      "isPrimary": true
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440010",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440005",
-      "url_imagen": "https://example.com/bella2.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440005",
+      "url": "https://images.dog.ceo/breeds/malamute/n02110063_12326.jpg",
+      "isPrimary": false
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440011",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440006",
-      "url_imagen": "https://example.com/simba1.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440006",
+      "url": "https://images.dog.ceo/breeds/ridgeback-rhodesian/n02087394_7612.jpg",
+      "isPrimary": true
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440012",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440006",
-      "url_imagen": "https://example.com/simba2.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440006",
+      "url": "https://images.dog.ceo/breeds/wolfhound-irish/n02090721_2319.jpg",
+      "isPrimary": false
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440013",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440007",
-      "url_imagen": "https://example.com/thor1.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440007",
+      "url": "https://images.dog.ceo/breeds/husky/n02110185_353.jpg",
+      "isPrimary": true
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440014",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440007",
-      "url_imagen": "https://example.com/thor2.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440007",
+      "url": "https://images.dog.ceo/breeds/shihtzu/n02086240_3137.jpg",
+      "isPrimary": false
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440015",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440008",
-      "url_imagen": "https://example.com/nala1.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440008",
+      "url": "https://images.dog.ceo/breeds/clumber/n02101556_3736.jpg",
+      "isPrimary": true
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440016",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440008",
-      "url_imagen": "https://example.com/nala2.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440008",
+      "url": "https://images.dog.ceo/breeds/eskimo/n02109961_5035.jpg",
+      "isPrimary": false
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440017",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440009",
-      "url_imagen": "https://example.com/zeus1.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440009",
+      "url": "https://images.dog.ceo/breeds/terrier-irish/n02093991_3034.jpg",
+      "isPrimary": true
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440018",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440009",
-      "url_imagen": "https://example.com/zeus2.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440009",
+      "url": "https://images.dog.ceo/breeds/pitbull/dog-3981540_1280.jpg",
+      "isPrimary": false
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440019",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440010",
-      "url_imagen": "https://example.com/lola1.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440010",
+      "url": "https://images.dog.ceo/breeds/entlebucher/n02108000_2586.jpg",
+      "isPrimary": true
     },
     {
       "id": "c50e8400-e29b-41d4-a716-446655440020",
-      "mascota_id": "a50e8400-e29b-41d4-a716-446655440010",
-      "url_imagen": "https://example.com/lola2.jpg"
+      "petId": "a50e8400-e29b-41d4-a716-446655440010",
+      "url": "https://images.dog.ceo/breeds/hound-walker/n02089867_3585.jpg",
+      "isPrimary": false
     }
   ],
-  "paseadores": [
+  "walkers": [
     {
       "id": "d50e8400-e29b-41d4-a716-446655440001",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440001",
-      "experiencia": "5 años paseando perros",
-      "tarifas": "15000 por hora",
-      "disponibilidad": "Lunes a Viernes 6AM-8PM",
-      "zona_cobertura": "Bogotá Norte"
+      "userId": "950e8400-e29b-41d4-a716-446655440001",
+      "experience": "5 años paseando perros",
+      "hourlyRate": 150,
+      "availability": "Lunes a Viernes 6AM-8PM",
+      "coverageArea": "Bogotá Norte",
+      "regionId": "850e8400-e29b-41d4-a716-446655440001"
     },
     {
       "id": "d50e8400-e29b-41d4-a716-446655440002",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440002",
-      "experiencia": "3 años paseando perros y gatos",
-      "tarifas": "12000 por hora",
-      "disponibilidad": "Fines de semana",
-      "zona_cobertura": "Medellín El Poblado"
+      "userId": "950e8400-e29b-41d4-a716-446655440002",
+      "experience": "3 años paseando perros y gatos",
+      "hourlyRate": 120,
+      "availability": "Fines de semana",
+      "coverageArea": "Medellín El Poblado",
+      "regionId": "850e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": "d50e8400-e29b-41d4-a716-446655440003",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440003",
-      "experiencia": "2 años paseando perros",
-      "tarifas": "10000 por hora",
-      "disponibilidad": "Lunes a Domingo 7AM-7PM",
-      "zona_cobertura": "Cali Centro"
+      "userId": "950e8400-e29b-41d4-a716-446655440003",
+      "experience": "2 años paseando perros",
+      "hourlyRate": 100,
+      "availability": "Lunes a Domingo 7AM-7PM",
+      "coverageArea": "Cali Centro",
+      "regionId": "850e8400-e29b-41d4-a716-446655440003"
     },
     {
       "id": "d50e8400-e29b-41d4-a716-446655440004",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440004",
-      "experiencia": "4 años paseando perros",
-      "tarifas": "18000 por hora",
-      "disponibilidad": "Lunes a Viernes 5AM-9PM",
-      "zona_cobertura": "Bogotá Sur"
+      "userId": "950e8400-e29b-41d4-a716-446655440004",
+      "experience": "4 años paseando perros",
+      "hourlyRate": 180,
+      "availability": "Lunes a Viernes 5AM-9PM",
+      "coverageArea": "Bogotá Sur",
+      "regionId": "850e8400-e29b-41d4-a716-446655440001"
     },
     {
       "id": "d50e8400-e29b-41d4-a716-446655440005",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440005",
-      "experiencia": "6 años paseando perros y gatos",
-      "tarifas": "20000 por hora",
-      "disponibilidad": "Lunes a Domingo 6AM-10PM",
-      "zona_cobertura": "Medellín Laureles"
+      "userId": "950e8400-e29b-41d4-a716-446655440005",
+      "experience": "6 años paseando perros y gatos",
+      "hourlyRate": 200,
+      "availability": "Lunes a Domingo 6AM-10PM",
+      "coverageArea": "Medellín Laureles",
+      "regionId": "850e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": "d50e8400-e29b-41d4-a716-446655440006",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440006",
-      "experiencia": "1 año paseando perros",
-      "tarifas": "8000 por hora",
-      "disponibilidad": "Fines de semana",
-      "zona_cobertura": "Cali San Antonio"
+      "userId": "950e8400-e29b-41d4-a716-446655440006",
+      "experience": "1 año paseando perros",
+      "hourlyRate": 80,
+      "availability": "Fines de semana",
+      "coverageArea": "Cali San Antonio",
+      "regionId": "850e8400-e29b-41d4-a716-446655440003"
     },
     {
       "id": "d50e8400-e29b-41d4-a716-446655440007",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440007",
-      "experiencia": "3 años paseando perros",
-      "tarifas": "14000 por hora",
-      "disponibilidad": "Lunes a Viernes 6AM-8PM",
-      "zona_cobertura": "Bogotá Centro"
+      "userId": "950e8400-e29b-41d4-a716-446655440007",
+      "experience": "3 años paseando perros",
+      "hourlyRate": 140,
+      "availability": "Lunes a Viernes 6AM-8PM",
+      "coverageArea": "Bogotá Centro",
+      "regionId": "850e8400-e29b-41d4-a716-446655440001"
     },
     {
       "id": "d50e8400-e29b-41d4-a716-446655440008",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440008",
-      "experiencia": "2 años paseando perros y gatos",
-      "tarifas": "11000 por hora",
-      "disponibilidad": "Lunes a Domingo 8AM-6PM",
-      "zona_cobertura": "Medellín Granada"
+      "userId": "950e8400-e29b-41d4-a716-446655440008",
+      "experience": "2 años paseando perros y gatos",
+      "hourlyRate": 110,
+      "availability": "Lunes a Domingo 8AM-6PM",
+      "coverageArea": "Medellín Granada",
+      "regionId": "850e8400-e29b-41d4-a716-446655440002"
     },
     {
       "id": "d50e8400-e29b-41d4-a716-446655440009",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440009",
-      "experiencia": "4 años paseando perros",
-      "tarifas": "16000 por hora",
-      "disponibilidad": "Lunes a Viernes 7AM-9PM",
-      "zona_cobertura": "Cali Poblado"
+      "userId": "950e8400-e29b-41d4-a716-446655440009",
+      "experience": "4 años paseando perros",
+      "hourlyRate": 160,
+      "availability": "Lunes a Viernes 7AM-9PM",
+      "coverageArea": "Cali Poblado",
+      "regionId": "850e8400-e29b-41d4-a716-446655440003"
     },
     {
       "id": "d50e8400-e29b-41d4-a716-446655440010",
-      "usuario_id": "950e8400-e29b-41d4-a716-446655440010",
-      "experiencia": "5 años paseando perros",
-      "tarifas": "17000 por hora",
-      "disponibilidad": "Lunes a Domingo 6AM-8PM",
-      "zona_cobertura": "Bogotá Usaquén"
+      "userId": "950e8400-e29b-41d4-a716-446655440010",
+      "experience": "5 años paseando perros",
+      "hourlyRate": 170,
+      "availability": "Lunes a Domingo 6AM-8PM",
+      "coverageArea": "Bogotá Usaquén",
+      "regionId": "850e8400-e29b-41d4-a716-446655440001"
     }
   ],
-  "expansiones": [
+  "expansions": [
     {
       "id": "e50e8400-e29b-41d4-a716-446655440001",
-      "region_id": "850e8400-e29b-41d4-a716-446655440001",
-      "fecha_expansion": "2024-01-01T00:00:00.000Z"
+      "regionId": "850e8400-e29b-41d4-a716-446655440001",
+      "expansionDate": "2024-01-01T00:00:00.000Z"
     },
     {
       "id": "e50e8400-e29b-41d4-a716-446655440002",
-      "region_id": "850e8400-e29b-41d4-a716-446655440002",
-      "fecha_expansion": "2024-01-01T00:00:00.000Z"
+      "regionId": "850e8400-e29b-41d4-a716-446655440002",
+      "expansionDate": "2024-01-01T00:00:00.000Z"
     },
     {
       "id": "e50e8400-e29b-41d4-a716-446655440003",
-      "region_id": "850e8400-e29b-41d4-a716-446655440003",
-      "fecha_expansion": "2024-01-01T00:00:00.000Z"
+      "regionId": "850e8400-e29b-41d4-a716-446655440003",
+      "expansionDate": "2024-01-01T00:00:00.000Z"
     }
   ]
 }

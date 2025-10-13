@@ -1,31 +1,40 @@
-import { getMascotasConRecompensa } from "@/actions/mascotas";
+// En VipCarouselSection.tsx
+
+import { getMascotas } from "@/actions/mascotas";
 import { EmptySection, SwipperVip } from "@/components";
+import { VipCarouselSkeleton } from "@/components/skeletons";
+import delay from "@/utils/delay";
+import { Suspense } from "react";
+
+// export const dynamic = "force-dynamic";
 
 interface Props {
-  searchParams: { especie?: string };
+  searchParams: { especie?: string; q?: string };
 }
 
-// Server Component that streams the VIP carousel
-export default async function VipCarouselSection({ searchParams }: Props) {
-  // Simulate delay to visualize Suspense fallback
-  //await new Promise((r) => setTimeout(r, 8000));
+async function VipCarousel({ searchParams }: Props) {
+  // await delay(2000);
+  const { especie, q } = await searchParams;
 
-  const mascotasConRecompensa = await getMascotasConRecompensa();
-  const { especie } = await searchParams;
-  console.log("Especie in VipCarouselSection:", especie);
+  const filters = {
+    speciesName: especie,
+    rewardType: "withReward" as const,
+    q: q,
+  };
 
-  const filteredMascotas = especie
-    ? mascotasConRecompensa.filter((mascota) => mascota.especie_id === especie)
-    : mascotasConRecompensa;
+  const mascotasConRecompensa = await getMascotas(filters);
 
-  if (filteredMascotas.length === 0) {
+  if (mascotasConRecompensa === null || mascotasConRecompensa.length === 0) {
     return <EmptySection classes="bg-amber-50" />;
   }
 
-  const mascotasConRecompensaFormateadas = filteredMascotas.map((mascota) => ({
-    ...mascota,
-    recompensa: mascota.recompensa?.toNumber() || null,
-  }));
+  return <SwipperVip mascotas={mascotasConRecompensa} />;
+}
 
-  return <SwipperVip mascotas={mascotasConRecompensaFormateadas} />;
+export default function VipCarouselSection({ searchParams }: Props) {
+  return (
+    <Suspense fallback={<VipCarouselSkeleton />}>
+      <VipCarousel searchParams={searchParams} />
+    </Suspense>
+  );
 }

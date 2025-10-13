@@ -7,25 +7,25 @@ import { FaPalette } from "react-icons/fa";
 import { IoIosFemale, IoIosMale, IoMdPin } from "react-icons/io";
 import { MdCake, MdEmojiEvents } from "react-icons/md";
 import { Title } from "../Title/Title";
+import { Pet, PetImage as PetImageI } from "@/interfaces/Pets";
+import { Gender } from "@prisma/client";
+import { PetImage } from "./PetImage";
 
 interface PetCardProps {
-  mascota: {
-    id: string;
-    nombre: string;
-    esta_perdida: boolean | null;
-    edad: number | null;
-    color: string | null;
-    genero: string | null;
-    lugar_perdida: string;
-    fecha_perdida: Date;
-    detalle_perdida: string | null;
-    recompensa: number | null;
-  };
-  imageSrc: string;
+  mascota: Pet;
   vip: boolean;
 }
 
-export const PetCard = ({ mascota, imageSrc, vip }: PetCardProps) => {
+const getImageToShow = (images: PetImageI[]): string => {
+  if (!images || images.length === 0) {
+    return "/images/crillo.jpeg";
+  }
+  const imageToShow = images.find((item) => item.isPrimary);
+
+  return imageToShow ? imageToShow.url : "/images/crillo.jpeg";
+};
+
+export const PetCard = ({ mascota, vip }: PetCardProps) => {
   return (
     <Link href={`/lostpet/${mascota.id}`} className="card-interactive">
       <div
@@ -36,19 +36,15 @@ export const PetCard = ({ mascota, imageSrc, vip }: PetCardProps) => {
       >
         {/* Imagen */}
         <div className="relative h-36">
-          <Image
-            src={imageSrc}
-            alt={`Foto de ${mascota.nombre}`}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover transition-transform duration-500 hover:scale-105"
-            //   priority={index < 4}
+          <PetImage
+            url={getImageToShow(mascota.images)}
+            alt={`Foto de ${mascota.name}`}
           />
           {vip && (
             <div className="absolute top-2 right-2 flex items-center gap-1 bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-bold">
               <MdEmojiEvents className="text-lg" />
               <span className={`${comicRelief.className} text-sm`}>
-                {mascota.recompensa?.toString() || "0"} Bs
+                {mascota.rewardAmount?.toString() || "0"} Bs
               </span>
             </div>
           )}
@@ -56,9 +52,9 @@ export const PetCard = ({ mascota, imageSrc, vip }: PetCardProps) => {
         <div className="p-4">
           <div className="flex justify-between gap-2 items-center">
             <Title classes={`${vip ? "text-2xl" : "text-xl"}`}>
-              {mascota.nombre}
+              {mascota.name}
             </Title>
-            {mascota.genero === "M" ? (
+            {mascota.gender === Gender.MALE ? (
               <IoIosMale className="text-2xl text-blue-500 stroke-16 -mb-1" />
             ) : (
               <IoIosFemale className="text-2xl -mb-3 text-pink-600 stroke-16" />
@@ -69,7 +65,7 @@ export const PetCard = ({ mascota, imageSrc, vip }: PetCardProps) => {
           <div className="mt-4 flex flex-wrap gap-x-1 gap-y-1 justify-center">
             <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5">
               <MdCake className="text-blue-500 text-sm" />
-              <span className="text-xs font-medium">{mascota.edad} años</span>
+              <span className="text-xs font-medium">{mascota.age} años</span>
             </div>
             <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5">
               <FaPalette className="text-orange-500 text-sm" />
@@ -78,17 +74,16 @@ export const PetCard = ({ mascota, imageSrc, vip }: PetCardProps) => {
             <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5 overflow-ellipsis">
               <IoMdPin className="text-green-500 text-sm" />
               <span className="text-xs font-medium">
-                {mascota.lugar_perdida}
+                {mascota.lostLocationDetails}
               </span>
             </div>
           </div>
           <p className="text-sm my-4 balance line-clamp-2">
-            {mascota.detalle_perdida} lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Quisquam, quod. lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Quisquam, quod.
+            {mascota.description}
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-right italic ">
-            Perdido el {formatFechaToLocaleES(mascota.fecha_perdida).toString()}
+            Perdido el{" "}
+            {formatFechaToLocaleES(mascota.lostDate ?? new Date()).toString()}
           </p>
         </div>
       </div>

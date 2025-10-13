@@ -1,12 +1,49 @@
-export interface Pet{
-    id: string;
-    nombre: string;
-    esta_perdida: boolean | null;
-    edad: number | null;
-    color: string | null;
-    genero: string | null;
-    lugar_perdida: string;
-    fecha_perdida: Date;
-    detalle_perdida: string | null;
-    recompensa: number | null;
+export interface Pet {
+  id: string;
+  name: string;
+  age: number;
+  color: string;
+  gender: string;
+  description?: string;
+  //status?: string;
+  lostDate?: Date;
+  lostLocationLat?: number;
+  lostLocationLon?: number;
+  lostLocationDetails?: string;
+  rewardAmount?: number;
+  ownerId?: string;
+  speciesId?: string;
+  breedId?: string;
+  breedName?: string;
+  images: PetImage[];
+  isFavorite?: boolean;
+}
+
+export interface PetImage {
+  id: string;
+  url: string;
+  isPrimary?: boolean;
+}
+
+export interface Sighting {
+  id: string;
+  date: Date;
+  sightingLat: number;
+  sightingLon: number;
+  locationDescription?: string;
+  description?: string;
+  photoUrl?: string;
+  petId?: string;
+  reporterId?: string;
+}
+
+export interface Breed {
+  id: string;
+  name: string;
+  //speciesId?: string;
+}
+
+export interface Species {
+  id: string;
+  name: string;
 }

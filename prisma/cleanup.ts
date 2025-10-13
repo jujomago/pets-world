@@ -15,80 +15,80 @@ async function main() {
     const mascotasData = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/data/mascotas_data.json'), 'utf8'))
     const relacionesData = JSON.parse(fs.readFileSync(path.join(__dirname, '../src/data/relaciones_data.json'), 'utf8'))
 
-    // Obtener todos los IDs de los datos fake
+    // Obtener todos los IDs usando SOLO el formato normalizado
     const fakeIds = {
-      especies: fakeData.especies.map((e: { id: string }) => e.id),
-      razas: fakeData.razas.map((r: { id: string }) => r.id),
-      roles: fakeData.roles.map((r: { id: string }) => r.id),
-      regiones: fakeData.regiones.map((r: { id: string }) => r.id),
-      usuarios: fakeData.usuarios.map((u: { id: string }) => u.id),
-      usuarios_roles: fakeData.usuarios_roles.map((ur: { id: number }) => ur.id),
-      mascotas: mascotasData.mascotas.map((m: { id: string }) => m.id),
-      avistamientos: relacionesData.avistamientos.map((a: { id: number }) => a.id),
-      adopciones: relacionesData.adopciones.map((a: { id: string }) => a.id),
-      imagenes_mascotas: relacionesData.imagenes_mascotas.map((i: { id: string }) => i.id),
-      paseadores: relacionesData.paseadores.map((p: { id: string }) => p.id),
-      expansiones: relacionesData.expansiones.map((e: { id: string }) => e.id)
+      especies: (fakeData.species || []).map((e: { id: string }) => e.id),
+      razas: (fakeData.breeds || []).map((r: { id: string }) => r.id),
+      roles: (fakeData.roles || []).map((r: { id: string }) => r.id),
+      regiones: (fakeData.regions || []).map((r: { id: string }) => r.id),
+      usuarios: (fakeData.users || []).map((u: { id: string }) => u.id),
+      usuarios_roles: (fakeData.userRoles || []).map((ur: { id: number }) => ur.id),
+      mascotas: (mascotasData.pets || []).map((m: { id: string }) => m.id),
+      avistamientos: (relacionesData.sightings || []).map((a: { id: number }) => a.id),
+      adopciones: (relacionesData.adoptions || []).map((a: { id: string }) => a.id),
+      imagenes_mascotas: (relacionesData.petImages || []).map((i: { id: string }) => i.id),
+      paseadores: (relacionesData.walkers || []).map((p: { id: string }) => p.id),
+      expansiones: (relacionesData.expansions || []).map((e: { id: string }) => e.id)
     }
 
     // Borrar en orden inverso (respetando foreign keys)
     console.log('🗑️ Borrando avistamientos...')
-    await prisma.avistamientos.deleteMany({
+    await prisma.sighting.deleteMany({
       where: { id: { in: fakeIds.avistamientos } }
     })
 
     console.log('🗑️ Borrando adopciones...')
-    await prisma.adopciones.deleteMany({
+    await prisma.adoption.deleteMany({
       where: { id: { in: fakeIds.adopciones } }
     })
 
     console.log('🗑️ Borrando imágenes de mascotas...')
-    await prisma.imagenes_mascotas.deleteMany({
+    await prisma.petImage.deleteMany({
       where: { id: { in: fakeIds.imagenes_mascotas } }
     })
 
     console.log('🗑️ Borrando paseadores...')
-    await prisma.paseadores.deleteMany({
+    await prisma.walker.deleteMany({
       where: { id: { in: fakeIds.paseadores } }
     })
 
     console.log('🗑️ Borrando expansiones...')
-    await prisma.expansiones.deleteMany({
+    await prisma.expansion.deleteMany({
       where: { id: { in: fakeIds.expansiones } }
     })
 
     console.log('🗑️ Borrando mascotas...')
-    await prisma.mascotas.deleteMany({
+    await prisma.pet.deleteMany({
       where: { id: { in: fakeIds.mascotas } }
     })
 
     console.log('🗑️ Borrando usuarios_roles...')
-    await prisma.usuarios_roles.deleteMany({
+    await prisma.userRole.deleteMany({
       where: { id: { in: fakeIds.usuarios_roles } }
     })
 
     console.log('🗑️ Borrando usuarios...')
-    await prisma.usuarios.deleteMany({
+    await prisma.user.deleteMany({
       where: { id: { in: fakeIds.usuarios } }
     })
 
     console.log('🗑️ Borrando razas...')
-    await prisma.razas.deleteMany({
+    await prisma.breed.deleteMany({
       where: { id: { in: fakeIds.razas } }
     })
 
     console.log('🗑️ Borrando especies...')
-    await prisma.especies.deleteMany({
+    await prisma.species.deleteMany({
       where: { id: { in: fakeIds.especies } }
     })
 
     console.log('🗑️ Borrando roles...')
-    await prisma.roles.deleteMany({
+    await prisma.role.deleteMany({
       where: { id: { in: fakeIds.roles } }
     })
 
     console.log('🗑️ Borrando regiones...')
-    await prisma.regiones.deleteMany({
+    await prisma.region.deleteMany({
       where: { id: { in: fakeIds.regiones } }
     })
 

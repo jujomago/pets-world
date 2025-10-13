@@ -1,6 +1,7 @@
 import { getMascota } from "@/actions/mascotas";
-import { PageWithTitle, Topbar } from "@/components";
-import { ReportForm } from "@/components/ReportForm/ReportForm";
+import { PageWithTitle } from "@/components";
+// import { PageWithTitle, Topbar } from "@/components";
+// import { ReportForm } from "@/components/ReportForm/ReportForm";
 import { Metadata } from "next";
 
 interface ReportarPageProps {
@@ -9,7 +10,7 @@ interface ReportarPageProps {
   };
 }
 
-export async function generateMetadata({
+/* export async function generateMetadata({
   params,
 }: ReportarPageProps): Promise<Metadata> {
   const { id } = await params;
@@ -26,7 +27,7 @@ export async function generateMetadata({
     // ... otros metadatos como Open Graph o Twitter
   };
 }
-
+ */
 export default async function ReportarPage({ params }: ReportarPageProps) {
   const { id } = await params;
 
@@ -52,9 +53,9 @@ export default async function ReportarPage({ params }: ReportarPageProps) {
     <>
       {/* <Topbar showFilters={false} title={mascota.nombre} /> */}
 
-      <PageWithTitle title={`Avistamiento de ${mascota.nombre}`}>
+      <PageWithTitle title={`Avistamiento de asd`}>
         <div className="bg-white rounded-lg shadow-md p-6 m-6">
-          <ReportForm mascotaId={id} petName={mascota.nombre} />
+          {/* <ReportForm mascotaId={id} petName={mascota.nombre} /> */}
         </div>
       </PageWithTitle>
     </>
