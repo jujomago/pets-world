@@ -118,14 +118,16 @@ const MapComponent = ({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Marker
-          position={position}
-          draggable={dragablePin}
-          eventHandlers={eventHandlers}
-          ref={markerRef}
-        >
-          <Popup>Tu ubicación actual</Popup>
-        </Marker>
+        {!markers && (
+          <Marker
+            position={position}
+            draggable={dragablePin}
+            eventHandlers={eventHandlers}
+            ref={markerRef}
+          >
+            <Popup>Tu ubicación actual</Popup>
+          </Marker>
+        )}
         {markers &&
           markers.map((marker, index) => (
             <Marker key={index} position={marker.position}>

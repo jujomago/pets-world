@@ -6,8 +6,9 @@ import { IoIosArrowDown } from "react-icons/io";
 
 interface SelectProps {
   prefixIcon?: React.ReactNode;
-  label: string;
+  label?: string;
   error?: string;
+  containerClasses?: string;
   data: Array<{ id: string; name: string }>;
   field?: ControllerRenderProps<RegisterFormPet, keyof RegisterFormPet>;
 }
@@ -16,13 +17,14 @@ const labelClass = `block text-gray-800 font-bold mb-1 ${comicRelief.className}`
 
 export const Select = ({
   prefixIcon,
-  label,
+  label = "",
   data,
+  containerClasses = "",
   error,
   field,
 }: SelectProps) => {
   return (
-    <div className="relative">
+    <div className={`relative ${containerClasses}`}>
       {prefixIcon && (
         <div className="absolute top-9 left-3 text-2xl text-gray-400 pointer-events-none z-10">
           {prefixIcon}
@@ -42,7 +44,7 @@ export const Select = ({
         id={field?.name}
         className={`w-full px-3 appearance-none py-2 border border-gray-300 bg-gray-50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition ${
           prefixIcon ? "pl-10" : ""
-        } pr-10 ${comicRelief.className}`}
+        } pr-8 ${comicRelief.className}`}
         {...field}
       >
         <option value="">-------</option>

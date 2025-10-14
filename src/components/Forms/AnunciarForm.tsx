@@ -10,7 +10,7 @@ import { useForm, Controller } from "react-hook-form";
 import dynamic from "next/dynamic";
 import { getEspecies, getRazasByEspecie } from "@/actions/mascotas";
 import { Breed, Species, RegisterFormPet } from "@/interfaces";
-import { Gender } from "@prisma/client";
+import { AgeUnit, Coin, Gender } from "@prisma/client";
 
 import { FaPaperPlane } from "react-icons/fa";
 import { MdCake, MdPinDrop } from "react-icons/md";
@@ -75,6 +75,8 @@ export const AnunciarForm = () => {
       lostLocationDetails: "",
       rewardAmount: 0,
       images: [],
+      ageUnit: AgeUnit.MONTHS,
+      rewardCoin: Coin.BOLIVIANOS,
     },
   });
   const selectedSpeciesId = watch("speciesId");
@@ -136,9 +138,6 @@ export const AnunciarForm = () => {
       }
     };
     loadBreeds();
-    startTransition(async () => {
-      await delay(5000);
-    });
   }, [selectedSpeciesId]);
 
   // Esta función se ejecutará SOLO si la validación es exitosa.
@@ -171,7 +170,10 @@ export const AnunciarForm = () => {
           uploadFormData.append("signature", signature);
           uploadFormData.append("timestamp", String(timestamp));
           uploadFormData.append("folder", "mascotas-perdidas");
-
+          uploadFormData.append(
+            "upload_preset",
+            process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
+          );
           const response = await fetch(
             `https://api.cloudinary.com/v1_1/${process.env
               .NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!}/image/upload`,
@@ -212,7 +214,7 @@ export const AnunciarForm = () => {
 
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onFormSubmit)}>
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-4 gap-3">
         <Controller
           name="name"
           control={control}
@@ -234,8 +236,8 @@ export const AnunciarForm = () => {
           control={control}
           rules={{
             required: "Edad es requerido",
-            min: { value: 1, message: "La edad minima es 1 anio" },
-            max: { value: 50, message: "La edad máxima es 50 anios" },
+            min: { value: 1, message: "La edad minima es 1" },
+            max: { value: 50, message: "La edad máxima es 50 años" },
             validate: {
               isInteger: (value) =>
                 Number.isInteger(Number(value)) || "Debe ser un número entero",
@@ -245,11 +247,28 @@ export const AnunciarForm = () => {
             <Input
               field={field}
               prefixIcon={<MdCake />}
-              label="Edad (años)"
+              label="Edad"
               readonly={isPending}
               placeholder="Ej: 3"
               containerClasses="col-span-1"
               error={errors.age?.message}
+            />
+          )}
+        />
+
+        <Controller
+          name="ageUnit"
+          control={control}
+          render={({ field }) => (
+            <Select
+              field={field}
+              label="Unidad"
+              data={[
+                { id: "YEARS", name: "Años" },
+                { id: "MONTHS", name: "Meses" },
+              ]}
+              containerClasses="col-span-1"
+              error={errors.ageUnit?.message}
             />
           )}
         />
@@ -324,7 +343,15 @@ export const AnunciarForm = () => {
       <Controller
         name="lostDate"
         control={control}
-        rules={{ required: "Fecha de perdida es requerido" }}
+        rules={{
+          required: "Fecha de perdida es requerido",
+          validate: {
+            isNotFuture: (value) => {
+              const today = new Date().toISOString().split("T")[0];
+              return value <= today || "La fecha no puede ser futura";
+            },
+          },
+        }}
         render={({ field }) => (
           <Input
             field={field}
@@ -375,31 +402,48 @@ export const AnunciarForm = () => {
           />
         )}
       />
-
-      <Controller
-        name="rewardAmount"
-        control={control}
-        rules={{
-          // required: "Recompensa es requerido",
-          min: { value: 0, message: "La recompensa mínima es 0 Bs" },
-          max: { value: 2000, message: "La recompensa máxima es 2000 Bs" },
-          validate: {
-            isInteger: (value) =>
-              Number.isInteger(Number(value)) || "Debe ser un número entero",
-          },
-        }}
-        render={({ field }) => (
-          <Input
-            field={field}
-            prefixIcon={<GiMoneyStack />}
-            label="Recompensa (Bs) - Opcional"
-            placeholder="500"
-            error={errors.rewardAmount?.message}
-            readonly={isPending}
-            type="number"
-          />
-        )}
-      />
+      <div className="grid grid-cols-3 gap-3">
+        <Controller
+          name="rewardAmount"
+          control={control}
+          rules={{
+            // required: "Recompensa es requerido",
+            min: { value: 0, message: "La recompensa mínima es 0 Bs" },
+            max: { value: 2000, message: "La recompensa máxima es 2000 Bs" },
+            validate: {
+              isInteger: (value) =>
+                Number.isInteger(Number(value)) || "Debe ser un número entero",
+            },
+          }}
+          render={({ field }) => (
+            <Input
+              field={field}
+              prefixIcon={<GiMoneyStack />}
+              label="Recompensa (Opcional)"
+              placeholder="500"
+              error={errors.rewardAmount?.message}
+              readonly={isPending}
+              type="number"
+              containerClasses="col-span-2"
+            />
+          )}
+        />
+        <Controller
+          name="rewardCoin"
+          control={control}
+          render={({ field }) => (
+            <Select
+              field={field}
+              label="Moneda"
+              data={[
+                { id: "BOLIVIANOS", name: "Bs" },
+                { id: "DOLLARS", name: "$us" },
+              ]}
+              error={errors.ageUnit?.message}
+            />
+          )}
+        />
+      </div>
       <hr className="my-6 border-gray-200" />
       <ActionDiv
         text={isPending ? "Publicando..." : "Publicar Anuncio"}

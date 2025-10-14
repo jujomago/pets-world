@@ -25,20 +25,21 @@ export const Topbar = ({ showSearchBtn = true }: TopbarProps) => {
   const showFilters = pathname === "/";
 
   const [showSearch, setShowSearch] = useState(showSearchBtn);
-  const [especies, setEspecies] = useState<Species[]>([]);
+  // const [especies, setEspecies] = useState<Species[]>([]);
   const [query, setQuery] = useState(searchParams.get("q") || "");
   const debouncedQuery = useDebounce(query, 500);
   const hidden = useScrollHide({ offset: 64, threshold: 6 });
-
+  /* 
   useEffect(() => {
     const loadEspecies = async () => {
       const data = await getEspecies();
+      console.log(data);
       setEspecies(data);
     };
 
     loadEspecies();
   }, []);
-
+ */
   useEffect(() => {
     if (pathname === "/") {
       const params = new URLSearchParams(searchParams);
@@ -65,7 +66,7 @@ export const Topbar = ({ showSearchBtn = true }: TopbarProps) => {
   };
 
   return (
-    <div className={`sticky top-0 z-50`}>
+    <div className={`sticky top-0 z-[1500]`}>
       <div
         className={`bg-[var(--rojizo)] text-white p-4 flex justify-between items-center gap-4 h-[64px] z-20 relative ${
           hidden ? "shadow-md shadow-black/20" : "box-shadow-none"
@@ -78,7 +79,7 @@ export const Topbar = ({ showSearchBtn = true }: TopbarProps) => {
               className="text-2xl cursor-pointer z-10 h-full w-8"
             />
             <h1
-              className={`text-[1.4rem] font-bold ${comicRelief.className}  text-center text-shadow-gray-800/20 text-shadow-md
+              className={`text-lg font-bold ${comicRelief.className}  text-center text-shadow-gray-800/20 text-shadow-md
                 absolute w-full
               `}
             >
@@ -125,9 +126,10 @@ export const Topbar = ({ showSearchBtn = true }: TopbarProps) => {
           </>
         )}
       </div>
-      {showFilters && especies.length > 0 && (
+      {/* {showFilters && especies.length > 0 && (
         <FilterPills especies={especies} hidden={hidden} />
-      )}
+      )} */}
+      {showFilters && <FilterPills hidden={hidden} />}
     </div>
   );
 };

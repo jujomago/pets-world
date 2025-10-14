@@ -1,4 +1,4 @@
-import { Gender } from "@prisma/client";
+import { AgeUnit, Coin, Gender } from "@prisma/client";
 
 export interface RegisterFormPet {
   name: string;
@@ -11,8 +11,18 @@ export interface RegisterFormPet {
   description: string;
   lostLocationDetails: string;
   rewardAmount: number;
-  //TODO: Aniadir lat long
   lat: number;
   lng: number;
   images: [];
+  ageUnit: AgeUnit;
+  rewardCoin: Coin;
+}
+export interface ReportFormPet {
+  sightingDate: string;
+  locationDetails: string;
+  lat: number;
+  lng: number;
+  details: string;
+  image?: string;
+  petId: string;
 }

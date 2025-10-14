@@ -1,21 +1,8 @@
 import { getMascota } from "@/actions/mascotas";
 import { FaRegCalendar } from "react-icons/fa6";
-import {
-  MdCake,
-  MdContactPhone,
-  MdFavorite,
-  MdFavoriteBorder,
-  MdPets,
-  MdPlace,
-} from "react-icons/md";
+import { MdCake, MdContactPhone, MdPets, MdPlace } from "react-icons/md";
 import { IoIosFemale, IoIosMale } from "react-icons/io";
-import {
-  PetDetailSlider,
-  Title,
-  Topbar,
-  ActionDiv,
-  PageWithTitle,
-} from "@/components";
+import { PetDetailSlider, Title, ActionDiv, PageWithTitle } from "@/components";
 import { FaMoneyBillWave, FaPalette } from "react-icons/fa";
 import { RiMapPinAddFill } from "react-icons/ri";
 import AvistamientosSection from "@/components/sections/AvistamientosSection";
@@ -140,7 +127,7 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
         <Link href={`/reportar/${id}`} className="flex-1">
           <ActionDiv
             icon={<RiMapPinAddFill className="text-2xl" />}
-            classes="bg-white text-[var(--rojizo)] border-[var(--rojizo)]"
+            classes="bg-white text-[var(--rojizo)] border-[var(--rojizo)] w-full"
             text="Reportar"
           />
         </Link>

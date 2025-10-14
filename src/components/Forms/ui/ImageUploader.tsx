@@ -18,6 +18,7 @@ interface ImageUploaderProps {
   onFileSelect: (files: File[]) => void;
   maxFiles?: number;
   maxFileSizeMB?: number;
+  compact?: boolean;
 }
 
 export const ImageUploader = ({
@@ -27,6 +28,7 @@ export const ImageUploader = ({
   onFileSelect,
   maxFiles = 3,
   maxFileSizeMB = 4,
+  compact = false,
 }: ImageUploaderProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
@@ -107,7 +109,9 @@ export const ImageUploader = ({
         {label}
       </label>
       <div
-        className={`mt-2 flex justify-center rounded-lg border-dashed border-2 py-6 px-4 transition-colors ${
+        className={`mt-2 flex justify-center rounded-lg border-dashed border-2 ${
+          !compact ? "py-6" : "py-2"
+        } px-4 transition-colors ${
           error
             ? "border-red-500"
             : "border-gray-900/25 hover:border-orange-500"
@@ -144,10 +148,27 @@ export const ImageUploader = ({
             </div>
           ) : (
             <>
-              <IoMdImages className="text-gray-400 text-6xl inline" />
-              <p className="mt-4 leading-6 text-sm text-gray-600">
-                Haz clic para subir hasta {maxFiles} imágenes
-              </p>
+              {!compact && (
+                <IoMdImages className="text-gray-400 text-6xl inline" />
+              )}
+              {maxFiles < 2 && (
+                <p
+                  className={`${
+                    !compact ? "mt-4" : ""
+                  }leading-6 text-sm text-gray-600`}
+                >
+                  Haz clic para subir una imagen
+                </p>
+              )}
+              {maxFiles >= 2 && (
+                <p
+                  className={`${
+                    !compact ? "mt-4" : ""
+                  }leading-6 text-sm text-gray-600`}
+                >
+                  Haz clic para subir hasta {maxFiles} imágenes
+                </p>
+              )}
               <p className="text-xs leading-5 text-gray-600">
                 PNG, JPG, GIF hasta {maxFileSizeMB}MB
               </p>

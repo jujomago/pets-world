@@ -17,7 +17,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-hero-image`}
       >
-        <main className="container mx-auto  max-w-md min-h-dvh">
+        <main className="container mx-auto  max-w-md min-h-dvh pb-4">
           <Suspense fallback={null}>
             <Topbar />
           </Suspense>

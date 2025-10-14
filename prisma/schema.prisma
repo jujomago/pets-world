@@ -18,6 +18,16 @@ enum RegistrationMethod {
   TWITTER
 }
 
+enum AgeUnit {
+  YEARS
+  MONTHS
+}
+
+enum Coin {
+  BOLIVIANOS
+  DOLLARS
+}
+
 enum PetStatus {
   LOST // Pérdida activa
   FOUND // Encontrada, no adoptada/reunida
@@ -130,6 +140,7 @@ model Pet {
   id          String    @id @default(uuid())
   name        String?
   age         Int?
+  ageUnit     AgeUnit   @default(YEARS)
   color       String?
   gender      Gender? // Usando el enum Gender
   description String?
@@ -142,6 +153,7 @@ model Pet {
   lostLocationDetails String? // Texto descriptivo del lugar
 
   rewardAmount Decimal? @db.Decimal(10, 2) // Recompensa
+  rewardCoin   Coin?    @default(BOLIVIANOS)
 
   // Claves Foráneas
   ownerId   String?

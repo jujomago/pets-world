@@ -2,14 +2,14 @@ import { revalidateHomePage } from "@/actions/mascotas";
 import { FilterPill } from "@/components/Pill/FilterPill";
 import { comicRelief } from "@/fonts/fonts";
 import { Species } from "@/interfaces/Pets";
-import { Especies } from "@/utils/contants";
+import { DefaultSpecies, Especies } from "@/utils/contants";
 
 import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { PiBird, PiCat, PiDog, PiRabbit } from "react-icons/pi";
 
 interface FilterPillsProps {
-  especies: Species[];
+  especies?: Species[];
   // filterActive: string;
   hidden?: boolean;
   // setFilterActive: (filterId: string) => void;
@@ -66,7 +66,8 @@ FilterPillsProps) => {
             ${hidden ? "-translate-y-full" : "translate-y-0"}
             `}
     >
-      {especies.map((especie) => (
+      {/* {especies.map((especie) => ( */}
+      {DefaultSpecies.map((especie) => (
         <FilterPill
           key={especie.id}
           // filterId={especie.id}

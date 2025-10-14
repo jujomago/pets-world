@@ -1,8 +1,9 @@
 import { getMascota } from "@/actions/mascotas";
 import { PageWithTitle } from "@/components";
+import { ReportForm } from "@/components/Forms/ReportForm";
 // import { PageWithTitle, Topbar } from "@/components";
-// import { ReportForm } from "@/components/ReportForm/ReportForm";
-import { Metadata } from "next";
+
+// import { Metadata } from "next";
 
 interface ReportarPageProps {
   params: {
@@ -31,21 +32,9 @@ interface ReportarPageProps {
 export default async function ReportarPage({ params }: ReportarPageProps) {
   const { id } = await params;
 
-  const mascota = (await getMascota(id)) || {
-    nombre: "",
-    genero: "",
-    fecha_perdida: new Date(),
-    lugar_perdida: "",
-    detalle_perdida: "",
-    edad: 0,
-    color: "",
-    recompensa: 0,
-    imageSrc: "",
-    razas: { nombre: "" },
-    especies: { nombre: "" },
-  };
+  const thePet = await getMascota(id);
 
-  if (!mascota) {
+  if (!thePet) {
     return <div>Mascota no encontrada</div>;
   }
 
@@ -53,9 +42,9 @@ export default async function ReportarPage({ params }: ReportarPageProps) {
     <>
       {/* <Topbar showFilters={false} title={mascota.nombre} /> */}
 
-      <PageWithTitle title={`Avistamiento de asd`}>
+      <PageWithTitle title={`Avistamiento de ${thePet.name}`}>
         <div className="bg-white rounded-lg shadow-md p-6 m-6">
-          {/* <ReportForm mascotaId={id} petName={mascota.nombre} /> */}
+          <ReportForm petId={id} petName={thePet.name} />
         </div>
       </PageWithTitle>
     </>

@@ -3,7 +3,7 @@
 import { getMascotas } from "@/actions/mascotas";
 import { EmptySection, SwipperVip } from "@/components";
 import { VipCarouselSkeleton } from "@/components/skeletons";
-import delay from "@/utils/delay";
+
 import { Suspense } from "react";
 
 // export const dynamic = "force-dynamic";

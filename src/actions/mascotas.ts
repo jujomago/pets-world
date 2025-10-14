@@ -178,32 +178,6 @@ export async function getAvistamientosByMascotaId(mascotaId: string) {
   return avistamientos;
 }
 
-interface AvistamientoData {
-  mascotaId: string;
-  fecha: string;
-  lugar: string;
-  detalles: string;
-  contacto: string;
-}
-
-export async function createAvistamiento(data: AvistamientoData) {
-  try {
-    const sighting = await prisma.sighting.create({
-      data: {
-        petId: data.mascotaId,
-        date: new Date(data.fecha),
-        sightingLat: data.lugar,
-        sightingLon: data.detalles,
-        description: data.detalles,
-      },
-    });
-    return sighting;
-  } catch (error) {
-    console.error("Error creating avistamiento:", error);
-    throw new Error("Failed to create avistamiento");
-  }
-}
-
 export async function revalidateHomePage() {
   revalidatePath("/");
 }

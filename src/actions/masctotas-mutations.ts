@@ -4,6 +4,7 @@ import { RegisterFormPet } from "@/interfaces/Forms";
 import { PetStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
+import { ReportFormPet } from "../interfaces/Forms";
 
 // Configura Cloudinary (idealmente en un archivo de configuración separado)
 // Asegúrate de tener estas variables en tu archivo .env
@@ -43,6 +44,8 @@ export async function createPet(data: RegisterFormPet, imageUrls: string[]) {
         ownerId: "950e8400-e29b-41d4-a716-446655440005", // TODO: Reemplazar con ID de usuario real
         lostLocationLat: Number(data.lat),
         lostLocationLon: Number(data.lng),
+        ageUnit: data.ageUnit,
+        rewardCoin: data.rewardCoin,
         images: {
           create: imagesToCreate,
         },
@@ -55,5 +58,31 @@ export async function createPet(data: RegisterFormPet, imageUrls: string[]) {
     console.error("Error creating pet:", error);
     // Aquí podrías usar tu manejador de errores de Prisma si lo tienes
     return { success: false, error: "No se pudo crear el anuncio." };
+  }
+}
+
+export async function createAvistamiento(data: ReportFormPet) {
+  try {
+    const sighting = await prisma.sighting.create({
+      data: {
+        petId: data.petId,
+        date: new Date(data.sightingDate),
+        sightingLat: data.lat,
+        sightingLon: data.lng,
+        locationDescription: data.locationDetails,
+        description: data.details,
+        photoUrl: data.image, // Puede ser undefined si no se subió imagen
+        reporterId: "950e8400-e29b-41d4-a716-446655440008", // TODO: Reemplazar con ID de usuario real
+      },
+    });
+
+    revalidatePath(`/lostpet/${data.petId}`);
+    return { success: true, sighting };
+  } catch (error) {
+    console.error("Error creating avistamiento:", error);
+    return {
+      success: false,
+      error: "No se pudo registrar el avistamiento.",
+    };
   }
 }

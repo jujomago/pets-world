@@ -24,13 +24,15 @@ export const SwipperVip = ({ mascotas }: SwipperVipProps) => {
       pagination={false}
       modules={[Pagination]}
       className={`mb-8 bg-gradient-to-r from-amber-500 to-pink-500 ${styles.swiper}`}
-      spaceBetween={16}
+      // spaceBetween={16}
       slidesPerView={"auto"}
       centeredSlides={true}
     >
       {mascotas.map((mascota) => (
         <SwiperSlide key={mascota.id} className={styles.swiperSlide}>
-          <PetCard mascota={mascota} vip={true} />
+          <div className="px-3 py-7">
+            <PetCard mascota={mascota} vip={true} />
+          </div>
         </SwiperSlide>
       ))}
     </Swiper>

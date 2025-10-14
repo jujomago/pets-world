@@ -16,7 +16,11 @@ export async function getCloudinarySignature() {
     const timestamp = Math.round(new Date().getTime() / 1000);
 
     const signature = cloudinary.utils.api_sign_request(
-      { timestamp, folder: "mascotas-perdidas" },
+      {
+        timestamp,
+        folder: "mascotas-perdidas",
+        upload_preset: "mascotas_movil",
+      },
       process.env.CLOUDINARY_API_SECRET!
     );
 

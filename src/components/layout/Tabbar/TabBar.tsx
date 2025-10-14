@@ -49,7 +49,7 @@ export const TabBar = () => {
     }
   }, [activeIndex]);
   return (
-    <div className="sticky bottom-2 w-[96%]  mx-auto rounded-3xl  bg-rojillo  filter-[url('#goo')]">
+    <div className="sticky bottom-2 w-[96%]  mx-auto rounded-3xl  bg-rojillo  filter-[url('#goo')] z-10">
       <ul className="flex justify-evenly">
         <span
           ref={indicatorRef}

@@ -1,28 +1,32 @@
 import { comicRelief } from "@/fonts/fonts";
 import { RegisterFormPet } from "@/interfaces/Forms";
 import React from "react";
-import { ControllerRenderProps } from "react-hook-form";
+import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 
-interface SelectProps {
+interface TextAreaProps<
+  T extends FieldValues,
+  TName extends Path<T> = Path<T>
+> {
   prefixIcon?: React.ReactNode;
   label: string;
   placeholder?: string;
   error?: string;
   readonly?: boolean;
   // value?: string;
-  field?: ControllerRenderProps<RegisterFormPet, keyof RegisterFormPet>;
+  // field?: ControllerRenderProps<RegisterFormPet, keyof RegisterFormPet>;
+  field?: ControllerRenderProps<T, TName>;
 }
 
 const labelClass = `block text-gray-800 font-bold mb-1 ${comicRelief.className}`;
 
-export const Textarea = ({
+export const Textarea = <T extends FieldValues, TName extends Path<T>>({
   prefixIcon,
   label,
   placeholder,
   error,
   field,
   readonly = false,
-}: SelectProps) => {
+}: TextAreaProps<T, TName>) => {
   const inputClass = `w-full px-3 py-2 [field-sizing:content] max-h-[12rem]  ${
     prefixIcon ? "pl-10" : ""
   } border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition ${
