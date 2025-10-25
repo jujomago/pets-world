@@ -6,9 +6,9 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import Image from "next/image";
 import styles from "./PetDetailSlider.module.css";
-import { Pet } from "../../../interfaces/Pets";
+import { Pet } from "../../../../../interfaces/Pets";
 import { cloudinaryLoader } from "@/utils/cloudinaryLoader";
-import { PetImage } from "@/components/PetCard/PetImage";
+import { PetImage } from "@/components/PetImage/PetImage";
 
 interface PetSliderProps {
   images: Pet["images"];

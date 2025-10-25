@@ -8,11 +8,17 @@ import Link from "next/link";
 import { MdFavorite } from "react-icons/md";
 import { FaCirclePlus } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 
-const menuItems = [
+const menuItems: {
+  icon: React.ComponentType<any>;
+  name: string;
+  to: string;
+}[] = [
   { icon: FaSearchLocation, name: "Perdidos", to: "/" },
   // { icon: MdPets, name: "Reportar", to: "/reportar_lost" },
-  { icon: FaCirclePlus, name: "Anunciar", to: "/post-lost" },
+  { icon: FaCirclePlus, name: "Anunciar", to: "/new-pet-lost" },
   { icon: MdFavorite, name: "Favoritos", to: "/favoritos" },
   { icon: FaUser, name: "Perfil", to: "/profile" },
 ];
@@ -20,6 +26,7 @@ const menuItems = [
 export const TabBar = () => {
   const pathname = usePathname();
   const activeIndex = menuItems.findIndex((item) => item.to === pathname);
+  const { data: session, status } = useSession();
 
   // Tipado explícito de la referencia
   const indicatorRef = useRef<HTMLSpanElement | null>(null);
@@ -48,12 +55,13 @@ export const TabBar = () => {
       }
     }
   }, [activeIndex]);
+
   return (
-    <div className="sticky bottom-2 w-[96%]  mx-auto rounded-3xl  bg-rojillo  filter-[url('#goo')] z-10">
+    <div className="sticky bottom-2 w-[96%]  mx-auto rounded-3xl  bg-rojillo  filter-[url('#goo')] z-10 h-">
       <ul className="flex justify-evenly">
         <span
           ref={indicatorRef}
-          className="w-[80px] h-[86px]  rounded-full  bg-rojillo absolute  -top-[29px]   left-[40px]   -z-10  transition-[left]   duration-500  ease-[cubic-bezier(0.175,0.885,0.32,1.275)]"
+          className="w-[80px] h-[86px]  rounded-full  bg-rojillo absolute -top-[29px] left-[40px] -z-10  transition-[left] duration-500  ease-[cubic-bezier(0.175,0.885,0.32,1.275)]"
         ></span>
         {menuItems.map((item, index) => (
           <li
@@ -67,15 +75,30 @@ export const TabBar = () => {
                 comicRelief.className
               } ${index === activeIndex ? "text-white" : ""}`}
             >
-              <item.icon
-                className={`text-xl fill-amber-500 transition-all ${
-                  index === activeIndex
-                    ? "-translate-y-6 scale-150 fill-black/50"
-                    : ""
-                }`}
-              />
+              {item.name === "Perfil" && status === "authenticated" ? (
+                <Image
+                  src={session.user?.image as string}
+                  width={20}
+                  height={20}
+                  className={`rounded-full ring-2 ring-amber-400 transition-all ${
+                    index === activeIndex
+                      ? "-translate-y-6 scale-150"
+                      : "scale-140"
+                  }`}
+                  alt={session.user?.name as string}
+                />
+              ) : (
+                React.createElement(item.icon, {
+                  className: `text-xl  transition-all ${
+                    index === activeIndex
+                      ? "-translate-y-6 scale-150 fill-amber-500"
+                      : "fill-red-800 scale-130"
+                  }`,
+                })
+              )}
+
               {index === activeIndex && (
-                <span className="animate-slide-up -translate-y-2 text-sm font-bold">
+                <span className="animate-slide-up -translate-y-2 text-md font-bold">
                   {item.name}
                 </span>
               )}

@@ -1,6 +1,6 @@
 import { getMascota } from "@/actions/mascotas";
-import { PageWithTitle } from "@/components";
-import { ReportForm } from "@/components/Forms/ReportForm";
+import { PageWithTitle, Topbar } from "@/components";
+import { ReportForm } from "@/app/pet/sighting/components/ReportForm";
 // import { PageWithTitle, Topbar } from "@/components";
 
 // import { Metadata } from "next";
@@ -42,11 +42,12 @@ export default async function ReportarPage({ params }: ReportarPageProps) {
     <>
       {/* <Topbar showFilters={false} title={mascota.nombre} /> */}
 
-      <PageWithTitle title={`Avistamiento de ${thePet.name}`}>
-        <div className="bg-white rounded-lg shadow-md p-6 m-6">
-          <ReportForm petId={id} petName={thePet.name} />
-        </div>
-      </PageWithTitle>
+      {/* <PageWithTitle title={`Avistamiento de ${thePet.name}`}> */}
+      <Topbar title={`Avistamiento de ${thePet.name}`} showBackBtn />
+      <div className="bg-white rounded-lg shadow-md p-6 m-6 ">
+        <ReportForm petId={id} petName={thePet.name} />
+      </div>
+      {/* </PageWithTitle> */}
     </>
   );
 }

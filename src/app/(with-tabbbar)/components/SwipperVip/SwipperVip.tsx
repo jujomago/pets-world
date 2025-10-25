@@ -2,8 +2,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { PetCard } from "../../PetCard/PetCard";
-
 import { Pagination } from "swiper/modules";
 // import { Pet } from "@/interfaces/Pets";
 
@@ -12,6 +10,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import styles from "./SwipperVip.module.css";
 import { Pet } from "@/interfaces/Pets";
+import { PetCard } from "@/components";
 // import { Pet } from "@prisma/client";
 
 interface SwipperVipProps {

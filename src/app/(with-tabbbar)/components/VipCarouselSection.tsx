@@ -1,10 +1,11 @@
 // En VipCarouselSection.tsx
 
 import { getMascotas } from "@/actions/mascotas";
-import { EmptySection, SwipperVip } from "@/components";
+import { EmptySection } from "@/components";
 import { VipCarouselSkeleton } from "@/components/skeletons";
 
 import { Suspense } from "react";
+import { SwipperVip } from "./SwipperVip/SwipperVip";
 
 // export const dynamic = "force-dynamic";
 

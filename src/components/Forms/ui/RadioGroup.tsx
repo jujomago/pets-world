@@ -1,7 +1,7 @@
 import { comicRelief } from "@/fonts/fonts";
 import { RegisterFormPet } from "@/interfaces/Forms";
 import React from "react";
-import { ControllerRenderProps } from "react-hook-form";
+import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 
 // Definición de tipos
 export interface RadioOption {
@@ -11,17 +11,21 @@ export interface RadioOption {
   iconColor?: string;
 }
 
-interface RadioGroupProps {
+interface RadioGroupProps<
+  T extends FieldValues,
+  TName extends Path<T> = Path<T>
+> {
   label?: string;
   options: RadioOption[];
   error?: string;
   labelClassName?: string;
   containerClassName?: string;
   optionClassName?: string;
-  field?: ControllerRenderProps<RegisterFormPet, keyof RegisterFormPet>;
+  // field?: ControllerRenderProps<RegisterFormPet, keyof RegisterFormPet>;
+  field?: ControllerRenderProps<T, TName>;
 }
 
-export const RadioGroup = ({
+export const RadioGroup = <T extends FieldValues, TName extends Path<T>>({
   label,
   options,
   error,
@@ -29,9 +33,9 @@ export const RadioGroup = ({
   containerClassName = `flex justify-around  ${comicRelief.className}`,
   optionClassName = `flex button-mobile items-center gap-2 cursor-pointer  px-3 py-2 rounded-xl text-sm transition-colors`,
   field,
-}: RadioGroupProps) => {
+}: RadioGroupProps<T, TName>) => {
   return (
-    <div>
+    <>
       {label && <label className={labelClassName}>{label}</label>}
 
       <div className={containerClassName}>
@@ -70,6 +74,6 @@ export const RadioGroup = ({
       </div>
 
       {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
-    </div>
+    </>
   );
 };

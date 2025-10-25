@@ -9,7 +9,7 @@ import { MdCake, MdEmojiEvents } from "react-icons/md";
 import { Title } from "../Title/Title";
 import { Pet, PetImage as PetImageI } from "@/interfaces/Pets";
 import { Gender } from "@prisma/client";
-import { PetImage } from "./PetImage";
+import { PetImage } from "../PetImage/PetImage";
 
 interface PetCardProps {
   mascota: Pet;
@@ -27,7 +27,7 @@ const getImageToShow = (images: PetImageI[]): string => {
 
 export const PetCard = ({ mascota, vip }: PetCardProps) => {
   return (
-    <Link href={`/lostpet/${mascota.id}`} className="card-interactive">
+    <Link href={`/pet/lost/${mascota.id}`} className="card-interactive">
       <div
         key={mascota.id}
         className={`max-w-md w-full bg-white rounded-xl shadow-md overflow-hidden ${
@@ -63,7 +63,7 @@ export const PetCard = ({ mascota, vip }: PetCardProps) => {
             {/* <span>{mascota.esta_perdida ? "Perdida" : "Encontrada"}</span> */}
           </div>
           <div className="mt-4 flex flex-wrap gap-x-1 gap-y-1 justify-center">
-            <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5">
+            <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5 animate-blurred-fade-in">
               <MdCake className="text-blue-500 text-sm" />
               <span className="text-xs font-medium">{mascota.age} años</span>
             </div>

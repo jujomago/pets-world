@@ -2,10 +2,10 @@ import { getMascota } from "@/actions/mascotas";
 import { FaRegCalendar } from "react-icons/fa6";
 import { MdCake, MdContactPhone, MdPets, MdPlace } from "react-icons/md";
 import { IoIosFemale, IoIosMale } from "react-icons/io";
-import { PetDetailSlider, Title, ActionDiv, PageWithTitle } from "@/components";
+import { Title, ActionDiv, Topbar } from "@/components";
 import { FaMoneyBillWave, FaPalette } from "react-icons/fa";
 import { RiMapPinAddFill } from "react-icons/ri";
-import AvistamientosSection from "@/components/sections/AvistamientosSection";
+
 import { Suspense } from "react";
 import { AvistamientoSkeleton } from "@/components/skeletons/AvistamientosSkeleton";
 import Link from "next/link";
@@ -13,6 +13,8 @@ import Link from "next/link";
 import { Gender } from "@prisma/client";
 import { IoScanCircle } from "react-icons/io5";
 import { FavoriteButton } from "@/components/Favorite/FavoriteButton";
+import AvistamientosSection from "../components/AvistamientosSection";
+import { PetDetailSlider } from "../components/PetDetailSlider/PetDetailSlider";
 
 interface LostPetDetailProps {
   params: {
@@ -46,7 +48,10 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
   // console.log(mascota);
 
   return (
-    <PageWithTitle title={mascota.name} className="relative">
+    <div className="relative">
+      <Topbar title={mascota.name} showBackBtn showOptionsBtn />
+
+      {/* <PageWithTitle title={mascota.name} className="relative"> */}
       <FavoriteButton isFavorite={mascota.isFavorite as boolean} />
       <PetDetailSlider images={mascota.images} />
       {/* Detalles de la mascota */}
@@ -118,13 +123,13 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
       </Suspense>
 
       {/* Botones de accion */}
-      <div className="mx-5 mt-6 flex justify-between gap-4 ">
+      <div className="px-6 py-8 flex justify-between gap-4 ">
         <ActionDiv
           icon={<MdContactPhone className="text-2xl" />}
           classes="text-white bg-[var(--rojizo)] border-[var(--rojizo)] flex-1"
           text="Contactar"
         />
-        <Link href={`/reportar/${id}`} className="flex-1">
+        <Link href={`/pet/sighting/${id}`} className="flex-1">
           <ActionDiv
             icon={<RiMapPinAddFill className="text-2xl" />}
             classes="bg-white text-[var(--rojizo)] border-[var(--rojizo)] w-full"
@@ -132,6 +137,7 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
           />
         </Link>
       </div>
-    </PageWithTitle>
+      {/* </PageWithTitle> */}
+    </div>
   );
 }

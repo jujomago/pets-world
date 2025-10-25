@@ -47,18 +47,18 @@ enum Gender {
 
 /// Representa a un usuario de la aplicación.
 model User {
-  id                  String             @id @default(uuid())
+  id                  String    @id @default(uuid())
   name                String
-  email               String             @unique
+  email               String    @unique
+  emailVerified       DateTime?
+  image               String?
+  accounts            Account[] // Puede tener múltiples cuentas (Google, Facebook, etc)
   phone               String?
-  locationDescription String? // Ubicación general
-  registrationMethod  RegistrationMethod
-  isAuthenticated     Boolean?           @default(false)
-  avatarUrl           String?
+  locationDescription String? // Ubicación general  
 
   // 🚨 CAMPOS PARA NOTIFICACIONES POR GEOLOCALIZACIÓN 🚨
   // Preferencia del usuario
-  acceptNotifications  Boolean  @default(false)
+  acceptNotifications  Boolean  @default(true)
   // Coordenadas del centro de su zona de interés para alertas
   notificationLat      Decimal? @db.Decimal(10, 8)
   notificationLon      Decimal? @db.Decimal(11, 8)
@@ -77,6 +77,24 @@ model User {
 
   @@index([email])
   @@index([acceptNotifications])
+}
+
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String // "google" o "facebook"
+  providerAccountId String // ID del usuario en Google o Facebook
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
 }
 
 /// Define los roles que puede tener un usuario (ej: Admin, User, Reporter).

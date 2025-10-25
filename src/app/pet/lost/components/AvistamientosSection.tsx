@@ -1,5 +1,5 @@
 import { getAvistamientosByMascotaId } from "@/actions/mascotas";
-import { Avistamientos } from "../Avistamientos/Avistamientos";
+import { Avistamientos } from "./Avistamientos/Avistamientos";
 
 interface Props {
   petId: string;

@@ -31,7 +31,7 @@ export const FavoriteButton = ({ isFavorite }: favoriteButttonProps) => {
 
   return (
     <button
-      className="button-mobile absolute right-5 text-red-500 text-3xl top-4 z-10"
+      className="button-mobile absolute right-5 text-red-500 text-3xl top-20 z-10"
       onClick={toggleFavoriteHandler}
       disabled={isPending}
     >

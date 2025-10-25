@@ -1,8 +1,10 @@
 import React from "react";
 import { AvistamientoItem } from "../AvistamientoItem/AvistamientoItem";
-import { Title } from "../Title/Title";
+
 import dynamic from "next/dynamic";
 import { Sighting } from "@prisma/client";
+import { Title } from "@/components";
+import { PiSmileySadThin } from "react-icons/pi";
 
 interface AvistamientosProps {
   // Define any props if needed in the future
@@ -19,7 +21,12 @@ const DynamicMap = dynamic(
 
 export const Avistamientos = ({ avistamientos }: AvistamientosProps) => {
   if (!avistamientos || avistamientos.length === 0)
-    return <p>No hay avistamientos disponibles</p>;
+    return (
+      <div className="flex justify-center items-center m-6 p-6 gap-2 bg-gray-200/80 rounded-md font-semibold ">
+        <PiSmileySadThin className="text-3xl stroke-3 text-amber-700 font-bold" />{" "}
+        No se reporto ningun avistamiento
+      </div>
+    );
 
   console.log(avistamientos);
 

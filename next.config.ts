@@ -2,8 +2,8 @@
 const nextConfig = {
   // Dejamos únicamente la configuración de imágenes
   images: {
-    loader: "cloudinary",
-    path: "https://res.cloudinary.com/dkvxndrnd/image/upload/",
+    // loader: "cloudinary",
+    // path: "https://res.cloudinary.com/dkvxndrnd/image/upload/",
     remotePatterns: [
       {
         protocol: "https",
@@ -18,6 +18,14 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "images.dog.ceo",
+      },
+      {
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+      },
+      {
+        protocol: "https",
+        hostname: "platform-lookaside.fbsbx.com",
       },
     ],
   },
