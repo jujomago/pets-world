@@ -1,5 +1,5 @@
 import { getFavorites } from "@/actions/favorites";
-import { EmptySection, PageWithTitle, PetCard } from "@/components";
+import { EmptySection, PageWithTitle, PetCard, Topbar } from "@/components";
 
 import React from "react";
 
@@ -38,8 +38,9 @@ async function PetsGrid({ searchParams }: Props) {
 
 export default function FavoritesPage({ searchParams }: Props) {
   return (
-    <PageWithTitle title="Favoritos">
+    <>
+      <Topbar title="Mis favoritos" showBackBtn />
       <PetsGrid searchParams={searchParams} />
-    </PageWithTitle>
+    </>
   );
 }

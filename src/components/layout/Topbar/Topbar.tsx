@@ -9,6 +9,7 @@ import { useScrollHide } from "@/hooks/useScrollHide";
 import { SlOptionsVertical } from "react-icons/sl";
 
 interface TopbarProps {
+  petId?: string;
   title?: string;
   children?: React.ReactNode;
   showBackBtn?: boolean;
@@ -19,11 +20,22 @@ export const Topbar = ({
   title = "No Title",
   showBackBtn = false,
   showOptionsBtn = false,
-  children,
-}: TopbarProps) => {
+  petId,
+}: // children,
+TopbarProps) => {
   const router = useRouter();
   const hidden = useScrollHide({ offset: 64, threshold: 6 });
   const [showOptions, setShowOptions] = useState(false);
+
+  const options = [
+    {
+      label: "Imprimir",
+      onclick: () => {
+        router.push(`/pet/poster/${petId}`);
+      },
+    },
+    { label: "Compartir" },
+  ];
 
   const handleBack = () => {
     if (window.history.length <= 1) {
@@ -59,19 +71,27 @@ export const Topbar = ({
         {showOptionsBtn && (
           <div className="absolute right-4 top-4">
             <SlOptionsVertical
-              className="text-2xl absolute right-0 top-1"
+              className="text-2xl absolute right-0 top-1 mobile-tap  cursor-pointer"
               onClick={() => setShowOptions(!showOptions)}
             />
             <ul
               className={`bg-white ${
                 showOptions ? "block" : "hidden"
               } rounded-md text-black [&_li]:px-3 [&_li]:py-2 animate-slide-in-top
+              animate-duration-300 animate-ease-out
                 mt-10
+                overflow-hidden
               `}
             >
-              <li>Opcion 1</li>
-              <li>Opcion 2</li>
-              <li>Opcion 3</li>
+              {options.map((option, index) => (
+                <li
+                  key={index}
+                  className="hover:bg-amber-200 cursor-pointer mobile-tap select-none"
+                  onClick={option.onclick}
+                >
+                  {option.label}
+                </li>
+              ))}
             </ul>
           </div>
         )}

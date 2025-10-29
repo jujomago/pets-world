@@ -11,6 +11,8 @@ export interface Pet {
   lostLocationLon?: number;
   lostLocationDetails?: string;
   rewardAmount?: number;
+  rewardCoin?: string;
+  ageUnit?: string;
   ownerId?: string;
   speciesId?: string;
   breedId?: string;

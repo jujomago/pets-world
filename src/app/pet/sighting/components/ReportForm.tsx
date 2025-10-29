@@ -9,18 +9,11 @@ import { useForm, Controller } from "react-hook-form";
 // import { z } from "zod";
 import dynamic from "next/dynamic";
 
-import { Breed, Species, ReportFormPet } from "@/interfaces";
+import { ReportFormPet } from "@/interfaces";
 
 import { FaPaperPlane } from "react-icons/fa";
 
-import {
-  Input,
-  Select,
-  Textarea,
-  RadioGroup,
-  ImageUploader,
-  ActionDiv,
-} from "@/components";
+import { Input, Textarea, ImageUploader, ActionDiv } from "@/components";
 
 import { createAvistamiento } from "@/actions/masctotas-mutations";
 

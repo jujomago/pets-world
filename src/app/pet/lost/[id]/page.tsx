@@ -49,7 +49,7 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
 
   return (
     <div className="relative">
-      <Topbar title={mascota.name} showBackBtn showOptionsBtn />
+      <Topbar petId={id} title={mascota.name} showBackBtn showOptionsBtn />
 
       {/* <PageWithTitle title={mascota.name} className="relative"> */}
       <FavoriteButton isFavorite={mascota.isFavorite as boolean} />
@@ -88,14 +88,15 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
             </strong>{" "}
           </span>
         </div>
-
-        <div className="flex flex-col text-[var(--rojizo)] text-xl justify-center items-center mb-6 p-3 rounded-md bg-amber-100">
-          <p className="flex items-center gap-3 justify-center">
-            <FaMoneyBillWave className="text-2xl -mb-1" /> Recompensa
-            {/* <GiTakeMyMoney className="text-5xl" /> Recompensa */}
-          </p>
-          <p className="font-bold text-2xl">{mascota.rewardAmount} Bs</p>
-        </div>
+        {mascota.rewardAmount !== 0 && (
+          <div className="flex flex-col text-[var(--rojizo)] text-xl justify-center items-center mb-6 p-3 rounded-md bg-amber-100">
+            <p className="flex items-center gap-3 justify-center">
+              <FaMoneyBillWave className="text-2xl -mb-1" /> Recompensa
+              {/* <GiTakeMyMoney className="text-5xl" /> Recompensa */}
+            </p>
+            <p className="font-bold text-2xl">{mascota.rewardAmount} Bs</p>
+          </div>
+        )}
 
         <div className="flex mb-6 gap-3 text-sm">
           <div className="p-2 flex-1 bg-gray-50 rounded-xl   text-center shadow-sm">

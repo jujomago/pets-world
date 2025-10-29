@@ -13,17 +13,20 @@ export default async function page({ searchParams }: Props) {
   const filterKey = (await searchParams)?.especie || "all";
 
   return (
-    // <div className="container mx-auto pb-10 max-w-md min-h-dvh">
-    <>
-      {/* <Topbar /> */}
-      <HomeTopbar />
-      <VipCarouselSection
-        key={`vip-${filterKey}`}
-        searchParams={searchParams}
-      />
-      <PetsGridSection key={`grid-${filterKey}`} searchParams={searchParams} />
-      {/* <TabBar /> */}
-    </>
-    // </div>
+    <div className="min-h-[calc(100dvh-70px)]">
+      <>
+        {/* <Topbar /> */}
+        <HomeTopbar />
+        <VipCarouselSection
+          key={`vip-${filterKey}`}
+          searchParams={searchParams}
+        />
+        <PetsGridSection
+          key={`grid-${filterKey}`}
+          searchParams={searchParams}
+        />
+        {/* <TabBar /> */}
+      </>
+    </div>
   );
 }

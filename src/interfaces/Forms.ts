@@ -26,3 +26,8 @@ export interface ReportFormPet {
   image?: string;
   petId: string;
 }
+
+export interface UserFormPreferences {
+  acceptNotifications: string;
+  phones: string;
+}

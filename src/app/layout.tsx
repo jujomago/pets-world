@@ -5,6 +5,7 @@ import { appMetadata, appViewport } from "./metadata";
 import { Suspense } from "react";
 import { AuthProvider } from "./auth-provider";
 import { HomeTopbar } from "@/components/layout/HomeTopBar/HomeTopbar";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = appMetadata;
 export const viewport = appViewport;
@@ -15,12 +16,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="min-h-screen">
+    <html lang="en" className="min-h-screen" data-scroll-behaviour="smooth">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-hero-image`}
       >
+        <Toaster />
         <AuthProvider>
-          <main className="container mx-auto max-w-md min-h-dvh flow-root">
+          <main className="container mx-auto max-w-md print:max-w-none min-h-dvh flow-root">
             {/* <Suspense fallback={null}>
               <HomeTopbar />
             </Suspense> */}

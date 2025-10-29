@@ -57,11 +57,11 @@ export const TabBar = () => {
   }, [activeIndex]);
 
   return (
-    <div className="sticky bottom-2 w-[96%]  mx-auto rounded-3xl  bg-rojillo  filter-[url('#goo')] z-10 h-">
-      <ul className="flex justify-evenly">
+    <div className="sticky bottom-2 w-[96%]  mx-auto rounded-3xl animate-slide-up-fade animate-delay-[2000ms]  bg-rojillo-tabbar  filter-[url('#goo')] z-10 ">
+      <ul className="flex justify-evenly pt-3 pb-2">
         <span
           ref={indicatorRef}
-          className="w-[80px] h-[86px]  rounded-full  bg-rojillo absolute -top-[29px] left-[40px] -z-10  transition-[left] duration-500  ease-[cubic-bezier(0.175,0.885,0.32,1.275)]"
+          className="w-[80px] h-[80px]  rounded-full  bg-rojillo-tabbar absolute -top-[24px] left-[40px] -z-10  transition-[left] duration-500  ease-[cubic-bezier(0.175,0.885,0.32,1.275)]"
         ></span>
         {menuItems.map((item, index) => (
           <li
@@ -71,9 +71,9 @@ export const TabBar = () => {
           >
             <Link
               href={item.to}
-              className={`flex flex-col items-center p-3 ${
+              className={`flex flex-col items-center justify-center gap-1 ${
                 comicRelief.className
-              } ${index === activeIndex ? "text-white" : ""}`}
+              } ${index === activeIndex ? "text-white" : "text-red-800"}`}
             >
               {item.name === "Perfil" && status === "authenticated" ? (
                 <Image
@@ -81,9 +81,7 @@ export const TabBar = () => {
                   width={20}
                   height={20}
                   className={`rounded-full ring-2 ring-amber-400 transition-all ${
-                    index === activeIndex
-                      ? "-translate-y-6 scale-150"
-                      : "scale-140"
+                    index === activeIndex ? "-translate-y-5 scale-150" : ""
                   }`}
                   alt={session.user?.name as string}
                 />
@@ -91,17 +89,23 @@ export const TabBar = () => {
                 React.createElement(item.icon, {
                   className: `text-xl  transition-all ${
                     index === activeIndex
-                      ? "-translate-y-6 scale-150 fill-amber-500"
+                      ? "-translate-y-5 scale-160 fill-amber-500"
                       : "fill-red-800 scale-130"
                   }`,
                 })
               )}
 
-              {index === activeIndex && (
-                <span className="animate-slide-up -translate-y-2 text-md font-bold">
-                  {item.name}
-                </span>
-              )}
+              {/* {index === activeIndex && ( */}
+              <span
+                className={`text-sm font-bold ${
+                  index === activeIndex
+                    ? "-translate-y-1 scale-120 transition-all"
+                    : ""
+                }`}
+              >
+                {item.name}
+              </span>
+              {/* )} */}
             </Link>
           </li>
         ))}

@@ -30,7 +30,10 @@ export async function getMascotas(filters: PetFilters): Promise<Pet[] | null> {
   // Esto utiliza una consulta relacional.
   if (filters.speciesName) {
     whereConditions.species = {
-      name: filters.speciesName,
+      name: {
+        equals: filters.speciesName,
+        mode: "insensitive",
+      },
     };
   }
 
@@ -57,6 +60,8 @@ export async function getMascotas(filters: PetFilters): Promise<Pet[] | null> {
       },
     ];
   }
+
+  console.log(whereConditions);
 
   try {
     // 2. Ejecuta la consulta a Prisma con las condiciones
@@ -130,6 +135,8 @@ export async function getMascota(id: string): Promise<Pet | null> {
     age: mascota.age ?? 0,
     color: mascota.color ?? "",
     gender: mascota.gender ?? "",
+    rewardCoin: mascota.rewardCoin ?? "",
+    ageUnit: mascota.ageUnit ?? "",
     description: mascota.description ?? "",
     lostDate: mascota.lostDate,
     lostLocationLat: Number(mascota.lostLocationLat),

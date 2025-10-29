@@ -1,5 +1,5 @@
 import React from "react";
-import { PiMaskSad } from "react-icons/pi";
+import { PiSmileySad } from "react-icons/pi";
 
 interface EmptySectionProps {
   classes?: string;
@@ -11,8 +11,8 @@ export const EmptySection = ({ classes, text }: EmptySectionProps) => {
     <div
       className={`bg-white p-4 flex gap-3 font-bold rounded-md m-10 justify-center items-center ${classes}`}
     >
-      <PiMaskSad className="text-3xl stroke-2" />
-      {text || "No hay mascotas disponibles"}
+      {text || "Todavia no hay mascotas disponibles"}
+      <PiSmileySad className="text-3xl stroke-2" />
     </div>
   );
 };
