@@ -4,6 +4,7 @@ import Image from "next/image";
 import React from "react";
 import { ProfileForm } from "./components/profileForm";
 import { getUserPreferences } from "@/actions/users";
+import Link from "next/link";
 
 export default async function ProfilePage() {
   const session = (await getServerSession()) as Session;
@@ -27,6 +28,12 @@ export default async function ProfilePage() {
         </h2>
         <p className="text-gray-500 mb-8">{session?.user?.email}</p>
         {userPrefs && <ProfileForm {...userPrefs} />}
+        <Link
+          href="/my-pets"
+          className="button-mobile p-2 m-3 bg-amber-500 text-white"
+        >
+          Administrar mis Mascotas
+        </Link>
       </div>
     </>
   );

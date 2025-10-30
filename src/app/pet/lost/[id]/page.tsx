@@ -45,7 +45,8 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
 
   const mascota = await getMascota(id);
   if (!mascota) return;
-  // console.log(mascota);
+
+  const unidadEdad = mascota.ageUnit === "YEARS" ? "años" : "meses";
 
   return (
     <div className="relative">
@@ -107,7 +108,9 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
           <div className="p-2 flex-1 bg-gray-50 rounded-xl  text-center shadow-sm">
             <MdCake className="w-full text-3xl text-blue-500 mb-2" />
             <div className="text-gray-400 text-xs">Edad</div>
-            <strong>{mascota.age} anios</strong>
+            <strong>
+              {mascota.age} {unidadEdad}
+            </strong>
           </div>
           <div className="p-2 flex-1 bg-gray-50 rounded-xl text-center shadow-sm">
             <FaPalette className="w-full text-2xl text-orange-500 mb-2" />

@@ -1,8 +1,10 @@
 "use server";
 
-import { UserFormPreferences } from "@/interfaces";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { Pet, UserFormPreferences } from "@/interfaces";
 import prisma from "@/lib/prisma";
 import { handlePrismaError } from "@/utils/priisma-errors";
+import { getServerSession } from "next-auth";
 
 export type UserPreferences = {
   id: string;
@@ -86,5 +88,66 @@ export async function updateUserPreferences(
       );
     }
     return { sucess: false };
+  }
+}
+
+export async function getUserPets(): Promise<Pet[] | null> {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return null;
+  }
+
+  const userId = session.user.id;
+
+  try {
+    const mascotas = await prisma.pet.findMany({
+      where: {
+        ownerId: userId,
+      },
+      include: {
+        images: true, // Incluye las imágenes relacionadas
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    const newMascotas = mascotas.map((mascota) => {
+      return {
+        id: mascota.id,
+        name: mascota.name ?? "",
+        age: mascota.age ?? 0,
+        color: mascota.color ?? "",
+        gender: mascota.gender ?? "",
+        description: mascota.description ?? "",
+        lostDate: mascota.lostDate,
+        lostLocationLat: Number(mascota.lostLocationLat),
+        lostLocationLon: Number(mascota.lostLocationLon),
+        lostLocationDetails: mascota.lostLocationDetails ?? "",
+        rewardAmount: Number(mascota.rewardAmount),
+        ownerId: mascota.ownerId ?? "",
+        speciesId: mascota.speciesId ?? "",
+        breedId: mascota.breedId ?? "",
+        images: mascota.images ?? [],
+        status: mascota.status ?? "",
+      };
+    });
+
+    return newMascotas;
+  } catch (error) {
+    const errorInfo = handlePrismaError(error);
+    // Si handlePrismaError devuelve información, la mostramos.
+    // Si no, mostramos un error genérico.
+    if (errorInfo) {
+      console.error("=== ERROR CONTROLADO EN getMascotas ===");
+      console.error(
+        `Código: ${errorInfo.code} | Mensaje: ${errorInfo.message}`
+      );
+    } else {
+      // Si el error no es de Prisma, lo mostramos para depuración.
+      console.error("=== ERROR NO CONTROLADO EN getMascotas ===", error);
+    }
+    return null; // Devolvemos null para que la UI pueda manejarlo
   }
 }

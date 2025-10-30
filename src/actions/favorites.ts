@@ -1,9 +1,19 @@
 "use server";
 
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Pet } from "@/interfaces/Pets";
 import prisma from "@/lib/prisma";
+import { getServerSession } from "next-auth";
 
-export async function toggleFavorite(petId: string, userId: string) {
+export async function toggleFavorite(petId: string) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return { success: false, error: "No autorizado", isFavorite: false };
+  }
+
+  const userId = session.user.id;
+
   try {
     const favorite = await prisma.favorite.findUnique({
       where: { userId_petId: { userId, petId } },

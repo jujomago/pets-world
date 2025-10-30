@@ -1,6 +1,5 @@
 "use client";
 
-import { getCloudinarySignature } from "@/actions/cloudinary-actions";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { useDebounce } from "@/hooks/useDebounce";
 import { useRouter } from "next/navigation";
@@ -8,7 +7,12 @@ import { useForm, Controller } from "react-hook-form";
 // import { zodResolver } from "@hookform/resolvers/zod";
 // import { z } from "zod";
 import dynamic from "next/dynamic";
-import { getEspecies, getRazasByEspecie } from "@/actions/mascotas";
+import {
+  getEspecies,
+  getRazasByEspecie,
+  createPet,
+  getCloudinarySignature,
+} from "@/actions";
 import { Breed, Species, RegisterFormPet } from "@/interfaces";
 import { AgeUnit, Coin, Gender } from "@prisma/client";
 
@@ -19,6 +23,7 @@ import { AiFillTag } from "react-icons/ai";
 import { VscGroupByRefType, VscTypeHierarchySuper } from "react-icons/vsc";
 import { IoMdColorPalette } from "react-icons/io";
 import { GiMoneyStack } from "react-icons/gi";
+import { RiLoader5Fill } from "react-icons/ri";
 
 import {
   Input,
@@ -28,11 +33,8 @@ import {
   ImageUploader,
   ActionDiv,
 } from "@/components";
-import { genderOptions } from "@/utils/fixedElements";
-import { reverseLocation } from "@/utils/reverseLocation";
-import { createPet } from "@/actions/masctotas-mutations";
-import delay from "@/utils/delay";
-import { RiLoader5Fill } from "react-icons/ri";
+import { genderOptions, reverseLocation, delay } from "@/utils";
+import toast from "react-hot-toast";
 
 //type PetFormValues = z.infer<typeof petSchema>;
 
@@ -203,10 +205,12 @@ export const AnunciarForm = () => {
         const result = await createPet(petData, uploadedImageUrls);
         // TODO: Manejar el resultado (redirección o mensaje de error)
         if (result.success) {
+          toast.success("Anuncio creado con éxito");
           router.push("/");
         }
       } catch (err) {
         console.error("Error en el proceso de anuncio:", err);
+        toast.error("Error al crear el anuncio");
         // TODO: Mostrar un mensaje de error al usuario
       }
     });

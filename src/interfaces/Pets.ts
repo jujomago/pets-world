@@ -5,7 +5,7 @@ export interface Pet {
   color: string;
   gender: string;
   description?: string;
-  //status?: string;
+  status?: string;
   lostDate?: Date;
   lostLocationLat?: number;
   lostLocationLon?: number;

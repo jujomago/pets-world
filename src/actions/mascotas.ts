@@ -92,7 +92,7 @@ export async function getMascotas(filters: PetFilters): Promise<Pet[] | null> {
         lostLocationLon: Number(mascota.lostLocationLon),
         lostLocationDetails: mascota.lostLocationDetails ?? "",
         rewardAmount: Number(mascota.rewardAmount),
-        ownerId: "950e8400-e29b-41d4-a716-446655440005",
+        ownerId: mascota.ownerId ?? "",
         speciesId: mascota.speciesId ?? "",
         breedId: mascota.breedId ?? "",
         images: mascota.images ?? [],

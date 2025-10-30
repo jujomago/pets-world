@@ -1,10 +1,13 @@
+// app/api/auth/[...nextauth]/route.ts
+
 import prisma from "@/lib/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import NextAuth from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth"; // 1. Importa el TIPO 'AuthOptions'
 import Facebook from "next-auth/providers/facebook";
 import Google from "next-auth/providers/google";
 
-const handler = NextAuth({
+// 2. DEFINE Y EXPORTA tu configuración como una constante
+export const authOptions: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     Google({
@@ -23,6 +26,7 @@ const handler = NextAuth({
     signIn: "/login",
   },
   callbacks: {
+    // Tus callbacks están perfectos para añadir el ID
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
@@ -36,6 +40,10 @@ const handler = NextAuth({
       return session;
     },
   },
-  //debug: true, // ← Para ver más detalles
-});
+  // debug: true,
+};
+
+// 3. Pasa las opciones que acabas de definir a NextAuth
+const handler = NextAuth(authOptions);
+
 export { handler as GET, handler as POST };

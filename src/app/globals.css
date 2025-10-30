@@ -115,3 +115,8 @@ body {
   /* IE/Edge (legacy) */
   -ms-overflow-style: none;
 }
+
+@utility text-stroke-red {
+  -webkit-text-stroke: 1px var(--color-amber-800);
+  text-stroke: 1px var(--color-amber-800);
+}

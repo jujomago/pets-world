@@ -5,6 +5,8 @@ import { PetStatus } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
 import { ReportFormPet } from "../interfaces/Forms";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 // Configura Cloudinary (idealmente en un archivo de configuración separado)
 // Asegúrate de tener estas variables en tu archivo .env
@@ -16,6 +18,14 @@ cloudinary.config({
 });
 
 export async function createPet(data: RegisterFormPet, imageUrls: string[]) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return { success: false, error: "No autorizado" };
+  }
+
+  const userId = session.user.id;
+
   try {
     // 1. Los datos ya vienen tipados gracias a la interfaz RegisterFormPet.
     //    No es necesario extraerlos de un FormData.
@@ -41,7 +51,7 @@ export async function createPet(data: RegisterFormPet, imageUrls: string[]) {
         speciesId: data.speciesId,
         breedId: data.breedId,
         status: PetStatus.LOST,
-        ownerId: "950e8400-e29b-41d4-a716-446655440005", // TODO: Reemplazar con ID de usuario real
+        ownerId: userId,
         lostLocationLat: Number(data.lat),
         lostLocationLon: Number(data.lng),
         ageUnit: data.ageUnit,
@@ -62,6 +72,14 @@ export async function createPet(data: RegisterFormPet, imageUrls: string[]) {
 }
 
 export async function createAvistamiento(data: ReportFormPet) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return { success: false, error: "No autorizado" };
+  }
+
+  const userId = session.user.id;
+
   try {
     const sighting = await prisma.sighting.create({
       data: {
@@ -71,8 +89,8 @@ export async function createAvistamiento(data: ReportFormPet) {
         sightingLon: data.lng,
         locationDescription: data.locationDetails,
         description: data.details,
-        photoUrl: data.image, // Puede ser undefined si no se subió imagen
-        reporterId: "950e8400-e29b-41d4-a716-446655440008", // TODO: Reemplazar con ID de usuario real
+        photoUrl: data.image, // TODO: Puede ser undefined si no se subió imagen
+        reporterId: userId,
       },
     });
 

@@ -8,8 +8,10 @@ import { useDebounce, useScrollHide } from "@/hooks";
 // import { useScrollHide } from "@/hooks/useScrollHide";
 import { Species } from "@/interfaces/Pets";
 import { getEspecies } from "@/actions/mascotas";
-import { MdOutlinePets } from "react-icons/md";
+
 import { FilterPills } from "../Filters/FilterPills";
+import Image from "next/image";
+import { localImageLoader } from "@/utils/localImageLoader";
 
 interface HomeTopbarProps {
   showSearchBtn?: boolean;
@@ -69,11 +71,18 @@ export const HomeTopbar = ({ showSearchBtn = true }: HomeTopbarProps) => {
           <>
             <Link href="/">
               <h1
-                className={`text-2xl font-bold ${cherryBombOne.className} text-shadow-gray-800/20 text-shadow-md flex items-center justify-center`}
+                className={`text-3xl font-bold ${cherryBombOne.className} text-shadow-gray-800/20 -md flex items-center gap-1 justify-center`}
               >
-                <span className="text-amber-400">Mundo</span>
-                <MdOutlinePets className="text-4xl fill-amber-300 mb-1 drop-shadow-sm drop-shadow-black/30" />
-                <span className="text-white">Mascotas</span>
+                <span className="text-amber-400  text-stroke-red ">Mundo</span>
+                <Image
+                  src="./images/logoMundoMascotas.png"
+                  width={44}
+                  height={44}
+                  alt="logo mundo mascotas"
+                  className="bg-amber-700 p-0.5 rounded-full"
+                  loader={localImageLoader}
+                />
+                <span className="text-white text-stroke-red">Mascotas</span>
               </h1>
             </Link>
             {showSearchBtn && (

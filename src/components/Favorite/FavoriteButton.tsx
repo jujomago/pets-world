@@ -16,10 +16,7 @@ export const FavoriteButton = ({ isFavorite }: favoriteButttonProps) => {
 
   const toggleFavoriteHandler = () => {
     startTransition(async () => {
-      const result = await toggleFavorite(
-        params.id as string,
-        "950e8400-e29b-41d4-a716-446655440005" // TODO: cambiar por el user id
-      );
+      const result = await toggleFavorite(params.id as string);
 
       if (result.success) {
         setFavorite(result.isFavorite);

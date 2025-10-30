@@ -8,8 +8,8 @@ export const config = {
   matcher: [
     "/favoritos",
     "/profile",
-    "/post-lost",
-    "/lostpet/:path*",
-    "/reportar/:path*",
+    "/new-pet-lost",
+    "/pet/lost/:path*",
+    "/pet/sighting/:path*",
   ],
 };
