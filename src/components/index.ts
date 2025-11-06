@@ -3,7 +3,7 @@ export { PetCard } from "./PetCard/PetCard";
 export { TabBar } from "./layout/Tabbar/TabBar";
 export { FilterPill } from "./Pill/FilterPill";
 export { Title } from "./Title/Title";
-export { ActionDiv } from "./ActionDiv/ActionDiv";
+export { Button } from "./Button/Button";
 export { EmptySection } from "./EmtpySection/EmptySection";
 export { PageWithTitle } from "./PageWithTitle/PageWithTitle";
 // export { Map } from "./map/Map";

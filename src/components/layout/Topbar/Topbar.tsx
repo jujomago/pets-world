@@ -1,10 +1,9 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { cherryBombOne, geistSans, Delius, comicRelief } from "@/fonts/fonts";
-import { IoArrowBack, IoSearch } from "react-icons/io5";
-import { useDebounce } from "@/hooks/useDebounce";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { comicRelief } from "@/fonts/fonts";
+import { IoArrowBack } from "react-icons/io5";
+
 import { useScrollHide } from "@/hooks/useScrollHide";
 import { SlOptionsVertical } from "react-icons/sl";
 
@@ -38,10 +37,38 @@ TopbarProps) => {
   ];
 
   const handleBack = () => {
-    if (window.history.length <= 1) {
+    // 1. Comprobar si 'document' existe (importante en Next.js)
+    if (typeof document === "undefined") {
       router.push("/");
-    } else {
-      router.back();
+      return;
+    }
+
+    try {
+      // 2. Obtener la URL de la que vino el usuario
+      const referrer = document.referrer;
+
+      // 3. Si no hay referrer (enlace directo, bookmark, nueva pestaña)
+      if (!referrer) {
+        router.push("/");
+        return;
+      }
+
+      // 4. Comprobar si el hostname del referrer es DIFERENTE al nuestro
+      // (p.ej., si vino de "google.com" y nosotros somos "mi-app.com")
+      const referrerUrl = new URL(referrer);
+      const currentHostname = window.location.hostname;
+
+      if (referrerUrl.hostname !== currentHostname) {
+        // 5. Es un enlace externo. Enviar al inicio.
+        router.push("/");
+      } else {
+        // 6. Es un enlace interno. Ir atrás de forma segura.
+        router.back();
+      }
+    } catch (error) {
+      // Fallback de seguridad si algo falla
+      console.error("Error al procesar referrer:", error);
+      router.push("/");
     }
   };
 

@@ -1,14 +1,13 @@
 "use server";
 
-import { RegisterFormPet } from "@/interfaces/Forms";
 import { Pet } from "@/interfaces/Pets";
 
 import prisma from "@/lib/prisma";
 import { handlePrismaError } from "@/utils/priisma-errors";
-import { Gender, PetStatus } from "@prisma/client";
+import { PetStatus } from "@prisma/client";
 
 import { revalidatePath } from "next/cache";
-import { NextResponse } from "next/server";
+
 //import type { Pet, Sighting } from "@prisma/client";
 
 // Define la interfaz de los filtros para la función unificada
@@ -120,14 +119,51 @@ export async function getMascotas(filters: PetFilters): Promise<Pet[] | null> {
 export async function getMascota(id: string): Promise<Pet | null> {
   const mascota = await prisma.pet.findUnique({
     where: { id },
-    include: {
-      // species: true,
-      breed: true,
-      sightings: true,
-      images: true,
-      favoritedBy: true,
+    select: {
+      id: true,
+      name: true,
+      age: true,
+      color: true,
+      gender: true,
+      description: true,
+      status: true,
+      lostDate: true,
+      lostLocationLat: true,
+      lostLocationLon: true,
+      lostLocationDetails: true,
+      rewardAmount: true,
+      rewardCoin: true,
+      ageUnit: true,
+      owner: {
+        select: {
+          id: true,
+          name: true,
+          phone: true,
+        },
+      },
+      breed: {
+        select: {
+          id: true,
+          name: true,
+        },
+      },
+      //sightings: true,
+      images: {
+        select: {
+          id: true,
+          url: true,
+          isPrimary: true,
+        },
+      },
+      favoritedBy: {
+        select: {
+          userId: true,
+        },
+      },
     },
   });
+  console.log("------------");
+  console.log(mascota);
   if (!mascota) return null;
   return {
     id: mascota.id,
@@ -143,7 +179,11 @@ export async function getMascota(id: string): Promise<Pet | null> {
     lostLocationLon: Number(mascota.lostLocationLon),
     lostLocationDetails: mascota.lostLocationDetails ?? "",
     rewardAmount: Number(mascota.rewardAmount),
-    ownerId: "950e8400-e29b-41d4-a716-446655440005",
+    owner: {
+      id: mascota.owner?.id,
+      name: mascota.owner?.name ?? "",
+      phone: mascota.owner?.phone ?? "",
+    },
     breedName: mascota.breed?.name,
     images: mascota.images ?? [],
     isFavorite: mascota.favoritedBy.length > 0,

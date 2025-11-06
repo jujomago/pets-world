@@ -27,7 +27,7 @@ export const Textarea = <T extends FieldValues, TName extends Path<T>>({
   field,
   readonly = false,
 }: TextAreaProps<T, TName>) => {
-  const inputClass = `w-full px-3 py-2 [field-sizing:content] max-h-[12rem]  ${
+  const inputClass = `w-full px-3 py-2 [field-sizing:content]   ${
     prefixIcon ? "pl-10" : ""
   } border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition ${
     comicRelief.className
@@ -49,6 +49,7 @@ export const Textarea = <T extends FieldValues, TName extends Path<T>>({
         id={field?.name}
         className={inputClass}
         placeholder={placeholder}
+        rows={4}
         {...field}
       ></textarea>
       {error && <p className="text-red-500 text-xs mt-1">{error}</p>}

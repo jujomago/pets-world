@@ -1,6 +1,6 @@
 import { HomeTopbar } from "@/components/layout/HomeTopBar/HomeTopbar";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
 
 /* import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation"; */
@@ -31,7 +31,11 @@ export default async function LoginPage() {
         <p className="text-gray-600 text-center mb-6">
           Bienvenido de nuevo! Por favor, inicia sesión para continuar.
         </p>
-        <SocialButtons />
+
+        <Suspense>
+          <SocialButtons />
+        </Suspense>
+
         <p className="text-xs text-gray-500 text-center mt-8">
           Al continuar, tu estas deacuerdo con nuestros{" "}
           <Link href="/terms" className="underline hover:text-gray-700">

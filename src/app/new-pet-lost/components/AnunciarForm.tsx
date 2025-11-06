@@ -23,7 +23,6 @@ import { AiFillTag } from "react-icons/ai";
 import { VscGroupByRefType, VscTypeHierarchySuper } from "react-icons/vsc";
 import { IoMdColorPalette } from "react-icons/io";
 import { GiMoneyStack } from "react-icons/gi";
-import { RiLoader5Fill } from "react-icons/ri";
 
 import {
   Input,
@@ -31,7 +30,7 @@ import {
   Textarea,
   RadioGroup,
   ImageUploader,
-  ActionDiv,
+  Button,
 } from "@/components";
 import { genderOptions, reverseLocation, delay } from "@/utils";
 import toast from "react-hot-toast";
@@ -449,26 +448,11 @@ export const AnunciarForm = () => {
         />
       </div>
       <hr className="my-6 border-gray-200" />
-      <ActionDiv
-        text={isPending ? "Publicando..." : "Publicar Anuncio"}
-        icon={
-          isPending ? (
-            <RiLoader5Fill className="animate-spin text-3xl" />
-          ) : (
-            <FaPaperPlane />
-          )
-        }
-        classes={`w-full text-white ${
-          isPending
-            ? "bg-gray-400 border-transparent"
-            : "bg-rojillo border-rojillo"
-        }`}
-        type="submit"
+      <Button
+        text={"Publicar Anuncio"}
+        icon={<FaPaperPlane />}
         disabled={isPending}
       />
-      {/*    <div className="bg-white z-30 grid place-items-center text-4xl absolute w-full h-2/4 top-1/5 left-0">
-        ENVIANDO DATOS
-      </div> */}
     </form>
   );
 };

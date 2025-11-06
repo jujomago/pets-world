@@ -44,7 +44,7 @@ export const RadioGroup = <T extends FieldValues, TName extends Path<T>>({
             key={option.value}
             className={`${optionClassName} ${
               field?.value === option.value
-                ? " bg-gray-500 text-white"
+                ? " bg-orange-600 text-white font-bold"
                 : " bg-gray-100"
             } `}
           >

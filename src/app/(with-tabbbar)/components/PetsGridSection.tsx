@@ -3,8 +3,7 @@
 import { getMascotas } from "@/actions/mascotas";
 import { EmptySection, PetCard } from "@/components";
 import { CardsGridSkeleton } from "@/components/skeletons";
-import { Pet } from "@/interfaces/Pets";
-import delay from "@/utils/delay";
+
 import { Suspense } from "react";
 
 // export const dynamic = "force-dynamic";

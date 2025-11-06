@@ -38,7 +38,15 @@ export async function toggleFavorite(petId: string) {
   }
 }
 
-export async function getFavorites(userId: string): Promise<Pet[] | null> {
+export async function getFavorites(): Promise<Pet[] | null> {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return null;
+  }
+
+  const userId = session.user.id;
+
   try {
     const favorites = await prisma.favorite.findMany({
       where: {

@@ -35,8 +35,10 @@ export const Input = <T extends FieldValues, TName extends Path<T>>({
   const inputClass = `w-full px-3 py-2 border border-gray-300  rounded-2xl focus:outline-none focus:ring-2 focus:ring-orange-500 transition ${
     comicRelief.className
   }  ${prefixIcon ? "pl-9" : ""}  ${
-    readonly ? "cursor-not-allowed bg-gray-200/70" : "bg-gray-50"
+    field?.disabled ? "cursor-not-allowed bg-gray-200/70" : "bg-gray-50"
   }`;
+
+  console.log(field);
 
   return (
     <div className={`relative ${containerClasses}`}>

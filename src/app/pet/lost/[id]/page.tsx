@@ -1,8 +1,8 @@
 import { getMascota } from "@/actions/mascotas";
 import { FaRegCalendar } from "react-icons/fa6";
-import { MdCake, MdContactPhone, MdPets, MdPlace } from "react-icons/md";
+import { MdCake, MdPets, MdPlace } from "react-icons/md";
 import { IoIosFemale, IoIosMale } from "react-icons/io";
-import { Title, ActionDiv, Topbar } from "@/components";
+import { Title, Button, Topbar } from "@/components";
 import { FaMoneyBillWave, FaPalette } from "react-icons/fa";
 import { RiMapPinAddFill } from "react-icons/ri";
 
@@ -15,6 +15,7 @@ import { IoScanCircle } from "react-icons/io5";
 import { FavoriteButton } from "@/components/Favorite/FavoriteButton";
 import AvistamientosSection from "../components/AvistamientosSection";
 import { PetDetailSlider } from "../components/PetDetailSlider/PetDetailSlider";
+import { ContactButton } from "../components/ContactButton/ContactButton";
 
 interface LostPetDetailProps {
   params: {
@@ -44,6 +45,7 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
   const { id } = await params;
 
   const mascota = await getMascota(id);
+
   if (!mascota) return;
 
   const unidadEdad = mascota.ageUnit === "YEARS" ? "años" : "meses";
@@ -52,7 +54,6 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
     <div className="relative">
       <Topbar petId={id} title={mascota.name} showBackBtn showOptionsBtn />
 
-      {/* <PageWithTitle title={mascota.name} className="relative"> */}
       <FavoriteButton isFavorite={mascota.isFavorite as boolean} />
       <PetDetailSlider images={mascota.images} />
       {/* Detalles de la mascota */}
@@ -128,20 +129,20 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
 
       {/* Botones de accion */}
       <div className="px-6 py-8 flex justify-between gap-4 ">
-        <ActionDiv
-          icon={<MdContactPhone className="text-2xl" />}
-          classes="text-white bg-[var(--rojizo)] border-[var(--rojizo)] flex-1"
-          text="Contactar"
+        <ContactButton
+          phone={mascota.owner?.phone as string}
+          ownwerName={mascota.owner?.name as string}
+          petName={mascota.name}
         />
         <Link href={`/pet/sighting/${id}`} className="flex-1">
-          <ActionDiv
+          <Button
             icon={<RiMapPinAddFill className="text-2xl" />}
-            classes="bg-white text-[var(--rojizo)] border-[var(--rojizo)] w-full"
+            className="bg-white text-[var(--rojizo)]"
             text="Reportar"
+            type="button"
           />
         </Link>
       </div>
-      {/* </PageWithTitle> */}
     </div>
   );
 }

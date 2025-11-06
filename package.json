@@ -20,6 +20,7 @@
     "@midudev/tailwind-animations": "^0.2.0",
     "@prisma/client": "^6.17.1",
     "cloudinary": "^2.7.0",
+    "clsx": "^2.1.1",
     "leaflet": "^1.9.4",
     "next": "15.5.3",
     "next-auth": "^4.24.11",
@@ -30,7 +31,9 @@
     "react-hot-toast": "^2.6.0",
     "react-icons": "^5.5.0",
     "react-leaflet": "^5.0.0",
+    "react-onesignal": "^3.4.0",
     "swiper": "^12.0.2",
+    "tailwind-merge": "^3.3.1",
     "zod": "^4.1.12",
     "zustand": "^5.0.8"
   },

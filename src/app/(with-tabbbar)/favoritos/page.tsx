@@ -1,21 +1,10 @@
 import { getFavorites } from "@/actions/favorites";
-import { EmptySection, PageWithTitle, PetCard, Topbar } from "@/components";
+import { EmptySection, PetCard, Topbar } from "@/components";
 
 import React from "react";
 
-interface Props {
-  searchParams: { especie?: string; q?: string };
-}
-
-async function PetsGrid({ searchParams }: Props) {
-  const { especie, q } = await searchParams;
-
-  const filters = {};
-
-  const mascotasFiltradas = await getFavorites(
-    "950e8400-e29b-41d4-a716-446655440005"
-  );
-  // console.log(mascotasFiltradas[0]);
+async function PetsGrid() {
+  const mascotasFiltradas = await getFavorites();
 
   if (mascotasFiltradas?.length === 0) {
     return <EmptySection />;
@@ -36,11 +25,11 @@ async function PetsGrid({ searchParams }: Props) {
   );
 }
 
-export default function FavoritesPage({ searchParams }: Props) {
+export default function FavoritesPage() {
   return (
     <>
       <Topbar title="Mis favoritos" showBackBtn />
-      <PetsGrid searchParams={searchParams} />
+      <PetsGrid />
     </>
   );
 }

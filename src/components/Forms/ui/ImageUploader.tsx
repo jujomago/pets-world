@@ -11,6 +11,11 @@ import { comicRelief } from "@/fonts/fonts";
 import { IoMdCloseCircle, IoMdImages } from "react-icons/io";
 import Image from "next/image";
 
+export interface ExistingImage {
+  id: string;
+  url: string;
+}
+
 interface ImageUploaderProps {
   id: string;
   name: string;
@@ -19,6 +24,9 @@ interface ImageUploaderProps {
   maxFiles?: number;
   maxFileSizeMB?: number;
   compact?: boolean;
+  images?: ExistingImage[];
+  onRemoveExistingImage?: (id: string) => void;
+  isSubmitting?: boolean;
 }
 
 export const ImageUploader = ({
@@ -29,13 +37,14 @@ export const ImageUploader = ({
   maxFiles = 3,
   maxFileSizeMB = 4,
   compact = false,
+  images = [],
+  onRemoveExistingImage,
+  isSubmitting = false,
 }: ImageUploaderProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  // console.log("files:", files);
-  // console.log("imagePreviews:", imagePreviews);
 
   useEffect(() => {
     let errorTimer: NodeJS.Timeout;
@@ -52,14 +61,13 @@ export const ImageUploader = ({
   }, [imagePreviews, error]);
 
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("handle file change");
     setError(null);
     const selectedFiles = event.target.files;
     if (!selectedFiles) return;
 
     const newFiles = Array.from(selectedFiles);
 
-    if (files.length + newFiles.length > maxFiles) {
+    if (images.length + files.length + newFiles.length > maxFiles) {
       setError(`Solo puedes subir hasta ${maxFiles} imágenes.`);
       return;
     }
@@ -84,11 +92,12 @@ export const ImageUploader = ({
     setImagePreviews((prev) => [...prev, ...newPreviews]);
   };
 
-  const handleRemoveImage = (
+  const handleRemoveNewImage = (
     index: number,
     event: MouseEvent<HTMLButtonElement>
   ) => {
     event.stopPropagation(); // Evita que se abra el selector de archivos
+    if (isSubmitting) return;
 
     const newFiles = files.filter((_, i) => i !== index);
     const newPreviews = imagePreviews.filter((_, i) => i !== index);
@@ -99,6 +108,19 @@ export const ImageUploader = ({
     setImagePreviews(newPreviews);
     onFileSelect(newFiles);
   };
+
+  const handleRemoveExistingImage = (
+    e: MouseEvent<HTMLButtonElement>,
+    id: string
+  ) => {
+    e.stopPropagation();
+    if (onRemoveExistingImage) {
+      onRemoveExistingImage(id);
+    }
+  };
+
+  const totalImages = images.length + files.length;
+  const canUpload = totalImages < maxFiles && !isSubmitting;
 
   return (
     <div className="w-full">
@@ -112,21 +134,40 @@ export const ImageUploader = ({
         className={`mt-2 flex justify-center rounded-lg border-dashed border-2 ${
           !compact ? "py-6" : "py-2"
         } px-4 transition-colors ${
-          error
-            ? "border-red-500"
-            : "border-gray-900/25 hover:border-orange-500"
+          error ? "border-red-500" : "border-gray-900/25"
         } ${
-          files.length < maxFiles
-            ? "cursor-pointer active:bg-gray-100"
+          canUpload
+            ? "cursor-pointer hover:border-orange-500 active:bg-gray-100"
             : "cursor-not-allowed bg-gray-50"
         }`}
         onClick={() => {
-          fileInputRef.current?.click();
+          if (canUpload) {
+            fileInputRef.current?.click();
+          }
         }}
       >
         <div className={`text-center ${comicRelief.className}`}>
-          {imagePreviews.length > 0 ? (
+          {totalImages > 0 ? (
             <div className="grid grid-cols-3 gap-2">
+              {images.map((image) => (
+                <div key={image.id} className="relative">
+                  <Image
+                    src={image.url}
+                    alt={`Imagen existente`}
+                    width={96}
+                    height={96}
+                    className="h-24 w-24 object-cover rounded-md"
+                  />
+                  <button
+                    type="button"
+                    disabled={isSubmitting}
+                    onClick={(e) => handleRemoveExistingImage(e, image.id)}
+                    className="absolute -top-2 -right-2 bg-white rounded-full text-red-600 hover:text-red-700 transition-colors"
+                  >
+                    <IoMdCloseCircle size={24} />
+                  </button>
+                </div>
+              ))}
               {imagePreviews.map((src, index) => (
                 <div key={index} className="relative">
                   <Image
@@ -138,7 +179,8 @@ export const ImageUploader = ({
                   />
                   <button
                     type="button"
-                    onClick={(e) => handleRemoveImage(index, e)}
+                    disabled={isSubmitting}
+                    onClick={(e) => handleRemoveNewImage(index, e)}
                     className="absolute -top-2 -right-2 bg-white rounded-full text-red-600 hover:text-red-700 transition-colors"
                   >
                     <IoMdCloseCircle size={24} />
@@ -153,7 +195,7 @@ export const ImageUploader = ({
               )}
               {maxFiles < 2 && (
                 <p
-                  className={`${
+                  className={` ${
                     !compact ? "mt-4" : ""
                   }leading-6 text-sm text-gray-600`}
                 >
@@ -162,7 +204,7 @@ export const ImageUploader = ({
               )}
               {maxFiles >= 2 && (
                 <p
-                  className={`${
+                  className={` ${
                     !compact ? "mt-4" : ""
                   }leading-6 text-sm text-gray-600`}
                 >
@@ -186,6 +228,7 @@ export const ImageUploader = ({
         accept="image/*"
         ref={fileInputRef}
         onChange={handleFileChange}
+        disabled={!canUpload}
       />
     </div>
   );

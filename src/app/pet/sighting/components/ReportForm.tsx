@@ -13,7 +13,7 @@ import { ReportFormPet } from "@/interfaces";
 
 import { FaPaperPlane } from "react-icons/fa";
 
-import { Input, Textarea, ImageUploader, ActionDiv } from "@/components";
+import { Input, Textarea, ImageUploader, Button } from "@/components";
 
 import { createAvistamiento } from "@/actions/masctotas-mutations";
 
@@ -242,20 +242,9 @@ export const ReportForm = ({ petId, petName }: ReportFormProps) => {
         )}
       />
       <hr className="my-6 border-gray-200" />
-      <ActionDiv
-        text={isPending ? "Creando avistamiento..." : "Reportar avistamiento"}
-        icon={
-          isPending ? (
-            <RiLoader5Fill className="animate-spin text-3xl" />
-          ) : (
-            <FaPaperPlane />
-          )
-        }
-        classes={`w-full text-white ${
-          isPending
-            ? "bg-gray-400 border-transparent"
-            : "bg-rojillo border-rojillo"
-        }`}
+      <Button
+        text={"Reportar avistamiento"}
+        icon={<FaPaperPlane />}
         type="submit"
         disabled={isPending}
       />

@@ -46,6 +46,7 @@ export const Select = ({
           prefixIcon ? "pl-10" : ""
         } pr-8 ${comicRelief.className}`}
         {...field}
+        disabled={field?.disabled}
       >
         <option value="">-------</option>
         {data.map((s) => (

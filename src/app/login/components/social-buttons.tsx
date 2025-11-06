@@ -1,22 +1,19 @@
 "use client";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 export const SocialButtons = () => {
   const searchParams = useSearchParams();
 
-  // Obtén el callbackUrl de la URL o usa /dashboard por defecto
   let callbackUrl = searchParams.get("callbackUrl") || "/";
 
-  // Asegúrate de que el callbackUrl sea una ruta relativa.
-  // Si es una URL completa, extrae solo la ruta.
   try {
     const url = new URL(callbackUrl);
     callbackUrl = url.pathname + url.search + url.hash;
   } catch (error) {
-    // Si no es una URL válida (es decir, ya es una ruta relativa), no hagas nada.
+    console.error(error);
   }
 
   return (

@@ -13,7 +13,11 @@ export interface Pet {
   rewardAmount?: number;
   rewardCoin?: string;
   ageUnit?: string;
-  ownerId?: string;
+  owner?: {
+    id?: string;
+    name: string;
+    phone: string;
+  };
   speciesId?: string;
   breedId?: string;
   breedName?: string;

@@ -7,6 +7,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { ReportFormPet } from "../interfaces/Forms";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { sendNotificationToAll } from "@/lib/notifications";
 
 // Configura Cloudinary (idealmente en un archivo de configuración separado)
 // Asegúrate de tener estas variables en tu archivo .env
@@ -61,8 +62,14 @@ export async function createPet(data: RegisterFormPet, imageUrls: string[]) {
         },
       },
     });
+    await sendNotificationToAll(
+      "¡Nueva mascota perdida!",
+      `Se ha reportado a ${pet.name} como perdido en la zona ${pet.lostLocationDetails}.`,
+      `/pet/lost/${pet.id}` // Esta es la URL a la que irá el usuario al hacer clic
+    );
 
-    revalidatePath("/"); // Revalida la página de inicio para mostrar la nueva mascota
+    revalidatePath("/");
+
     return { success: true, petId: pet.id };
   } catch (error) {
     console.error("Error creating pet:", error);

@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { AuthProvider } from "./auth-provider";
 import { HomeTopbar } from "@/components/layout/HomeTopBar/HomeTopbar";
 import { Toaster } from "react-hot-toast";
+import { OneSignalInit } from "@/components/OneSignalInit";
 
 export const metadata = appMetadata;
 export const viewport = appViewport;
@@ -20,6 +21,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-hero-image`}
       >
+        <OneSignalInit />
         <Toaster />
         <AuthProvider>
           <main className="container mx-auto max-w-md print:max-w-none min-h-dvh flow-root">
