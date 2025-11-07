@@ -32,7 +32,7 @@ import {
   ImageUploader,
   Button,
 } from "@/components";
-import { genderOptions, reverseLocation, delay } from "@/utils";
+import { genderOptions, reverseLocation } from "@/utils";
 import toast from "react-hot-toast";
 
 //type PetFormValues = z.infer<typeof petSchema>;

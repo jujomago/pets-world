@@ -2,9 +2,9 @@ import "./globals.css";
 import { geistSans, geistMono } from "@/fonts/fonts";
 import { appMetadata, appViewport } from "./metadata";
 // import { Topbar } from "@/components";
-import { Suspense } from "react";
+
 import { AuthProvider } from "./auth-provider";
-import { HomeTopbar } from "@/components/layout/HomeTopBar/HomeTopbar";
+
 import { Toaster } from "react-hot-toast";
 import { OneSignalInit } from "@/components/OneSignalInit";
 

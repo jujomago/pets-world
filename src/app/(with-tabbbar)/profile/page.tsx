@@ -4,7 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProfileForm } from "./components/profileForm";
 import { getUserPreferences, getUsersPetsCount } from "@/actions/users";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 export default async function ProfilePage() {
   const session = (await getServerSession(authOptions)) as Session;

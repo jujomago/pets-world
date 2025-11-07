@@ -1,5 +1,5 @@
 import { getMascota } from "@/actions/mascotas";
-import { PageWithTitle, Topbar } from "@/components";
+import { Topbar } from "@/components";
 import { ReportForm } from "@/app/pet/sighting/components/ReportForm";
 // import { PageWithTitle, Topbar } from "@/components";
 

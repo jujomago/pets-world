@@ -1,12 +1,6 @@
-const p1 = new Promise((resolve, reject) =>
-  setTimeout(() => resolve("🍎"), 1000)
-);
-const p2 = new Promise((resolve, reject) =>
-  setTimeout(() => resolve("💣"), 2000)
-);
-const p3 = new Promise((resolve, reject) =>
-  setTimeout(() => resolve("🍌"), 3000)
-);
+const p1 = new Promise((resolve) => setTimeout(() => resolve("🍎"), 1000));
+const p2 = new Promise((resolve) => setTimeout(() => resolve("💣"), 2000));
+const p3 = new Promise((resolve) => setTimeout(() => resolve("🍌"), 3000));
 
 export default function SvgPage() {
   // 1️⃣ Promise.all — se rechaza si alguna falla

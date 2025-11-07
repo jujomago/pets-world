@@ -1,11 +1,10 @@
 import { Topbar } from "@/components";
-import { getServerSession, Session } from "next-auth";
-import Image from "next/image";
+
 import React from "react";
 
-import { getUserPets, getUserPreferences } from "@/actions/users";
+import { getUserPets } from "@/actions/users";
 import Link from "next/link";
-import { BiEdit, BiTrash } from "react-icons/bi";
+import { BiEdit } from "react-icons/bi";
 import { DeletePet } from "./[id]/components/DeletePet";
 import { PetStatus } from "@prisma/client";
 

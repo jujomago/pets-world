@@ -60,8 +60,6 @@ export async function getMascotas(filters: PetFilters): Promise<Pet[] | null> {
     ];
   }
 
-  console.log(whereConditions);
-
   try {
     // 2. Ejecuta la consulta a Prisma con las condiciones
     const mascotas = await prisma.pet.findMany({
@@ -162,8 +160,7 @@ export async function getMascota(id: string): Promise<Pet | null> {
       },
     },
   });
-  console.log("------------");
-  console.log(mascota);
+
   if (!mascota) return null;
   return {
     id: mascota.id,

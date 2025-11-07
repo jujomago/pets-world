@@ -6,8 +6,8 @@ import { cherryBombOne } from "@/fonts/fonts";
 import { IoArrowBack, IoSearch } from "react-icons/io5";
 import { useDebounce, useScrollHide } from "@/hooks";
 // import { useScrollHide } from "@/hooks/useScrollHide";
-import { Species } from "@/interfaces/Pets";
-import { getEspecies } from "@/actions/mascotas";
+// import { Species } from "@/interfaces/Pets";
+// import { getEspecies } from "@/actions/mascotas";
 
 import { FilterPills } from "../Filters/FilterPills";
 import Image from "next/image";
@@ -25,7 +25,7 @@ export const HomeTopbar = ({ showSearchBtn = true }: HomeTopbarProps) => {
   const showFilters = pathname === "/";
 
   const [showSearchBar, setShowSearchBar] = useState(false);
-  console.log("showSearch:", showSearchBar);
+  // console.log("showSearch:", showSearchBar);
   // const [especies, setEspecies] = useState<Species[]>([]);
   const [query, setQuery] = useState(searchParams.get("q") || "");
   const debouncedQuery = useDebounce(query, 500);

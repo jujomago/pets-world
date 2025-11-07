@@ -1,4 +1,3 @@
-import { revalidateHomePage } from "@/actions/mascotas";
 import { FilterPill } from "@/components/Pill/FilterPill";
 import { comicRelief } from "@/fonts/fonts";
 import { Species } from "@/interfaces/Pets";
@@ -16,7 +15,7 @@ interface FilterPillsProps {
 }
 
 export const FilterPills = ({
-  especies,
+  // especies,
   // filterActive,
   hidden,
 }: // setFilterActive,

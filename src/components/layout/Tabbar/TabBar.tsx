@@ -1,7 +1,7 @@
 "use client";
 
 import { comicRelief } from "@/fonts/fonts";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { FaSearchLocation, FaUser } from "react-icons/fa";
 
 import Link from "next/link";
@@ -30,10 +30,11 @@ export const TabBar = () => {
 
   // Tipado explícito de la referencia
   const indicatorRef = useRef<HTMLSpanElement | null>(null);
-  const handleItemClick = useCallback((index: number) => {
+  /* const handleItemClick = useCallback((index: number) => {
     // La navegación la maneja el componente Link.
     // Este callback podría usarse para lógica adicional si fuera necesario.
   }, []);
+   */
   useEffect(() => {
     // Get the active menu item element
     const activeItem = document.querySelector(
@@ -66,7 +67,7 @@ export const TabBar = () => {
         {menuItems.map((item, index) => (
           <li
             key={item.name + index}
-            onClick={() => handleItemClick(index)}
+            // onClick={() => handleItemClick(index)}
             className="items-center flex"
           >
             <Link

@@ -4,11 +4,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
-import Image from "next/image";
 import styles from "./PetDetailSlider.module.css";
-import { Pet } from "../../../../../interfaces/Pets";
-import { cloudinaryLoader } from "@/utils/cloudinaryLoader";
 import { PetImage } from "@/components/PetImage/PetImage";
+import { Pet } from "@/interfaces";
 
 interface PetSliderProps {
   images: Pet["images"];
@@ -17,7 +15,7 @@ interface PetSliderProps {
 export const PetDetailSlider = ({ images }: PetSliderProps) => {
   return (
     <Swiper navigation modules={[Navigation]} className={styles.container}>
-      {images.map((image, index) => (
+      {images.map((image) => (
         <SwiperSlide key={image.id}>
           <div className="relative h-[270px] w-full bg-gray-700 grid place-items-center">
             <PetImage url={image.url} alt="Fotitos" />

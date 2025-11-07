@@ -17,7 +17,6 @@ import { Input, Textarea, ImageUploader, Button } from "@/components";
 
 import { createAvistamiento } from "@/actions/masctotas-mutations";
 
-import { RiLoader5Fill } from "react-icons/ri";
 import { BiCalendar } from "react-icons/bi";
 import { MdPinDrop } from "react-icons/md";
 import { reverseLocation } from "@/utils/reverseLocation";

@@ -1,6 +1,5 @@
 import { comicRelief } from "@/fonts/fonts";
 import formatFechaToLocaleES from "@/utils/DateUtils";
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FaPalette } from "react-icons/fa";

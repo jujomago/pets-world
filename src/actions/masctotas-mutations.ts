@@ -6,8 +6,9 @@ import { revalidatePath } from "next/cache";
 import { v2 as cloudinary } from "cloudinary";
 import { ReportFormPet } from "../interfaces/Forms";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { sendNotificationToAll } from "@/lib/notifications";
+import { authOptions } from "@/lib/auth";
 
 // Configura Cloudinary (idealmente en un archivo de configuración separado)
 // Asegúrate de tener estas variables en tu archivo .env

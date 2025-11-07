@@ -1,5 +1,5 @@
 import { comicRelief } from "@/fonts/fonts";
-import { RegisterFormPet, ReportFormPet } from "@/interfaces/Forms";
+
 import React from "react";
 import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 type InputType = "text" | "number" | "date";
@@ -37,8 +37,6 @@ export const Input = <T extends FieldValues, TName extends Path<T>>({
   }  ${prefixIcon ? "pl-9" : ""}  ${
     field?.disabled ? "cursor-not-allowed bg-gray-200/70" : "bg-gray-50"
   }`;
-
-  console.log(field);
 
   return (
     <div className={`relative ${containerClasses}`}>

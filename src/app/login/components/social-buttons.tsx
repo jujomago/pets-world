@@ -1,20 +1,13 @@
 "use client";
 import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import React, { Suspense } from "react";
+import React from "react";
 import { FaFacebook, FaGoogle } from "react-icons/fa";
 
 export const SocialButtons = () => {
   const searchParams = useSearchParams();
 
-  let callbackUrl = searchParams.get("callbackUrl") || "/";
-
-  try {
-    const url = new URL(callbackUrl);
-    callbackUrl = url.pathname + url.search + url.hash;
-  } catch (error) {
-    console.error(error);
-  }
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   return (
     <div className="space-y-4 w-full">

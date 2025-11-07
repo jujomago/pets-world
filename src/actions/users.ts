@@ -1,7 +1,8 @@
 "use server";
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { Pet, RegisterFormPet, UserFormPreferences } from "@/interfaces";
+import { authOptions } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { handlePrismaError } from "@/utils/priisma-errors";
 import { PetStatus } from "@prisma/client";
@@ -80,7 +81,7 @@ export async function updateUserPreferences(
       },
     });
 
-    console.log("updated:", updated);
+    // console.log("updated:", updated);
     if (updated) return { sucess: true };
   } catch (error) {
     const errorInfo = handlePrismaError(error);

@@ -3,7 +3,6 @@
 import { updateUserPreferences, UserPreferences } from "@/actions/users";
 import { Button, Input, RadioGroup } from "@/components";
 import { UserFormPreferences } from "@/interfaces";
-import { delay } from "@/utils";
 
 import { signOut } from "next-auth/react";
 import React, { useState, useTransition } from "react";

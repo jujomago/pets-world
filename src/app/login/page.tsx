@@ -7,6 +7,17 @@ import { redirect } from "next/navigation"; */
 import { SocialButtons } from "./components/social-buttons";
 import { LoginImage } from "./components/LoginImage";
 
+const HomeTopbarSkeleton = () => (
+  <div className="h-[64px] bg-gray-300 animate-pulse"></div>
+);
+
+const SocialButtonsSkeleton = () => (
+  <div className="space-y-4 w-full">
+    <div className="h-12 bg-gray-300 rounded-full animate-pulse"></div>
+    <div className="h-12 bg-gray-300 rounded-full animate-pulse"></div>
+  </div>
+);
+
 export default async function LoginPage() {
   /*   let session = null;
   try {
@@ -22,7 +33,9 @@ export default async function LoginPage() {
   } */
   return (
     <>
-      <HomeTopbar showSearchBtn={false} />
+      <Suspense fallback={<HomeTopbarSkeleton />}>
+        <HomeTopbar showSearchBtn={false} />
+      </Suspense>
       <div className="flex flex-col bg-gradient-to-r from-amber-50 to-amber-200 px-8 py-0 h-[calc(100vh-64px)]">
         <LoginImage />
         <h2 className="text-2xl font-bold text-center mb-8 text-gray-800">
@@ -32,13 +45,16 @@ export default async function LoginPage() {
           Bienvenido de nuevo! Por favor, inicia sesión para continuar.
         </p>
 
-        <Suspense>
+        <Suspense fallback={<SocialButtonsSkeleton />}>
           <SocialButtons />
         </Suspense>
 
         <p className="text-xs text-gray-500 text-center mt-8">
           Al continuar, tu estas deacuerdo con nuestros{" "}
-          <Link href="/terms" className="underline hover:text-gray-700">
+          <Link
+            href="/static/terms-service"
+            className="underline hover:text-gray-700"
+          >
             Términos de Servicio
           </Link>{" "}
           y Politica de Privacidad .
