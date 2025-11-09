@@ -1,6 +1,11 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Dejamos únicamente la configuración de imágenes
+// next.config.ts
+
+import type { NextConfig } from "next";
+
+// Configuración de Next.js
+// Nota: OneSignal usa su propio service worker (OneSignalSDKWorker.js) que está en public/
+// Este service worker también incluye funcionalidades PWA básicas para hacer la app instalable
+const nextConfig: NextConfig = {
   images: {
     // loader: "cloudinary",
     // path: "https://res.cloudinary.com/dkvxndrnd/image/upload/",
@@ -10,7 +15,6 @@ const nextConfig = {
         hostname: "res.cloudinary.com",
         pathname: "/dkvxndrnd/image/upload/**",
       },
-      // Dejamos los otros por si los necesitas para la prueba
       {
         protocol: "https",
         hostname: "placehold.co",
@@ -31,5 +35,4 @@ const nextConfig = {
   },
 };
 
-// Exportamos la configuración directamente, sin el wrapper de PWA
-module.exports = nextConfig;
+export default nextConfig;

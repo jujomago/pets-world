@@ -29,6 +29,7 @@ enum Coin {
 }
 
 enum PetStatus {
+  PENDING // Pendiente de revisión
   LOST // Pérdida activa
   FOUND // Encontrada, no adoptada/reunida
   ADOPTION // En proceso de adopción
@@ -109,7 +110,7 @@ model Role {
   @@index([name])
 }
 
-/// Tabla de unión para la relación muchos a muchos entre User y Role.
+/// Tabla de unión para la relación muchos a muchos entre User y Role. COMENTARIO NUEVO
 model UserRole {
   id     Int    @id @default(autoincrement())
   userId String
@@ -162,7 +163,7 @@ model Pet {
   color       String?
   gender      Gender? // Usando el enum Gender
   description String?
-  status      PetStatus @default(LOST) // Usando el enum PetStatus
+  status      PetStatus @default(PENDING) // Usando el enum PetStatus
 
   // 🚨 UBICACIÓN EXACTA DE PÉRDIDA/HALLAZGO 🚨
   lostDate            DateTime @db.Date

@@ -159,7 +159,7 @@ export const ReportForm = ({ petId, petName }: ReportFormProps) => {
         const result = await createAvistamiento(sightingData);
         // TODO: Manejar el resultado (redirección o mensaje de error)
         if (result.success) {
-          router.push(`/lostpet/${petId}`);
+          router.push(`/pet/lost/${petId}`);
         }
       } catch (err) {
         console.error("Error en el proceso de anuncio:", err);

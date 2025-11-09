@@ -210,6 +210,7 @@ export async function getEspecies() {
 export async function getRazasByEspecie(especieId: string) {
   const razas = await prisma.breed.findMany({
     where: { speciesId: especieId },
+    orderBy: { name: "asc" },
   });
   return razas;
 }

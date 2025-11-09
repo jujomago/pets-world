@@ -13,8 +13,7 @@ interface Props {
   searchParams: { especie?: string; q?: string };
 }
 
-async function VipCarousel({ searchParams }: Props) {
-  // await delay(2000);
+export async function VipCarousel({ searchParams }: Props) {
   const { especie, q } = await searchParams;
 
   const filters = {
