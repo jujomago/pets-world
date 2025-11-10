@@ -9,7 +9,8 @@ async function esUbicacionValida(): Promise<boolean> {
 
   // IP de prueba de Tarija para testear en localhost:
   //const testIp = "190.186.74.130"; // Santa Cruz
-  const testIp = "181.115.215.2"; // Tarija
+  // const testIp = "181.115.215.2"; // Tarija
+  const testIp = ip;
 
   console.log(ip);
 

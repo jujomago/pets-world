@@ -51,13 +51,9 @@ export default async function LoginPage() {
 
         <p className="text-xs text-gray-500 text-center mt-8">
           Al continuar, tu estas deacuerdo con nuestros{" "}
-          <Link
-            href="/static/terms-service"
-            className="underline hover:text-gray-700"
-          >
-            Términos de Servicio
-          </Link>{" "}
-          y Politica de Privacidad .
+          <Link href="/terms-service" className="underline hover:text-gray-700">
+            Términos y Condiciones de Servicio
+          </Link>
         </p>
       </div>
     </>
