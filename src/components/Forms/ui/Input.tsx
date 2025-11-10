@@ -2,6 +2,7 @@ import { comicRelief } from "@/fonts/fonts";
 
 import React from "react";
 import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
+import { RiLoader5Fill } from "react-icons/ri";
 type InputType = "text" | "number" | "date";
 interface InputProps<T extends FieldValues, TName extends Path<T> = Path<T>> {
   label: string;
@@ -49,7 +50,8 @@ export const Input = <T extends FieldValues, TName extends Path<T>>({
         {label}
       </label>
       {loading && (
-        <div className="bg-gray-100 text-sm rounded-2xl px-3 py-2 animate-pulse">
+        <div className="bg-amber-100 text-sm rounded-2xl px-3 py-2 animate-pulse flex gap-3 items-center">
+          <RiLoader5Fill className="animate-spin-clockwise animate-duration-800 animate-iteration-count-infinite text-3xl" />
           Obteniendo el lugar
         </div>
       )}

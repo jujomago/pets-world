@@ -16,6 +16,8 @@ import { FavoriteButton } from "@/components/Favorite/FavoriteButton";
 import AvistamientosSection from "../components/AvistamientosSection";
 import { PetDetailSlider } from "../components/PetDetailSlider/PetDetailSlider";
 import { ContactButton } from "../components/ContactButton/ContactButton";
+import { format } from "date-fns";
+import { es } from "date-fns/locale";
 
 interface LostPetDetailProps {
   params: {
@@ -49,6 +51,11 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
   if (!mascota) return;
 
   const unidadEdad = mascota.ageUnit === "YEARS" ? "años" : "meses";
+  const fechaInicialPerdida = mascota.lostDate;
+  const formatoDeseado = "dd 'de' MMMM, yyyy";
+  const resultado = format(fechaInicialPerdida + "", formatoDeseado, {
+    locale: es,
+  });
 
   return (
     <div className="relative">
@@ -76,9 +83,7 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
           <FaRegCalendar className="text-xl text-[var(--rojizo)]" />
           <span className="-mb-1 text-gray-500 text-sm">
             Perdido en fecha{" "}
-            <strong className="text-gray-800">
-              {mascota.lostDate?.toDateString()}
-            </strong>
+            <strong className="text-gray-800">{resultado}</strong>
           </span>
         </div>
         <div className="flex gap-2 items-center mb-6">
@@ -100,20 +105,20 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
           </div>
         )}
 
-        <div className="flex mb-6 gap-3 text-sm">
-          <div className="p-2 flex-1 bg-gray-50 rounded-xl   text-center shadow-sm">
+        <div className="flex mb-6 gap-3 text-sm ">
+          <div className="p-2 flex-1 bg-gray-50 rounded-xl place-content-center  text-center shadow-sm">
             <MdPets className="w-full text-3xl text-green-500 mb-2" />
             <div className="text-gray-400 text-xs">Raza</div>
             <strong>{mascota.breedName}</strong>
           </div>
-          <div className="p-2 flex-1 bg-gray-50 rounded-xl  text-center shadow-sm">
+          <div className="p-2 flex-1 bg-gray-50 rounded-xl place-content-center  text-center shadow-sm">
             <MdCake className="w-full text-3xl text-blue-500 mb-2" />
             <div className="text-gray-400 text-xs">Edad</div>
             <strong>
               {mascota.age} {unidadEdad}
             </strong>
           </div>
-          <div className="p-2 flex-1 bg-gray-50 rounded-xl text-center shadow-sm">
+          <div className="p-2 flex-1 bg-gray-50 rounded-xl  place-content-center text-center shadow-sm">
             <FaPalette className="w-full text-2xl text-orange-500 mb-2" />
             <div className="text-gray-400 text-xs">Color</div>
             <strong>{mascota.color}</strong>

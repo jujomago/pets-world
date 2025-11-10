@@ -29,12 +29,12 @@ export const Button = ({
       type={type}
       disabled={disabled || loading}
       className={cn(buttonClasses, className, {
-        "cursor-not-allowed bg-gray-200": disabled,
         "cursor-not-allowed bg-gray-400": loading,
+        "cursor-not-allowed bg-gray-200": disabled && !loading, // <-- Solo aplica si está disabled Y NO loading
       })}
     >
       {loading ? (
-        <RiLoader5Fill className="animate-spin-clockwise animate-duration-800 animate-iteration-count-infinite text-2xl" />
+        <RiLoader5Fill className="animate-spin-clockwise animate-duration-800 animate-iteration-count-infinite text-3xl" />
       ) : (
         icon
       )}
