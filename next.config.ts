@@ -2,13 +2,8 @@
 
 import type { NextConfig } from "next";
 
-// Configuración de Next.js
-// Nota: OneSignal usa su propio service worker (OneSignalSDKWorker.js) que está en public/
-// Este service worker también incluye funcionalidades PWA básicas para hacer la app instalable
 const nextConfig: NextConfig = {
   images: {
-    // loader: "cloudinary",
-    // path: "https://res.cloudinary.com/dkvxndrnd/image/upload/",
     remotePatterns: [
       {
         protocol: "https",
