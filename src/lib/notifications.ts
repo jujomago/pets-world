@@ -22,7 +22,7 @@ export async function sendNotificationToAll(
 
     // (Opcional pero recomendado) La URL que se abre al hacer clic
     // Usa la URL completa de tu sitio
-    web_url: `http://localhost:3000${url}`,
+    web_url: `https://mundo-mascotas-beta.vercel.app/{url}`,
 
     // (Opcional) Datos extras que puedes recibir en la app
     data: {

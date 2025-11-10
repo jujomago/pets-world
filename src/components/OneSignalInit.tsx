@@ -7,8 +7,6 @@ import OneSignal from "react-onesignal";
 export function OneSignalInit() {
   const initialized = useRef(false);
 
-  console.log("onesignalappid:", process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID);
-
   useEffect(() => {
     if (initialized.current) {
       console.log(
@@ -23,7 +21,9 @@ export function OneSignalInit() {
       // Verificar que el App ID esté configurado
       const appId = process.env.NEXT_PUBLIC_ONESIGNAL_APP_ID;
       if (!appId) {
-        console.warn("OneSignal: NEXT_PUBLIC_ONESIGNAL_APP_ID no está configurado");
+        console.warn(
+          "OneSignal: NEXT_PUBLIC_ONESIGNAL_APP_ID no está configurado"
+        );
         return;
       }
 

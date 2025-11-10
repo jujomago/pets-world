@@ -12,6 +12,8 @@ import { useDebounce, useScrollHide } from "@/hooks";
 import { FilterPills } from "../Filters/FilterPills";
 import Image from "next/image";
 import { localImageLoader } from "@/utils/localImageLoader";
+import { usePWAInstall } from "@/hooks/usePWAIntall";
+import { BannerPwa } from "@/components";
 
 interface HomeTopbarProps {
   showSearchBtn?: boolean;
@@ -21,6 +23,7 @@ export const HomeTopbar = ({ showSearchBtn = true }: HomeTopbarProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { showInstallButton, handleInstallClick } = usePWAInstall();
 
   const showFilters = pathname === "/";
 
@@ -60,6 +63,10 @@ export const HomeTopbar = ({ showSearchBtn = true }: HomeTopbarProps) => {
 
   return (
     <div className={`sticky top-0 z-[1500]`}>
+      {showInstallButton && (
+        <BannerPwa handleInstallClick={handleInstallClick} />
+      )}
+
       <div
         className={`bg-[var(--rojizo)] text-white p-4 flex ${
           showSearchBtn ? "justify-between" : "justify-center"

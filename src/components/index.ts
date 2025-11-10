@@ -12,4 +12,5 @@ export { Input } from "./Forms/ui/Input";
 export { Select } from "./Forms/ui/select";
 export { Textarea } from "./Forms/ui/Textarea";
 export { PetImage } from "./PetImage/PetImage";
+export { BannerPwa } from "./BannerPwa/BannerPwa";
 export * from "./Forms/ui/RadioGroup";
