@@ -58,7 +58,7 @@ export const TabBar = () => {
   }, [activeIndex]);
 
   return (
-    <div className="sticky bottom-2 w-[96%]  mx-auto rounded-3xl animate-slide-up-fade animate-delay-[2000ms]  bg-rojillo-tabbar  filter-[url('#goo')] z-10 ">
+    <div className="sticky bottom-2 w-[96%]  mx-auto rounded-3xl animate-slide-up-fade bg-rojillo-tabbar  filter-[url('#goo')] z-10 ">
       <ul className="flex justify-evenly pt-3 pb-2">
         <span
           ref={indicatorRef}

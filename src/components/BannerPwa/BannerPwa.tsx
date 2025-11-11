@@ -13,7 +13,7 @@ export const BannerPwa = ({ handleInstallClick }: BannerPwaProps) => {
   return (
     <div
       className={cn(
-        "bg-purple-700 px-5 py-3 flex place-items-center gap-5 text-white font-semibold",
+        "bg-purple-700 px-5 py-2 flex place-items-center gap-5 text-white font-semibold animate-tada animate-delay-500",
         { hidden: !showBanner }
       )}
     >
@@ -28,7 +28,7 @@ export const BannerPwa = ({ handleInstallClick }: BannerPwaProps) => {
         tu dispositivo
       </p>
       <button
-        className="bg-white rounded-full px-4 py-2 text-purple-700"
+        className="bg-white rounded-full px-4 py-2 text-sm text-purple-700"
         onClick={handleInstallClick}
       >
         Instalar

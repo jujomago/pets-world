@@ -1,8 +1,9 @@
 "use client";
 
 import React from "react";
-import { localImageLoader } from "@/utils/localImageLoader";
+// import { localImageLoader } from "@/utils/localImageLoader";
 import Image from "next/image";
+import collageImage from "../../../../public/images/collageAnimales.png";
 
 export const LoginImage = () => {
   return (
@@ -10,9 +11,10 @@ export const LoginImage = () => {
       <Image
         className="-translate-x-4 w-full h-full object-cover"
         alt="MaxyAmigos"
-        loader={localImageLoader}
-        src="/images/collageAnimales.png"
+        // loader={localImageLoader}
+        src={collageImage}
         fill
+        placeholder="blur"
       />
     </div>
   );
