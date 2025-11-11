@@ -14,6 +14,7 @@ import Image from "next/image";
 import { localImageLoader } from "@/utils/localImageLoader";
 import { usePWAInstall } from "@/hooks/usePWAIntall";
 import { BannerPwa } from "@/components";
+import { VersionBadge } from "@/components/VersionBadge/VersionBadge";
 
 interface HomeTopbarProps {
   showSearchBtn?: boolean;
@@ -68,12 +69,14 @@ export const HomeTopbar = ({ showSearchBtn = true }: HomeTopbarProps) => {
       )}
 
       <div
-        className={`bg-[var(--rojizo)] text-white p-4 flex ${
+        className={`relative bg-[var(--rojizo)] text-white p-4 flex ${
           showSearchBtn ? "justify-between" : "justify-center"
         } items-center gap-4 h-[64px] z-20 relative ${
           hidden ? "shadow-md shadow-black/20" : "box-shadow-none"
         }`}
       >
+        <VersionBadge />
+
         {!showSearchBar && (
           <>
             <Link href="/">
