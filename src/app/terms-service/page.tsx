@@ -139,9 +139,8 @@ const TermsOfServicePage = () => {
               </h2>
               <p>
                 Estos Términos se regirán e interpretarán de acuerdo con las
-                leyes de [Su Jurisdicción, por ejemplo, Ciudad de México,
-                México], sin tener en cuenta sus disposiciones sobre conflicto
-                de leyes.
+                leyes de Bolivia, sin tener en cuenta sus disposiciones sobre
+                conflicto de leyes.
               </p>
             </section>
 
@@ -165,10 +164,10 @@ const TermsOfServicePage = () => {
                 Si tiene alguna pregunta sobre estos Términos, por favor
                 contáctenos en{" "}
                 <a
-                  href="mailto:contacto@mundomascotas.com"
+                  href="mailto:jujomago@gmail.com"
                   className="text-blue-600 hover:underline"
                 >
-                  contacto@mundomascotas.com
+                  jujomago@gmail.com
                 </a>
                 .
               </p>

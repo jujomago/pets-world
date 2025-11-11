@@ -8,18 +8,13 @@ import { useForm, Controller } from "react-hook-form";
 // import { zodResolver } from "@hookform/resolvers/zod";
 // import { z } from "zod";
 import dynamic from "next/dynamic";
-
 import { ReportFormPet } from "@/interfaces";
-
-import { FaPaperPlane } from "react-icons/fa";
-
 import { Input, Textarea, ImageUploader, Button } from "@/components";
-
 import { createAvistamiento } from "@/actions/masctotas-mutations";
-
 import { BiCalendar } from "react-icons/bi";
 import { MdPinDrop } from "react-icons/md";
 import { reverseLocation } from "@/utils/reverseLocation";
+import { RiMapPinAddFill } from "react-icons/ri";
 
 //type PetFormValues = z.infer<typeof petSchema>;
 
@@ -65,8 +60,6 @@ export const ReportForm = ({ petId, petName }: ReportFormProps) => {
     (newPosition: [number, number]) => {
       setMapPosition(newPosition);
       setChangingLocationName(true);
-      // No es necesario agregar setMapPosition a las dependencias porque
-      // la función setter del estado garantizada por React es estable.
     },
     []
   );
@@ -100,8 +93,6 @@ export const ReportForm = ({ petId, petName }: ReportFormProps) => {
 
   // Esta función se ejecutará SOLO si la validación es exitosa.
   const onFormSubmit = async (data: ReportFormPet) => {
-    console.log("image:", imageFiles);
-    console.log(data);
     startTransition(async () => {
       try {
         const { timestamp, signature, error } = await getCloudinarySignature();
@@ -242,10 +233,9 @@ export const ReportForm = ({ petId, petName }: ReportFormProps) => {
       />
       <hr className="my-6 border-gray-200" />
       <Button
-        text={"Reportar avistamiento"}
-        icon={<FaPaperPlane />}
-        type="submit"
-        disabled={isPending}
+        text="Reportar avistamiento"
+        icon={<RiMapPinAddFill className="text-3xl" />}
+        loading={isPending}
       />
     </form>
   );

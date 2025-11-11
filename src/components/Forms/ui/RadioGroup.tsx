@@ -1,4 +1,5 @@
 import { comicRelief } from "@/fonts/fonts";
+import { cn } from "@/utils/cn";
 
 import React from "react";
 import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
@@ -23,6 +24,7 @@ interface RadioGroupProps<
   optionClassName?: string;
   // field?: ControllerRenderProps<RegisterFormPet, keyof RegisterFormPet>;
   field?: ControllerRenderProps<T, TName>;
+  readonly?: boolean;
 }
 
 export const RadioGroup = <T extends FieldValues, TName extends Path<T>>({
@@ -31,9 +33,11 @@ export const RadioGroup = <T extends FieldValues, TName extends Path<T>>({
   error,
   labelClassName = `block font-bold text-gray-700 mb-2  ${comicRelief.className}`,
   containerClassName = `flex justify-around  ${comicRelief.className}`,
-  optionClassName = `flex button-mobile items-center gap-2 cursor-pointer  px-3 py-2 rounded-xl text-sm transition-colors`,
+  optionClassName,
   field,
+  readonly = false,
 }: RadioGroupProps<T, TName>) => {
+  const labelOptioClassNames = `flex button-mobile items-center gap-2 cursor-pointer  px-3 py-2 rounded-xl text-sm transition-colors`;
   return (
     <>
       {label && <label className={labelClassName}>{label}</label>}
@@ -42,11 +46,11 @@ export const RadioGroup = <T extends FieldValues, TName extends Path<T>>({
         {options.map((option) => (
           <label
             key={option.value}
-            className={`${optionClassName} ${
-              field?.value === option.value
-                ? " bg-orange-600 text-white font-bold"
-                : " bg-gray-100"
-            } `}
+            className={cn(labelOptioClassNames, optionClassName, {
+              "bg-orange-600 text-white font-bold":
+                field?.value === option.value,
+              "bg-gray-100": field?.value !== option.value,
+            })}
           >
             <input
               type="radio"
@@ -56,11 +60,14 @@ export const RadioGroup = <T extends FieldValues, TName extends Path<T>>({
               onChange={(e) => field?.onChange(e.target.value)}
               onBlur={field?.onBlur}
               className="hidden"
+              disabled={readonly}
             />
             {option.icon && (
               <span
                 className={
-                  field?.value === option.value
+                  readonly
+                    ? "text-gray-500"
+                    : field?.value === option.value
                     ? option.iconColor
                     : "text-gray-400"
                 }
@@ -72,7 +79,6 @@ export const RadioGroup = <T extends FieldValues, TName extends Path<T>>({
           </label>
         ))}
       </div>
-
       {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
     </>
   );

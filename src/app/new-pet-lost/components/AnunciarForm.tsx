@@ -143,9 +143,14 @@ export const AnunciarForm = () => {
 
   // Esta función se ejecutará SOLO si la validación es exitosa.
   const onFormSubmit = async (data: RegisterFormPet) => {
+    console.log("Formulario enviado. Datos:", data);
     if (imageFiles.length === 0) {
       // TODO: Mostrar un error más amigable al usuario
-      console.error("Por favor, selecciona al menos una imagen.");
+      toast.error("Por favor, selecciona al menos una imagen", {
+        position: "top-center",
+        duration: 4000,
+      });
+      console.log("Por favor, selecciona al menos una imagen.");
       return;
     }
 
@@ -200,9 +205,8 @@ export const AnunciarForm = () => {
           lng: mapPosition![1],
         };
 
-        // 4. Llamar a la acción `createPet` con las URLs de las imágenes
         const result = await createPet(petData, uploadedImageUrls);
-        // TODO: Manejar el resultado (redirección o mensaje de error)
+
         if (result.success) {
           toast.success("Anuncio creado con éxito");
           router.push("/");
@@ -210,11 +214,11 @@ export const AnunciarForm = () => {
       } catch (err) {
         console.error("Error en el proceso de anuncio:", err);
         toast.error("Error al crear el anuncio");
-        // TODO: Mostrar un mensaje de error al usuario
       }
     });
   };
 
+  console.log("errorS:", errors);
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onFormSubmit)}>
       <div className="grid grid-cols-4 gap-3">
@@ -272,6 +276,7 @@ export const AnunciarForm = () => {
               ]}
               containerClasses="col-span-1"
               error={errors.ageUnit?.message}
+              readonly={isPending}
             />
           )}
         />
@@ -288,6 +293,7 @@ export const AnunciarForm = () => {
               label="Que especie es?"
               prefixIcon={<VscGroupByRefType />}
               error={errors.speciesId?.message}
+              readonly={isPending}
             />
           )}
         />
@@ -302,6 +308,7 @@ export const AnunciarForm = () => {
               label="Que raza es?"
               prefixIcon={<VscTypeHierarchySuper />}
               error={errors.breedId?.message}
+              readonly={isPending}
             />
           )}
         />
@@ -332,6 +339,7 @@ export const AnunciarForm = () => {
             options={genderOptions}
             field={field}
             error={errors.gender?.message}
+            readonly={isPending}
           />
         )}
       />
@@ -443,6 +451,7 @@ export const AnunciarForm = () => {
                 { id: "DOLLARS", name: "$us" },
               ]}
               error={errors.ageUnit?.message}
+              readonly={isPending}
             />
           )}
         />
@@ -451,7 +460,8 @@ export const AnunciarForm = () => {
       <Button
         text={"Publicar Anuncio"}
         icon={<FaPaperPlane />}
-        disabled={isPending}
+        loading={isPending}
+        // disabled={isPending}
       />
     </form>
   );

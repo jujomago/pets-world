@@ -52,7 +52,7 @@ export async function createPet(data: RegisterFormPet, imageUrls: string[]) {
         rewardAmount: Number(data.rewardAmount) || 0,
         speciesId: data.speciesId,
         breedId: data.breedId,
-        status: PetStatus.LOST,
+        status: PetStatus.LOST, // TODO: crear el workflow para que el primer state sea PENDING
         ownerId: userId,
         lostLocationLat: Number(data.lat),
         lostLocationLon: Number(data.lng),

@@ -3,15 +3,13 @@
 import { updateUserPreferences, UserPreferences } from "@/actions/users";
 import { Button, Input, RadioGroup } from "@/components";
 import { UserFormPreferences } from "@/interfaces";
-
 import { signOut } from "next-auth/react";
 import React, { useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaSave, FaWhatsapp } from "react-icons/fa";
 import { IoLogOut } from "react-icons/io5";
-
-import OneSignal from "react-onesignal"; // Importa OneSignal
+import OneSignal from "react-onesignal";
 
 export const ProfileForm = ({
   email,
@@ -28,6 +26,7 @@ export const ProfileForm = ({
     },
   });
 
+  console.log("issubmitting:", form.formState.isSubmitting);
   async function onSubmit(data: UserFormPreferences) {
     console.log("Formulario enviado. Datos:", data);
     startTransition(async () => {
@@ -38,9 +37,14 @@ export const ProfileForm = ({
         if (data.acceptNotifications === "si" && !isPushEnabled) {
           console.log("Intentando suscribir...");
 
-          // El prompt nativo aparecerá aquí
-          // Se usa .PushSubscription (P mayúscula) y el método .optIn()
-          await OneSignal.User.PushSubscription.optIn();
+          const subscriptionPromise = OneSignal.User.PushSubscription.optIn();
+
+          await Promise.race([
+            subscriptionPromise,
+            new Promise((_, reject) =>
+              setTimeout(() => reject(new Error("⏰ Timeout exceeded")), 4000)
+            ),
+          ]);
 
           // ¡Importante! Verificamos el estado de nuevo
           const finalState = OneSignal.User.PushSubscription.optedIn;
@@ -57,18 +61,16 @@ export const ProfileForm = ({
         // Caso 2: El usuario quiere "No" y SÍ está suscrito
         else if (data.acceptNotifications === "no" && isPushEnabled) {
           console.log("Intentando desuscribir...");
-          // Se usa .PushSubscription (P mayúscula) y el método .optOut()
           await OneSignal.User.PushSubscription.optOut();
           console.log("Usuario desuscrito.");
         }
 
-        // 4. Se llama a la BD DESPUÉS de la lógica de OneSignal
         const res = await updateUserPreferences(data, email);
-        console.log("res:", res);
 
         if (res?.sucess) {
           toast.success("Preferencias guardadas", {
             position: "top-center",
+            duration: 3000,
           });
         } else {
           toast.error("Error al guardar las preferencias");
@@ -86,7 +88,6 @@ export const ProfileForm = ({
     setLoading(false);
   };
 
-  // El resto de tu componente es idéntico
   return (
     <>
       <form className="w-full" onSubmit={form.handleSubmit(onSubmit)}>
@@ -108,6 +109,8 @@ export const ProfileForm = ({
                       { label: "No, nunca ", value: "no" },
                     ]}
                     field={field}
+                    optionClassName="text-md"
+                    readonly={isPending}
                   />
                 )}
               />
@@ -115,9 +118,15 @@ export const ProfileForm = ({
             <div>
               <Controller
                 name="phones"
-                disabled={isPending}
                 control={form.control}
-                rules={{ required: "El numero de contacto es requerido" }}
+                rules={{
+                  required: "El numero de contacto es requerido",
+                  pattern: {
+                    value: /^[67]\d{7}$/,
+                    message:
+                      "Debe ser un número de celular válido de Bolivia (8 dígitos, empieza con 6 o 7).",
+                  },
+                }}
                 render={({ field }) => (
                   <Input
                     field={field}
@@ -125,6 +134,7 @@ export const ProfileForm = ({
                     prefixIcon={<FaWhatsapp />}
                     type="number"
                     error={form.formState.errors.phones?.message}
+                    readonly={isPending}
                   />
                 )}
               />
@@ -143,7 +153,7 @@ export const ProfileForm = ({
             icon={<IoLogOut className="text-2xl" />}
             className="bg-gray-600"
             type="button"
-            loading={loading}
+            disabled={loading || isPending}
           />
         </div>
       </form>

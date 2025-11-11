@@ -8,6 +8,7 @@ interface SelectProps {
   prefixIcon?: React.ReactNode;
   label?: string;
   error?: string;
+  readonly?: boolean;
   containerClasses?: string;
   data: Array<{ id: string; name: string }>;
   field?: ControllerRenderProps<RegisterFormPet, keyof RegisterFormPet>;
@@ -21,6 +22,7 @@ export const Select = ({
   data,
   containerClasses = "",
   error,
+  readonly = false,
   field,
 }: SelectProps) => {
   return (
@@ -46,7 +48,7 @@ export const Select = ({
           prefixIcon ? "pl-10" : ""
         } pr-8 ${comicRelief.className}`}
         {...field}
-        disabled={field?.disabled}
+        disabled={readonly}
       >
         <option value="">-------</option>
         {data.map((s) => (
