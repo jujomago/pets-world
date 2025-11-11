@@ -1,5 +1,3 @@
-export const revalidate = 3600; // revalidad cada hora
-
 import VipCarouselSection, {
   VipCarousel,
 } from "@/app/(with-tabbbar)/components/VipCarouselSection";
@@ -17,7 +15,7 @@ export const metadata: Metadata = {
     title: "Mascotas Perdidas | Encuentra a tu Amigo Peludo",
     description:
       "Ayuda a reunir a mascotas perdidas con sus dueños. Explora los reportes en tu área.",
-    url: "https://www.mundo-mascotas.com", // 🚨 Reemplazar con la URL real del sitio
+    url: "https://mundo-mascotas-beta.vercel.app", // 🚨 Reemplazar con la URL real del sitio
     siteName: "Mundo Mascotas",
     images: [
       {
