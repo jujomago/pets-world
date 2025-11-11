@@ -83,7 +83,8 @@ export const ProfileForm = ({
 
   const handleSignOut = async () => {
     setLoading(true);
-    await signOut({ callbackUrl: "/" });
+    await signOut({ redirect: false });
+    window.location.href = "/";
     setLoading(false);
   };
 
