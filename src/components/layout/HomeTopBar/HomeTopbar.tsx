@@ -10,11 +10,11 @@ import { useDebounce, useScrollHide } from "@/hooks";
 // import { getEspecies } from "@/actions/mascotas";
 
 import { FilterPills } from "../Filters/FilterPills";
-import Image from "next/image";
-import { localImageLoader } from "@/utils/localImageLoader";
+
 import { usePWAInstall } from "@/hooks/usePWAIntall";
 import { BannerPwa } from "@/components";
 import { VersionBadge } from "@/components/VersionBadge/VersionBadge";
+import { Logo } from "@/components/Logo/Logo";
 
 interface HomeTopbarProps {
   showSearchBtn?: boolean;
@@ -84,14 +84,7 @@ export const HomeTopbar = ({ showSearchBtn = true }: HomeTopbarProps) => {
                 className={`text-3xl font-bold ${cherryBombOne.className} text-shadow-gray-800/20 -md flex items-center gap-1 justify-center`}
               >
                 <span className="text-amber-400  text-stroke-red ">Mundo</span>
-                <Image
-                  src="./images/logoMundoMascotas.png"
-                  width={44}
-                  height={44}
-                  alt="logo mundo mascotas"
-                  className="bg-amber-700 p-0.5 rounded-full"
-                  loader={localImageLoader}
-                />
+                <Logo />
                 <span className="text-white text-stroke-red">Mascotas</span>
               </h1>
             </Link>

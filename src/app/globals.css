@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tailwindcss-clip-path";
 @import "./css/animations.css";
 @plugin "@midudev/tailwind-animations";
 

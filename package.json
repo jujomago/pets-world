@@ -50,6 +50,7 @@
     "eslint-config-next": "15.5.3",
     "prisma": "^6.16.1",
     "tailwindcss": "^4",
+    "tailwindcss-clip-path": "^1.0.1",
     "tsx": "^4.20.5",
     "typescript": "^5"
   }
