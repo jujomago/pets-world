@@ -216,6 +216,7 @@ export const ReportForm = ({ petId, petName }: ReportFormProps) => {
         maxFiles={1}
         onFileSelect={setImageFiles}
         compact
+        maxFileSizeMB={10}
       />
       <Controller
         name="details"

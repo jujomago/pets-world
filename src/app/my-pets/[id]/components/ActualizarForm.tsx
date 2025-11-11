@@ -132,6 +132,7 @@ export const ActualizarForm = ({ pet }: ActualizarFormProps) => {
         images={existingImages}
         onRemoveExistingImage={handleRemoveExistingImage}
         isSubmitting={isPending}
+        maxFileSizeMB={10}
       />
 
       <Controller

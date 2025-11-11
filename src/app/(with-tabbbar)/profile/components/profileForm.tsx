@@ -26,7 +26,6 @@ export const ProfileForm = ({
     },
   });
 
-  console.log("issubmitting:", form.formState.isSubmitting);
   async function onSubmit(data: UserFormPreferences) {
     console.log("Formulario enviado. Datos:", data);
     startTransition(async () => {
@@ -42,7 +41,7 @@ export const ProfileForm = ({
           await Promise.race([
             subscriptionPromise,
             new Promise((_, reject) =>
-              setTimeout(() => reject(new Error("⏰ Timeout exceeded")), 4000)
+              setTimeout(() => reject(new Error("⏰ Timeout exceeded")), 10000)
             ),
           ]);
 

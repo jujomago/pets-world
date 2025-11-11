@@ -28,7 +28,7 @@ export const Avistamientos = ({ avistamientos }: AvistamientosProps) => {
       </div>
     );
 
-  console.log(avistamientos);
+  // console.log(avistamientos);
 
   return (
     <div className="mx-4 mb-8 bg-white rounded-xl shadow-lg overflow-hidden">

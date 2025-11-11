@@ -2,8 +2,6 @@ import { HomeTopbar } from "@/components/layout/HomeTopBar/HomeTopbar";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
-/* import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation"; */
 import { SocialButtons } from "./components/social-buttons";
 import { LoginImage } from "./components/LoginImage";
 
@@ -19,18 +17,6 @@ const SocialButtonsSkeleton = () => (
 );
 
 export default async function LoginPage() {
-  /*   let session = null;
-  try {
-    session = await getServerSession();
-  } catch (error) {
-    // Si hay error JWT (durante el callback), ignóralo
-    // La sesión se establecerá en el siguiente render
-    console.log("Sesión aún procesándose...");
-  } */
-
-  /* if (session?.user?.email) {
-    redirect("/");
-  } */
   return (
     <>
       <Suspense fallback={<HomeTopbarSkeleton />}>

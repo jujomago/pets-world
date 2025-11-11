@@ -145,12 +145,10 @@ export const AnunciarForm = () => {
   const onFormSubmit = async (data: RegisterFormPet) => {
     console.log("Formulario enviado. Datos:", data);
     if (imageFiles.length === 0) {
-      // TODO: Mostrar un error más amigable al usuario
       toast.error("Por favor, selecciona al menos una imagen", {
         position: "top-center",
         duration: 4000,
       });
-      console.log("Por favor, selecciona al menos una imagen.");
       return;
     }
 
@@ -218,7 +216,6 @@ export const AnunciarForm = () => {
     });
   };
 
-  console.log("errorS:", errors);
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onFormSubmit)}>
       <div className="grid grid-cols-4 gap-3">
@@ -349,6 +346,7 @@ export const AnunciarForm = () => {
         name="images"
         label="Imagenes de tu mascota"
         onFileSelect={setImageFiles}
+        maxFileSizeMB={10}
       />
       <hr className="my-6 border-gray-200" />
       <Controller

@@ -38,7 +38,7 @@ const MapComponent = ({
   dragablePin = false,
   onPositionChange,
 }: MapProps) => {
-  console.log("rerendering");
+  console.log("rerendering MapComponent");
   const [position, setPosition] = useState<[number, number]>(center);
   const [isLoading, setIsLoading] = useState(true);
 

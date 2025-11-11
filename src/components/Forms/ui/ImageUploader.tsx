@@ -28,7 +28,7 @@ interface ImageUploaderProps {
   onRemoveExistingImage?: (id: string) => void;
   isSubmitting?: boolean;
 }
-
+// TODO: Implement in future client compresion with browser-image-compressio
 export const ImageUploader = ({
   id,
   name,
