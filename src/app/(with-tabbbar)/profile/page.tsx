@@ -11,6 +11,9 @@ export const dynamic = "force-dynamic";
 
 export default async function ProfilePage() {
   const session = (await getServerSession(authOptions)) as Session;
+  console.log("sessio profile:");
+  console.log(session);
+
   const userPrefs = await getUserPreferences();
   const userPetsCount = await getUsersPetsCount();
 
