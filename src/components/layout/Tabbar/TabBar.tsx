@@ -15,12 +15,13 @@ const menuItems: {
   icon: React.ComponentType<any>;
   name: string;
   to: string;
+  prefetch?: boolean;
 }[] = [
   { icon: FaSearchLocation, name: "Perdidos", to: "/" },
   // { icon: MdPets, name: "Reportar", to: "/reportar_lost" },
   { icon: FaCirclePlus, name: "Anunciar", to: "/new-pet-lost" },
   { icon: MdFavorite, name: "Favoritos", to: "/favoritos" },
-  { icon: FaUser, name: "Perfil", to: "/profile" },
+  { icon: FaUser, name: "Perfil", to: "/profile", prefetch: false },
 ];
 
 export const TabBar = () => {
@@ -75,6 +76,7 @@ export const TabBar = () => {
               className={`flex flex-col items-center justify-center gap-1 ${
                 comicRelief.className
               } ${index === activeIndex ? "text-white" : "text-red-800"}`}
+              prefetch={item.prefetch ?? true}
             >
               {item.name === "Perfil" && status === "authenticated" ? (
                 <Image

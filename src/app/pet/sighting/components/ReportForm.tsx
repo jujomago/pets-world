@@ -154,7 +154,7 @@ export const ReportForm = ({ petId, petName }: ReportFormProps) => {
         }
       } catch (err) {
         console.error("Error en el proceso de anuncio:", err);
-        // TODO: Mostrar un mensaje de error al usuario
+        // FIXME: Mostrar un mensaje de error al usuario
       }
     });
   };

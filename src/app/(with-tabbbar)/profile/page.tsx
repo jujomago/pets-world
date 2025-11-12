@@ -7,8 +7,6 @@ import { getUserPreferences, getUsersPetsCount } from "@/actions/users";
 import { authOptions } from "@/lib/auth";
 // import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export const dynamic = "force-dynamic";
-
 export default async function ProfilePage() {
   const session = (await getServerSession(authOptions)) as Session;
   console.log("sessio profile:");
