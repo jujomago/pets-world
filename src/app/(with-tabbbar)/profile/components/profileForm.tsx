@@ -4,6 +4,8 @@ import { updateUserPreferences, UserPreferences } from "@/actions/users";
 import { Button, Input, RadioGroup } from "@/components";
 import { UserFormPreferences } from "@/interfaces";
 import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 import React, { useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -18,6 +20,7 @@ export const ProfileForm = ({
 }: UserPreferences) => {
   const [isPending, startTransition] = useTransition();
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const form = useForm<UserFormPreferences>({
     defaultValues: {
@@ -83,9 +86,21 @@ export const ProfileForm = ({
 
   const handleSignOut = async () => {
     setLoading(true);
-    await signOut({ redirect: false });
-    window.location.href = "/";
-    setLoading(false);
+
+    try {
+      await signOut({ redirect: false });
+      toast.success("Sesión cerrada exitosamente", {
+        position: "top-center",
+        duration: 2000,
+      });
+      router.push("/");
+      router.refresh();
+    } catch (error) {
+      console.error("Error al cerrar sesión:", error);
+      toast.error("Error al cerrar sesión");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
