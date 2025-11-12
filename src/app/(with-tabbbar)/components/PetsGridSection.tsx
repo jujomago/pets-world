@@ -1,19 +1,15 @@
-// En PetsGridSection.tsx
-
 import { getMascotas } from "@/actions/mascotas";
 import { EmptySection, PetCard } from "@/components";
 import { CardsGridSkeleton } from "@/components/skeletons";
 
 import { Suspense } from "react";
 
-// export const dynamic = "force-dynamic";
-
 interface Props {
-  searchParams: { especie?: string; q?: string };
+  params: { especie?: string; q?: string };
 }
 
-async function PetsGrid({ searchParams }: Props) {
-  const { especie, q } = await searchParams;
+async function PetsGrid({ params }: Props) {
+  const { especie, q } = params;
 
   const filters = {
     speciesName: especie,
@@ -36,10 +32,10 @@ async function PetsGrid({ searchParams }: Props) {
   );
 }
 
-export default function PetsGridSection({ searchParams }: Props) {
+export default function PetsGridSection({ params }: Props) {
   return (
     <Suspense fallback={<CardsGridSkeleton />}>
-      <PetsGrid searchParams={searchParams} />
+      <PetsGrid params={params} />
     </Suspense>
   );
 }

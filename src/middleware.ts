@@ -47,7 +47,7 @@ export const config = {
     "/favoritos",
     "/profile",
     "/new-pet-lost",
-    "/pet/lost/:path*",
+    //"/pet/lost/:path*",
     "/pet/sighting/:path*",
     "/geo-check",
   ],

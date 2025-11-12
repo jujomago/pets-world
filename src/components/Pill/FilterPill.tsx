@@ -1,3 +1,4 @@
+import { cn } from "@/utils/cn";
 import React from "react";
 
 interface FilterPillProps {
@@ -15,11 +16,12 @@ export const FilterPill = ({
 }: FilterPillProps) => {
   return (
     <div
-      className={`${
-        isActive ? "bg-orange-600 text-white" : " bg-white"
-      } flex cursor-pointer items-center justify-center gap-2 rounded-full px-3 py-1 shadow-xs shadow-black/20
-      transition hover:bg-orange-400 hover:text-white
-      `}
+      className={cn(
+        "flex cursor-pointer items-center justify-center gap-2 rounded-full px-3 py-1 shadow-xs shadow-black/20 transition-colors duration-200 ease-in-out ",
+        isActive
+          ? "bg-orange-600 text-white hover:bg-orange-500"
+          : "bg-white text-gray-700 hover:bg-orange-400"
+      )}
       onClick={() => onSelectFilter && onSelectFilter(text)}
     >
       {icon}

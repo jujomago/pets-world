@@ -65,14 +65,14 @@ body {
 .bg-hero-image {
   background-image: 
     /* GRADIENTE RADIAL: Usa un color con transparencia (RGBA) en al menos un punto */ radial-gradient(
-      circle,
-      /* Color 1: rgba(209, 143, 46, 0.7) es el color #d18f2e con 70% de opacidad */
-        rgba(209, 143, 46, 0.7) 0%,
-      /* Color 2: rgba(155, 152, 149, 0.9) es el color #9b9895 con 90% de opacidad */
-        rgba(155, 152, 149, 0.9) 100%
-    ),
-    /* IMAGEN DE FONDO: Colócala en segundo lugar */
-      url("/images/footprints.png");
+    circle,
+    /* Color 1: rgba(209, 143, 46, 0.7) es el color #d18f2e con 70% de opacidad */
+      rgba(209, 143, 46, 0.7) 0%,
+    /* Color 2: rgba(155, 152, 149, 0.9) es el color #9b9895 con 90% de opacidad */
+      rgba(155, 152, 149, 0.9) 100%
+  );
+  /* IMAGEN DE FONDO: Colócala en segundo lugar */
+  /* url("/images/footprints.png"); */
 
   /* 2. Ajustes para que cubra toda la página y sea fijo */
   background-size: cover;

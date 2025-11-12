@@ -4,7 +4,7 @@ import { Species } from "@/interfaces/Pets";
 import { DefaultSpecies, Especies } from "@/utils/contants";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 import { PiBird, PiCat, PiDog, PiRabbit } from "react-icons/pi";
 
 interface FilterPillsProps {
@@ -22,6 +22,7 @@ export const FilterPills = ({
 FilterPillsProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [selectedPill, setSelectedPill] = useState<string>();
 
   // 💡 OBTÉN LA ESPECIE ACTIVA DIRECTAMENTE DE LA URL
   const filterSpecie = searchParams.get("especie");
@@ -33,6 +34,7 @@ FilterPillsProps) => {
       params.delete("especie");
     } else {
       params.set("especie", specieName);
+      setSelectedPill(specieName);
     }
 
     router.push(`/?${params.toString()}`);
@@ -69,11 +71,11 @@ FilterPillsProps) => {
       {DefaultSpecies.map((especie) => (
         <FilterPill
           key={especie.id}
-          // filterId={especie.id}
           text={especie.name}
           onSelectFilter={handleFilterClick}
-          // isActive={filterActive === especie.id}
-          isActive={filterSpecie === especie.name}
+          isActive={
+            filterSpecie === especie.name || especie.name === selectedPill
+          }
           icon={
             especie.name.toLowerCase() === Especies.PERRO ? (
               <PiDog

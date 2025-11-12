@@ -40,21 +40,16 @@ interface Props {
 }
 
 export default async function page({ searchParams }: Props) {
-  const filterKey = (await searchParams)?.especie || "all";
+  const urlParams = await searchParams;
+  const filterKey = urlParams?.especie || "all";
 
   return (
     <div className="min-h-[calc(100dvh-70px)]">
       <>
         <HomeTopbar />
 
-        <VipCarouselSection
-          key={`vip-${filterKey}`}
-          searchParams={searchParams}
-        />
-        <PetsGridSection
-          key={`grid-${filterKey}`}
-          searchParams={searchParams}
-        />
+        <VipCarouselSection key={`vip-${filterKey}`} params={urlParams} />
+        <PetsGridSection key={`grid-${filterKey}`} params={urlParams} />
         {/* <TabBar /> */}
       </>
     </div>

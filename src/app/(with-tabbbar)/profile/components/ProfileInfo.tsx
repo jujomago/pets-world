@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-//TODO: candidato a borrar
+
 export function ProfileInfo() {
   const { data: session } = useSession();
 

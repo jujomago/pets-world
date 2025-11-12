@@ -7,7 +7,7 @@ import { FaSearchLocation, FaUser } from "react-icons/fa";
 import Link from "next/link";
 import { MdFavorite } from "react-icons/md";
 import { FaCirclePlus } from "react-icons/fa6";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 
@@ -26,8 +26,15 @@ const menuItems: {
 
 export const TabBar = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const activeIndex = menuItems.findIndex((item) => item.to === pathname);
   const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.refresh();
+    }
+  }, [status, router]);
 
   // Tipado explícito de la referencia
   const indicatorRef = useRef<HTMLSpanElement | null>(null);
