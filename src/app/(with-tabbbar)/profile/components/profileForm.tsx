@@ -44,7 +44,7 @@ export const ProfileForm = ({
           await Promise.race([
             subscriptionPromise,
             new Promise((_, reject) =>
-              setTimeout(() => reject(new Error("⏰ Timeout exceeded")), 10000)
+              setTimeout(() => reject(new Error("⏰ Timeout exceeded")), 20000)
             ),
           ]);
 
@@ -86,21 +86,9 @@ export const ProfileForm = ({
 
   const handleSignOut = async () => {
     setLoading(true);
-
-    try {
-      await signOut({ redirect: false });
-      toast.success("Sesión cerrada exitosamente", {
-        position: "top-center",
-        duration: 2000,
-      });
-      router.push("/");
-      router.refresh();
-    } catch (error) {
-      console.error("Error al cerrar sesión:", error);
-      toast.error("Error al cerrar sesión");
-    } finally {
-      setLoading(false);
-    }
+    await signOut({
+      callbackUrl: "/",
+    });
   };
 
   return (
