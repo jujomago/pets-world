@@ -16,7 +16,17 @@ const SocialButtonsSkeleton = () => (
   </div>
 );
 
-export default async function LoginPage() {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: { callbackUrl?: string | string[] };
+}) {
+  const params = await searchParams;
+
+  const callbackUrl =
+    (Array.isArray(params.callbackUrl)
+      ? params.callbackUrl[0]
+      : params.callbackUrl) || "/";
   return (
     <>
       <Suspense fallback={<HomeTopbarSkeleton />}>
@@ -31,9 +41,7 @@ export default async function LoginPage() {
           Bienvenido de nuevo! Por favor, inicia sesión para continuar.
         </p>
 
-        <Suspense fallback={<SocialButtonsSkeleton />}>
-          <SocialButtons />
-        </Suspense>
+        <SocialButtons callbackUrl={callbackUrl} />
 
         <p className="text-xs text-gray-500 text-center mt-8">
           Al continuar, tu estas deacuerdo con nuestros{" "}

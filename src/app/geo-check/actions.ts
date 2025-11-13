@@ -17,7 +17,8 @@ async function esUbicacionValida(): Promise<boolean> {
   try {
     // 2. Llamar a la API de GeoIP (pide solo los campos necesarios)
     const response = await fetch(
-      `http://ip-api.com/json/${testIp}?fields=status,city,region`
+      `http://ip-api.com/json/${testIp}?fields=status,city,region`,
+      { cache: "no-store" }
     );
 
     const data = await response.json();
