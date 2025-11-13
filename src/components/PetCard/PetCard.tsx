@@ -64,15 +64,19 @@ export const PetCard = ({ mascota, vip }: PetCardProps) => {
           <div className="mt-4 flex flex-wrap gap-x-1 gap-y-1 justify-center">
             <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5 animate-blurred-fade-in">
               <MdCake className="text-blue-500 text-sm" />
-              <span className="text-xs font-medium">{mascota.age} años</span>
+              <span className="text-xs font-medium flex-1">
+                {mascota.age} años
+              </span>
             </div>
             <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5">
               <FaPalette className="text-orange-500 text-sm" />
-              <span className="text-xs font-medium">{mascota.color}</span>
+              <span className="text-xs font-medium flex-1">
+                {mascota.color}
+              </span>
             </div>
             <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5 overflow-ellipsis">
-              <IoMdPin className="text-green-500 text-sm" />
-              <span className="text-xs font-medium">
+              <IoMdPin className="text-green-500 text-sm " />
+              <span className="text-xs font-medium flex-1">
                 {mascota.lostLocationDetails}
               </span>
             </div>

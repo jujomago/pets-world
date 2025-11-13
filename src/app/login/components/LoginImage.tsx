@@ -20,7 +20,7 @@ export const LoginImage = () => {
           "-translate-x-4 w-full h-full object-cover animate-blurred-fade-in"
         )}
         alt="MaxyAmigos"
-        src={"/images/collageAnimalesv2.png"}
+        src={"/images/collageAnimales.png"}
         fill
         priority
         onLoad={() => setIsLoading(false)}

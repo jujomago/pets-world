@@ -31,9 +31,8 @@ export const TabBar = () => {
   const { data: session, status } = useSession();
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.refresh();
-    }
+    console.log("actualizando tabbar");
+    router.refresh();
   }, [status, router]);
 
   // Tipado explícito de la referencia

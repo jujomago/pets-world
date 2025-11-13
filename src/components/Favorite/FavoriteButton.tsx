@@ -1,7 +1,9 @@
 "use client";
 import { toggleFavorite } from "@/actions/favorites";
+import { cn } from "@/utils/cn";
 import { useParams } from "next/navigation";
 import React, { useState, useTransition } from "react";
+import toast from "react-hot-toast";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 interface favoriteButttonProps {
   isFavorite: boolean;
@@ -20,7 +22,9 @@ export const FavoriteButton = ({ isFavorite }: favoriteButttonProps) => {
 
       if (result.success) {
         setFavorite(result.isFavorite);
+        toast.success("Se ha agregado a favoritos");
       } else {
+        toast.error("Ocurrio un error al agregar a Favoritos");
         console.error(result.error);
       }
     });
@@ -28,13 +32,18 @@ export const FavoriteButton = ({ isFavorite }: favoriteButttonProps) => {
 
   return (
     <button
-      className="button-mobile absolute right-5 text-red-500 text-3xl top-20 z-10"
+      className={cn(
+        "button-mobile absolute right-5 text-red-500 text-3xl top-20 z-10",
+        {
+          "opacity-50": isPending,
+        }
+      )}
       onClick={toggleFavoriteHandler}
       disabled={isPending}
     >
       {isPending ? (
         <div className="animate-pulse">
-          <MdFavorite className="opacity-50" />
+          <MdFavorite />
         </div>
       ) : favorite ? (
         <MdFavorite />
