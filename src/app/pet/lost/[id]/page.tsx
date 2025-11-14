@@ -83,16 +83,16 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
           <FaRegCalendar className="text-xl text-[var(--rojizo)]" />
           <span className="-mb-1 text-gray-500 text-sm">
             Perdido en fecha{" "}
-            <strong className="text-gray-800">{resultado}</strong>
+            <span className="text-gray-800 font-medium">{resultado}</span>
           </span>
         </div>
         <div className="flex gap-2 items-center mb-6">
           <MdPlace className="text-xl text-[var(--rojizo)]" />
           <span className="-mb-1 text-gray-500 text-sm">
             Perdido en{" "}
-            <strong className="text-gray-800">
+            <span className="text-gray-800 font-medium">
               {mascota?.lostLocationDetails}
-            </strong>{" "}
+            </span>
           </span>
         </div>
         {mascota.rewardAmount !== 0 && (
@@ -109,19 +109,17 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
           <div className="p-2 flex-1 bg-gray-50 rounded-xl place-content-center  text-center shadow-sm">
             <MdPets className="w-full text-3xl text-green-500 mb-2" />
             <div className="text-gray-400 text-xs">Raza</div>
-            <strong>{mascota.breedName}</strong>
+            {mascota.breedName}
           </div>
           <div className="p-2 flex-1 bg-gray-50 rounded-xl place-content-center  text-center shadow-sm">
             <MdCake className="w-full text-3xl text-blue-500 mb-2" />
             <div className="text-gray-400 text-xs">Edad</div>
-            <strong>
-              {mascota.age} {unidadEdad}
-            </strong>
+            {mascota.age} {unidadEdad}
           </div>
           <div className="p-2 flex-1 bg-gray-50 rounded-xl  place-content-center text-center shadow-sm">
             <FaPalette className="w-full text-2xl text-orange-500 mb-2" />
             <div className="text-gray-400 text-xs">Color</div>
-            <strong>{mascota.color}</strong>
+            {mascota.color}
           </div>
         </div>
         <p className="text-gray-600 mb-4 balance">{mascota.description}</p>

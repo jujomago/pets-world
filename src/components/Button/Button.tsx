@@ -10,6 +10,7 @@ interface ActionButtonProps {
   disabled?: boolean;
   loading?: boolean;
   onClick?: () => void;
+  form?: string;
 }
 
 export const Button = ({
@@ -19,6 +20,7 @@ export const Button = ({
   onClick,
   disabled,
   loading,
+  form,
   type = "submit",
 }: ActionButtonProps) => {
   const buttonClasses = `w-full cursor-pointer button-mobile flex items-center justify-center p-4 gap-3 rounded-xl font-bold shadow-md bg-rojillo text-white text-lg`;
@@ -27,6 +29,7 @@ export const Button = ({
     <button
       onClick={onClick}
       type={type}
+      form={form}
       disabled={disabled || loading}
       className={cn(buttonClasses, className, {
         "cursor-not-allowed bg-gray-400": loading,

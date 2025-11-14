@@ -13,7 +13,7 @@ export type UserPreferences = {
   id: string;
   name: string;
   phone: string;
-  acceptNotifications: boolean;
+  acceptNotifications: string;
   image: string;
   email: string;
 };

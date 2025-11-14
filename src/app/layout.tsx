@@ -1,5 +1,5 @@
 import "./globals.css";
-import { geistSans, geistMono } from "@/fonts/fonts";
+
 import { appMetadata, appViewport } from "./metadata";
 // import { Topbar } from "@/components";
 
@@ -7,6 +7,7 @@ import { AuthProvider } from "./auth-provider";
 
 import { Toaster } from "react-hot-toast";
 import { OneSignalInit } from "@/components/OneSignalInit";
+import { poppins } from "@/fonts/fonts";
 
 export const metadata = appMetadata;
 export const viewport = appViewport;
@@ -18,9 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="min-h-screen" data-scroll-behaviour="smooth">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-hero-image`}
-      >
+      <body className={`${poppins.variable} antialiased bg-hero-image`}>
         <OneSignalInit />
         <Toaster />
         <AuthProvider>

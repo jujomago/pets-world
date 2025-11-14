@@ -1,15 +1,16 @@
 "use client";
 
 import { updateUserPreferences, UserPreferences } from "@/actions/users";
-import { Button, Input, RadioGroup } from "@/components";
+import { Button, Input, ToggleButton } from "@/components";
+import { LoaderIcon } from "@/components/LoaderIcon/LoaderIcon";
 import { UserFormPreferences } from "@/interfaces";
 import { signOut } from "next-auth/react";
-import { useRouter } from "next/navigation";
 
 import React, { useState, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FaSave, FaWhatsapp } from "react-icons/fa";
+
 import { IoLogOut } from "react-icons/io5";
 import OneSignal from "react-onesignal";
 
@@ -20,55 +21,69 @@ export const ProfileForm = ({
 }: UserPreferences) => {
   const [isPending, startTransition] = useTransition();
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  const [notificationChecked, setNotificationChecked] = useState(an === "si");
+  const [notificiationLoading, setNotificationLoading] = useState(false);
 
   const form = useForm<UserFormPreferences>({
     defaultValues: {
-      acceptNotifications: an ? "si" : "no",
+      // acceptNotifications: an ? "si" : "no",
       phones: phone,
     },
   });
+
+  async function saveNotificationPersmission(permissionFlag: boolean) {
+    setNotificationChecked(permissionFlag);
+    setNotificationLoading(true);
+    try {
+      const isPushEnabled = OneSignal.User.PushSubscription.optedIn;
+
+      // Caso 1: El usuario quiere "Si" y NO está suscrito
+      if (permissionFlag && !isPushEnabled) {
+        console.log("Intentando suscribir...");
+
+        const subscriptionPromise = OneSignal.User.PushSubscription.optIn();
+
+        await Promise.race([
+          subscriptionPromise,
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error("⏰ Timeout exceeded")), 10000)
+          ),
+        ]);
+
+        // ¡Importante! Verificamos el estado de nuevo
+        const finalState = OneSignal.User.PushSubscription.optedIn;
+        if (!finalState) {
+          // El usuario hizo clic en "Bloquear"
+          console.log("El usuario bloqueó las notificaciones.");
+          // data.acceptNotifications = "no";
+
+          toast.error("Has bloqueado las notificaciones en tu navegador.");
+        } else {
+          console.log("¡Usuario suscrito con éxito!");
+          toast.success("Se suscribio a notificaciones con exito");
+        }
+      }
+      // Caso 2: El usuario quiere "No" y SÍ está suscrito
+      else if (!permissionFlag && isPushEnabled) {
+        console.log("Intentando desuscribir...");
+        await OneSignal.User.PushSubscription.optOut();
+        console.log("Usuario desuscrito.");
+        toast.success("Se desuscribio de notificaciones con exito");
+      }
+    } catch (e) {
+      console.error("Error durante el proceso de onesignal notification:", e);
+      toast.error("Error al procesar la solicitud de notificación.");
+      setNotificationChecked(!permissionFlag);
+    } finally {
+      setNotificationLoading(false);
+    }
+  }
 
   async function onSubmit(data: UserFormPreferences) {
     console.log("Formulario enviado. Datos:", data);
     startTransition(async () => {
       try {
-        const isPushEnabled = OneSignal.User.PushSubscription.optedIn;
-
-        // Caso 1: El usuario quiere "Si" y NO está suscrito
-        if (data.acceptNotifications === "si" && !isPushEnabled) {
-          console.log("Intentando suscribir...");
-
-          const subscriptionPromise = OneSignal.User.PushSubscription.optIn();
-
-          await Promise.race([
-            subscriptionPromise,
-            new Promise((_, reject) =>
-              setTimeout(() => reject(new Error("⏰ Timeout exceeded")), 20000)
-            ),
-          ]);
-
-          // ¡Importante! Verificamos el estado de nuevo
-          const finalState = OneSignal.User.PushSubscription.optedIn;
-          if (!finalState) {
-            // El usuario hizo clic en "Bloquear"
-            console.log("El usuario bloqueó las notificaciones.");
-            data.acceptNotifications = "no";
-            form.setValue("acceptNotifications", "no");
-            toast.error("Has bloqueado las notificaciones en tu navegador.");
-          } else {
-            console.log("¡Usuario suscrito con éxito!");
-          }
-        }
-        // Caso 2: El usuario quiere "No" y SÍ está suscrito
-        else if (data.acceptNotifications === "no" && isPushEnabled) {
-          console.log("Intentando desuscribir...");
-          await OneSignal.User.PushSubscription.optOut();
-          console.log("Usuario desuscrito.");
-        }
-
         const res = await updateUserPreferences(data, email);
-
         if (res?.sucess) {
           toast.success("Preferencias guardadas", {
             position: "top-center",
@@ -79,7 +94,6 @@ export const ProfileForm = ({
         }
       } catch (e) {
         console.error("Error durante el proceso de guardado:", e);
-        toast.error("Error al procesar la solicitud de notificación.");
       }
     });
   }
@@ -92,33 +106,35 @@ export const ProfileForm = ({
   };
 
   return (
-    <>
-      <form className="w-full" onSubmit={form.handleSubmit(onSubmit)}>
-        <div className="bg-white  shadow-md shadow-gray-200 p-7 rounded-lg w-full mb-10">
-          <h3 className="text-xl font-bold border-b pb-2 w-full border-gray-300 mb-6 ">
-            Preferencias
-          </h3>
-          <div className="space-y-5">
-            <div>
-              <Controller
-                name="acceptNotifications"
-                control={form.control}
-                rules={{ required: "Notificaciones es requerido" }}
-                render={({ field }) => (
-                  <RadioGroup
-                    label="Notificarme si hay mascotas perdidas?"
-                    options={[
-                      { label: "Si, siempre", value: "si" },
-                      { label: "No, nunca ", value: "no" },
-                    ]}
-                    field={field}
-                    optionClassName="text-md"
-                    readonly={isPending}
-                  />
-                )}
+    <div className="border">
+      <div className="bg-white  shadow-md shadow-gray-200 p-7 rounded-lg w-full mb-10">
+        <h3 className="text-lg font-semibold border-b pb-2 w-full border-gray-300 mb-6 flex gap-2 items-center">
+          <span>Preferencias</span>
+          {notificiationLoading && <LoaderIcon />}
+        </h3>
+
+        <div className="space-y-5">
+          <div className="flex gap-2 items-center">
+            <span className="text-balance">
+              Notificaciones &quot;Push&quot; de nuevas mascotas perdidas{" "}
+            </span>
+            <div className="w-20">
+              <ToggleButton
+                size="sm"
+                showLabel
+                color="orange"
+                defaultChecked={notificationChecked}
+                onChange={(val) => saveNotificationPersmission(val)}
+                disabled={notificiationLoading}
               />
             </div>
-            <div>
+          </div>
+          <div>
+            <form
+              id="userForm"
+              className="w-full"
+              onSubmit={form.handleSubmit(onSubmit)}
+            >
               <Controller
                 name="phones"
                 control={form.control}
@@ -133,7 +149,7 @@ export const ProfileForm = ({
                 render={({ field }) => (
                   <Input
                     field={field}
-                    label="Celular (via WhatsApp)"
+                    label="Telefono de contacto"
                     prefixIcon={<FaWhatsapp />}
                     type="number"
                     error={form.formState.errors.phones?.message}
@@ -141,25 +157,28 @@ export const ProfileForm = ({
                   />
                 )}
               />
-            </div>
+            </form>
           </div>
         </div>
-        <div className="flex flex-col gap-5 ">
-          <Button
-            text="Guardar"
-            icon={<FaSave className="text-2xl" />}
-            loading={isPending}
-          />
-          <Button
-            onClick={handleSignOut}
-            text="Cerrar Sessión"
-            icon={<IoLogOut className="text-2xl" />}
-            className="bg-gray-600"
-            type="button"
-            disabled={loading || isPending}
-          />
-        </div>
-      </form>
-    </>
+      </div>
+      <div className="flex flex-col gap-5 ">
+        <Button
+          text="Guardar"
+          icon={<FaSave className="text-2xl" />}
+          loading={isPending}
+          disabled={notificiationLoading}
+          type="submit"
+          form="userForm"
+        />
+        <Button
+          onClick={handleSignOut}
+          text="Cerrar Sessión"
+          icon={<IoLogOut className="text-3xl" />}
+          className="bg-gray-600"
+          type="button"
+          disabled={loading || isPending || notificiationLoading}
+        />
+      </div>
+    </div>
   );
 };

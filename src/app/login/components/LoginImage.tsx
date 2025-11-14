@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { cn } from "@/utils/cn";
-import { ImSpinner2 } from "react-icons/im";
+import { LoaderIcon } from "@/components/LoaderIcon/LoaderIcon";
 
 export const LoginImage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -12,7 +12,7 @@ export const LoginImage = () => {
     <div className="relative h-85 flex [mask-image:radial-gradient(black_50%,transparent_71%)] mb-4">
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-amber-50/50">
-          <ImSpinner2 className="animate-spin-clockwise animate-iteration-count-infinite text-4xl text-orange-500" />
+          <LoaderIcon className=" text-4xl" />
         </div>
       )}
       <Image

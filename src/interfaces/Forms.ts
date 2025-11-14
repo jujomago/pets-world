@@ -28,6 +28,6 @@ export interface ReportFormPet {
 }
 
 export interface UserFormPreferences {
-  acceptNotifications: string;
+  // acceptNotifications: string;
   phones: string;
 }

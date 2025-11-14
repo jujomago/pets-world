@@ -1,20 +1,4 @@
-import {
-  Cherry_Bomb_One,
-  Comic_Neue,
-  Delicious_Handrawn,
-  Delius_Unicase,
-  Geist,
-  Geist_Mono,
-} from "next/font/google";
-export const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-export const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { Cherry_Bomb_One, Comic_Neue, Poppins } from "next/font/google";
 
 export const comicRelief = Comic_Neue({
   weight: ["300", "400", "700"],
@@ -32,10 +16,10 @@ export const cherryBombOne = Cherry_Bomb_One({
   variable: "--font-cherry-bomb-one",
 });
 
-export const Delius = Delius_Unicase({
-  weight: ["400", "700"],
-  style: ["normal"],
+export const poppins = Poppins({
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-delius",
+  variable: "--font-poppins",
 });

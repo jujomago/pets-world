@@ -1,3 +1,4 @@
+export { ToggleButton } from "./ToogleButton/ToogleButton";
 export { Topbar } from "./layout/Topbar/Topbar";
 export { PetCard } from "./PetCard/PetCard";
 export { TabBar } from "./layout/Tabbar/TabBar";
