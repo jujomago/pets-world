@@ -7,7 +7,7 @@ import prisma from "@/lib/prisma";
 import { handlePrismaError } from "@/utils/priisma-errors";
 import { PetStatus } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import { revalidatePath } from "next/cache"; // Ya tienes la importación, ¡genial!
+import { revalidatePath, unstable_noStore as noStore } from "next/cache";
 
 export type UserPreferences = {
   id: string;
@@ -19,6 +19,8 @@ export type UserPreferences = {
 };
 
 export async function getUserPreferences(): Promise<UserPreferences | null> {
+  noStore();
+
   try {
     const session = await getServerSession(authOptions);
 
