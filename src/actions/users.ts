@@ -107,6 +107,8 @@ export async function updateUserPreferences(data: UserFormPreferences) {
 type userPetsReponse = Pick<Pet, "id" | "name" | "status">;
 
 export async function getUserPets(): Promise<userPetsReponse[] | null> {
+  noStore();
+
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
@@ -160,6 +162,8 @@ export async function getUserPets(): Promise<userPetsReponse[] | null> {
 }
 
 export async function getUsersPetsCount(): Promise<number> {
+  noStore();
+
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {

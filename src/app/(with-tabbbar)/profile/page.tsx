@@ -5,7 +5,7 @@ import { ProfileInfo } from "./components/ProfileInfo";
 import { ProfileForm } from "./components/profileForm";
 // import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function ProfilePage() {
   const userPrefs = await getUserPreferences();
