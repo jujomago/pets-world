@@ -7,7 +7,7 @@ import prisma from "@/lib/prisma";
 import { handlePrismaError } from "@/utils/priisma-errors";
 import { PetStatus } from "@prisma/client";
 import { getServerSession } from "next-auth";
-import { revalidatePath } from "next/cache";
+import { revalidatePath } from "next/cache"; // Ya tienes la importación, ¡genial!
 
 export type UserPreferences = {
   id: string;
@@ -79,7 +79,10 @@ export async function updateUserPreferences(data: UserFormPreferences) {
     });
 
     // console.log("updated:", updated);
-    if (updated) return { sucess: true };
+    if (updated) {
+      revalidatePath("/profile"); // ¡Esta es la línea clave!
+      return { sucess: true };
+    }
   } catch (error) {
     const errorInfo = handlePrismaError(error);
 

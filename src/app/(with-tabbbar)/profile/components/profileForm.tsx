@@ -106,7 +106,7 @@ export const ProfileForm = ({
   };
 
   return (
-    <div className="border">
+    <div>
       <div className="bg-white  shadow-md shadow-gray-200 p-7 rounded-lg w-full mb-10">
         <h3 className="text-lg font-semibold border-b pb-2 w-full border-gray-300 mb-6 flex gap-2 items-center">
           <span>Preferencias</span>
