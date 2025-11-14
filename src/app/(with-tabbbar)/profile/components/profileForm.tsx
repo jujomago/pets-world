@@ -15,18 +15,16 @@ import { IoLogOut } from "react-icons/io5";
 import OneSignal from "react-onesignal";
 
 export const ProfileForm = ({
-  email,
   phone,
   acceptNotifications: an,
 }: UserPreferences) => {
   const [isPending, startTransition] = useTransition();
   const [loading, setLoading] = useState(false);
-  const [notificationChecked, setNotificationChecked] = useState(an === "si");
+  const [notificationChecked, setNotificationChecked] = useState(an);
   const [notificiationLoading, setNotificationLoading] = useState(false);
 
   const form = useForm<UserFormPreferences>({
     defaultValues: {
-      // acceptNotifications: an ? "si" : "no",
       phones: phone,
     },
   });
@@ -81,9 +79,11 @@ export const ProfileForm = ({
 
   async function onSubmit(data: UserFormPreferences) {
     console.log("Formulario enviado. Datos:", data);
+    const fullData = { ...data, acceptNotifications: notificationChecked };
+
     startTransition(async () => {
       try {
-        const res = await updateUserPreferences(data, email);
+        const res = await updateUserPreferences(fullData);
         if (res?.sucess) {
           toast.success("Preferencias guardadas", {
             position: "top-center",

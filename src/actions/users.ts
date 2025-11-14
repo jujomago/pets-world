@@ -13,7 +13,7 @@ export type UserPreferences = {
   id: string;
   name: string;
   phone: string;
-  acceptNotifications: string;
+  acceptNotifications: boolean;
   image: string;
   email: string;
 };
@@ -28,7 +28,7 @@ export async function getUserPreferences(): Promise<UserPreferences | null> {
 
     const user = await prisma.user.findUnique({
       where: {
-        email: session.user.email,
+        id: session?.user?.id,
       },
       select: {
         acceptNotifications: true,
@@ -60,10 +60,7 @@ export async function getUserPreferences(): Promise<UserPreferences | null> {
   }
 }
 
-export async function updateUserPreferences(
-  data: UserFormPreferences,
-  email: string
-) {
+export async function updateUserPreferences(data: UserFormPreferences) {
   const session = await getServerSession(authOptions);
 
   if (!session?.user?.id) {
@@ -73,11 +70,11 @@ export async function updateUserPreferences(
   try {
     const updated = await prisma.user.update({
       data: {
-        acceptNotifications: data.acceptNotifications === "si",
+        acceptNotifications: data.acceptNotifications,
         phone: data.phones,
       },
       where: {
-        email: email, // TODO: Revisar por que no llega el id del uusuario en la session, el workaround es con el email
+        id: session.user.id,
       },
     });
 

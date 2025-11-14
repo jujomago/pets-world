@@ -9,13 +9,6 @@ const HomeTopbarSkeleton = () => (
   <div className="h-[64px] bg-gray-300 animate-pulse"></div>
 );
 
-const SocialButtonsSkeleton = () => (
-  <div className="space-y-4 w-full">
-    <div className="h-12 bg-gray-300 rounded-full animate-pulse"></div>
-    <div className="h-12 bg-gray-300 rounded-full animate-pulse"></div>
-  </div>
-);
-
 export default async function LoginPage({
   searchParams,
 }: {
