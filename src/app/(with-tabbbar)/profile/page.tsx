@@ -11,6 +11,11 @@ export default async function ProfilePage() {
   const userPrefs = await getUserPreferences();
   const userPetsCount = await getUsersPetsCount();
 
+  console.log("===== userPrefs:");
+  console.log(userPrefs);
+  console.log("===== userPetsCount:");
+  console.log(userPetsCount);
+
   return (
     <>
       <Topbar title="Perfil" showBackBtn />
