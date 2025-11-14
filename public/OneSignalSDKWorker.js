@@ -48,33 +48,31 @@ self.addEventListener("activate", (event) => {
   );
 });
 
-// Interceptar peticiones para cache (Esta parte se queda igual)
 self.addEventListener("fetch", (event) => {
-  // OneSignal maneja sus propias peticiones, así que solo cacheamos otras
-  if (!event.request.url.includes("onesignal.com")) {
-    event.respondWith(
-      caches.match(event.request).then((response) => {
-        // Cache hit - devolver respuesta
-        if (response) {
-          return response;
-        } // Clonar la petición
-        const fetchRequest = event.request.clone();
-        return fetch(fetchRequest).then((response) => {
-          // Verificar si la respuesta es válida
-          if (
-            !response ||
-            response.status !== 200 ||
-            response.type !== "basic"
-          ) {
-            return response;
-          } // Clonar la respuesta
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
-          return response;
-        });
-      })
-    );
+  const url = new URL(event.request.url);
+
+  // --- ¡CAMBIO 3: Excluir rutas específicas del caché! ---
+  // Lista de rutas que NUNCA deben ser cacheadas (ej. páginas con datos de usuario)
+  const urlsToExclude = ["/profile", "/my-pets"]; // <-- Puedes añadir más rutas aquí
+
+  // Si la URL de la petición es una de las que queremos excluir,
+  // o si es una petición a la API de OneSignal, o no es un GET, vamos directamente a la red.
+  if (
+    event.request.method !== "GET" ||
+    url.origin !== self.location.origin || // Ignorar peticiones a otros dominios (como CDNs)
+    urlsToExclude.includes(url.pathname)
+  ) {
+    // No usamos la caché, vamos directamente a la red.
+    return; // Dejamos que el navegador maneje la petición de forma normal.
   }
+
+  // Para todas las demás peticiones, usamos la estrategia "Cache-First".
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      // Si la respuesta está en el caché, la devolvemos.
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+    })
+  );
 });
