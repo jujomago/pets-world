@@ -1,5 +1,5 @@
 import { comicRelief } from "@/fonts/fonts";
-import formatFechaToLocaleES from "@/utils/DateUtils";
+
 import Link from "next/link";
 import React from "react";
 import { FaPalette } from "react-icons/fa";
@@ -9,6 +9,7 @@ import { Title } from "../Title/Title";
 import { Pet, PetImage as PetImageI } from "@/interfaces/Pets";
 import { Gender } from "@prisma/client";
 import { PetImage } from "../PetImage/PetImage";
+import { format } from "date-fns";
 
 interface PetCardProps {
   mascota: Pet;
@@ -48,7 +49,7 @@ export const PetCard = ({ mascota, vip }: PetCardProps) => {
             </div>
           )}
         </div>
-        <div className="p-4">
+        <div className="pt-3 px-4 pb-2">
           <div className="flex justify-between gap-2 items-center">
             <Title classes={`${vip ? "text-2xl" : "text-xl"}`}>
               {mascota.name}
@@ -59,7 +60,7 @@ export const PetCard = ({ mascota, vip }: PetCardProps) => {
               <IoIosFemale className="text-2xl -mb-3 text-pink-600 stroke-16" />
             )}
 
-            {/* <span>{mascota.esta_perdida ? "Perdida" : "Encontrada"}</span> */}
+            {/* <span>{mascota.status === "LOST" ? "Perdida" : "Encontrada"}</span> */}
           </div>
           <div className="mt-4 flex flex-wrap gap-x-1 gap-y-1 justify-center">
             <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5 animate-blurred-fade-in">
@@ -77,16 +78,15 @@ export const PetCard = ({ mascota, vip }: PetCardProps) => {
             <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5 overflow-ellipsis">
               <IoMdPin className="text-green-500 text-sm " />
               <span className="text-xs font-medium flex-1">
-                {mascota.lostLocationDetails}
+                {mascota.lostLocationDetails?.replace(", Municipio Tarija", "")}
               </span>
             </div>
           </div>
-          <p className="text-sm my-4 balance line-clamp-2">
+          <p className="text-xs my-4 balance line-clamp-2">
             {mascota.description}
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-right italic ">
-            Perdido el{" "}
-            {formatFechaToLocaleES(mascota.lostDate ?? new Date()).toString()}
+            Perdido el {format(mascota.lostDate ?? new Date(), "dd/MM/yy")}
           </p>
         </div>
       </div>

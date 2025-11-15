@@ -21,7 +21,7 @@ const menuItems: {
   // { icon: MdPets, name: "Reportar", to: "/reportar_lost" },
   { icon: FaCirclePlus, name: "Anunciar", to: "/new-pet-lost" },
   { icon: MdFavorite, name: "Favoritos", to: "/favoritos" },
-  { icon: FaUser, name: "Perfil", to: "/profile", prefetch: false },
+  { icon: FaUser, name: "Perfil", to: "/profile" },
 ];
 
 export const TabBar = () => {

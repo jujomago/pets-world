@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { comicRelief } from "@/fonts/fonts";
-import { IoArrowBack } from "react-icons/io5";
+import { IoArrowBack, IoPrint } from "react-icons/io5";
 
 import { useScrollHide } from "@/hooks/useScrollHide";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -29,11 +29,19 @@ TopbarProps) => {
   const options = [
     {
       label: "Imprimir",
+      icon: <IoPrint className="text-2xl" />,
+
       onclick: () => {
+        window.alert("Funcionalidad en desarrollo");
         router.push(`/pet/poster/${petId}`);
       },
     },
-    { label: "Compartir" },
+    {
+      label: "Compartir",
+      onclick: () => {
+        window.alert("Pronto estara disponible esta funcionalidad");
+      },
+    },
   ];
 
   const handleBack = () => {
@@ -113,9 +121,10 @@ TopbarProps) => {
               {options.map((option, index) => (
                 <li
                   key={index}
-                  className="hover:bg-amber-200 cursor-pointer mobile-tap select-none"
+                  className="hover:bg-amber-200 cursor-pointer mobile-tap select-none flex place-items-center gap-1"
                   onClick={option.onclick}
                 >
+                  {option.icon}
                   {option.label}
                 </li>
               ))}

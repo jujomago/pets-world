@@ -64,9 +64,9 @@ export const HomeTopbar = ({ showSearchBtn = true }: HomeTopbarProps) => {
 
   return (
     <div className={`sticky top-0 z-[1500]`}>
-      {showInstallButton && (
+      {/*   {showInstallButton && (
         <BannerPwa handleInstallClick={handleInstallClick} />
-      )}
+      )} */}
 
       <div
         className={`relative bg-[var(--rojizo)] text-white p-4 flex ${
