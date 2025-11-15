@@ -1,6 +1,10 @@
 "use client";
 
-import { updateUserPreferences, UserPreferences } from "@/actions/users";
+import {
+  updateUserPreferences,
+  updateUserNotificationStatus,
+  UserPreferences,
+} from "@/actions/users";
 import { Button, Input, ToggleButton } from "@/components";
 import { LoaderIcon } from "@/components/LoaderIcon/LoaderIcon";
 import { UserFormPreferences } from "@/interfaces";
@@ -54,19 +58,45 @@ export const ProfileForm = ({
           // El usuario hizo clic en "Bloquear"
           console.log("El usuario bloqueó las notificaciones.");
           // data.acceptNotifications = "no";
+          setNotificationChecked(false); // Revertir el estado visual
 
           toast.error("Has bloqueado las notificaciones en tu navegador.");
         } else {
           console.log("¡Usuario suscrito con éxito!");
-          toast.success("Se suscribio a notificaciones con exito");
+          // 1. Primero, intentamos guardar el estado en la base de datos.
+          const dbResult = await updateUserNotificationStatus(true);
+
+          if (dbResult.success) {
+            // 2. Solo si la BD se actualizó, añadimos el tag en OneSignal.
+            OneSignal.User.addTag("accepts_notifications", "true");
+            toast.success("¡Te has suscrito a las notificaciones!", {
+              duration: 5000,
+            });
+          } else {
+            // Si la BD falla, revertimos el estado y mostramos un error.
+            toast.error(
+              "No se pudo guardar tu subscripcion. Inténtalo de nuevo."
+            );
+            setNotificationChecked(false); // Revertir estado visual
+          }
         }
       }
       // Caso 2: El usuario quiere "No" y SÍ está suscrito
       else if (!permissionFlag && isPushEnabled) {
-        console.log("Intentando desuscribir...");
-        await OneSignal.User.PushSubscription.optOut();
-        console.log("Usuario desuscrito.");
-        toast.success("Se desuscribio de notificaciones con exito");
+        // 1. Primero, intentamos guardar el estado en la base de datos.
+        const dbResult = await updateUserNotificationStatus(false);
+
+        if (dbResult.success) {
+          // 2. Solo si la BD se actualizó, nos desuscribimos de OneSignal.
+          await OneSignal.User.PushSubscription.optOut();
+          OneSignal.User.addTag("accepts_notifications", "false"); // Aseguramos el tag
+          toast.success("Te has desuscrito de las notificaciones.", {
+            duration: 5000,
+          });
+        } else {
+          toast.error("No se pudo guardar tu preferencia. Inténtalo de nuevo.");
+          setNotificationChecked(true); // Revertir estado visual
+        }
       }
     } catch (e) {
       console.error("Error durante el proceso de onesignal notification:", e);
@@ -79,15 +109,13 @@ export const ProfileForm = ({
 
   async function onSubmit(data: UserFormPreferences) {
     console.log("Formulario enviado. Datos:", data);
-    const fullData = { ...data, acceptNotifications: notificationChecked };
 
     startTransition(async () => {
       try {
-        const res = await updateUserPreferences(fullData);
+        const res = await updateUserPreferences(data);
         if (res?.sucess) {
           toast.success("Preferencias guardadas", {
-            position: "top-center",
-            duration: 3000,
+            duration: 5000,
           });
         } else {
           toast.error("Error al guardar las preferencias");

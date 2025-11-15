@@ -72,7 +72,7 @@ export async function updateUserPreferences(data: UserFormPreferences) {
   try {
     const updated = await prisma.user.update({
       data: {
-        acceptNotifications: data.acceptNotifications,
+        // acceptNotifications: data.acceptNotifications,
         phone: data.phones,
       },
       where: {
@@ -214,6 +214,33 @@ export async function updatePetStatus(petId: string, status: PetStatus) {
   } catch (error) {
     console.log("error", error);
     return { success: false, error: "Failed to update pet status" };
+  }
+}
+
+export async function updateUserNotificationStatus(
+  acceptNotifications: boolean
+) {
+  const session = await getServerSession(authOptions);
+
+  if (!session?.user?.id) {
+    return { success: false, error: "No autorizado" };
+  }
+
+  try {
+    await prisma.user.update({
+      where: {
+        id: session.user.id,
+      },
+      data: {
+        acceptNotifications,
+      },
+    });
+
+    revalidatePath("/profile");
+    return { success: true };
+  } catch (error) {
+    console.error("Error al actualizar el estado de notificación:", error);
+    return { success: false, error: "No se pudo actualizar la preferencia." };
   }
 }
 

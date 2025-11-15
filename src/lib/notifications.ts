@@ -18,7 +18,17 @@ export async function sendNotificationToAll(
     headings: { en: title },
     contents: { en: message },
 
-    included_segments: ["All"],
+    // included_segments: ["All"], // <-- Ya no usamos esto
+
+    // Usamos un filtro para enviar solo a los usuarios que tienen el tag correcto.
+    filters: [
+      {
+        field: "tag",
+        key: "accepts_notifications",
+        relation: "=",
+        value: "true",
+      },
+    ],
 
     // (Opcional pero recomendado) La URL que se abre al hacer clic
     // Usa la URL completa de tu sitio
