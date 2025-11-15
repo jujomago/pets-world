@@ -10,6 +10,7 @@ import { Pet, PetImage as PetImageI } from "@/interfaces/Pets";
 import { Gender } from "@prisma/client";
 import { PetImage } from "../PetImage/PetImage";
 import { format } from "date-fns";
+import { CiCalendarDate } from "react-icons/ci";
 
 interface PetCardProps {
   mascota: Pet;
@@ -62,31 +63,43 @@ export const PetCard = ({ mascota, vip }: PetCardProps) => {
 
             {/* <span>{mascota.status === "LOST" ? "Perdida" : "Encontrada"}</span> */}
           </div>
-          <div className="mt-4 flex flex-wrap gap-x-1 gap-y-1 justify-center">
-            <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5 animate-blurred-fade-in">
-              <MdCake className="text-blue-500 text-sm" />
-              <span className="text-xs font-medium flex-1">
-                {mascota.age} años
-              </span>
+          {vip && (
+            <div className="mt-4 flex flex-wrap gap-x-1 gap-y-1 justify-center">
+              <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5 animate-blurred-fade-in">
+                <MdCake className="text-blue-500 text-sm" />
+                <span className="text-xs font-medium flex-1">
+                  {mascota.age} años
+                </span>
+              </div>
+              <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5">
+                <FaPalette className="text-orange-500 text-sm" />
+                <span className="text-xs font-medium flex-1">
+                  {mascota.color}
+                </span>
+              </div>
+              <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5 overflow-ellipsis">
+                <IoMdPin className="text-green-500 text-sm " />
+                <span className="text-xs font-medium flex-1">
+                  {mascota.lostLocationDetails?.replace(
+                    ", Municipio Tarija",
+                    ""
+                  )}
+                </span>
+              </div>
             </div>
-            <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5">
-              <FaPalette className="text-orange-500 text-sm" />
-              <span className="text-xs font-medium flex-1">
-                {mascota.color}
-              </span>
-            </div>
-            <div className="flex items-center text-gray-600 border border-gray-200 rounded-full px-3 py-2 gap-1.5 overflow-ellipsis">
-              <IoMdPin className="text-green-500 text-sm " />
-              <span className="text-xs font-medium flex-1">
-                {mascota.lostLocationDetails?.replace(", Municipio Tarija", "")}
-              </span>
-            </div>
-          </div>
+          )}
           <p className="text-xs my-4 balance line-clamp-2">
-            {mascota.description}
+            {mascota.description} Lorem ipsum dolor sit amet, consectetur
+            adipisicing elit. Explicabo, aspernatur temporibus? Molestiae,
+            accusamus facilis cupiditate, debitis veritatis, velit accusantium
+            ratione hic maiores corrupti culpa illum alias dicta aliquam
+            assumenda quidem.
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 text-right italic ">
-            Perdido el {format(mascota.lostDate ?? new Date(), "dd/MM/yy")}
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 flex items-center justify-end gap-2 ">
+            <CiCalendarDate className="text-lg" />
+            <span>
+              Perdido el {format(mascota.lostDate ?? new Date(), "dd/MM/yy")}
+            </span>
           </p>
         </div>
       </div>

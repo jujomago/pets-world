@@ -62,8 +62,6 @@ export async function getFavorites(): Promise<Pet[] | null> {
     });
 
     const newMascotas = favorites.map(({ pet: mascota }) => {
-      // Nota: El ownerId fijo (950e8400-...) parece ser un placeholder;
-      // asegúrate de reemplazarlo si tienes un owner real en tu esquema.
       return {
         id: mascota.id,
         name: mascota.name ?? "",
@@ -76,7 +74,7 @@ export async function getFavorites(): Promise<Pet[] | null> {
         lostLocationLon: Number(mascota.lostLocationLon),
         lostLocationDetails: mascota.lostLocationDetails ?? "",
         rewardAmount: Number(mascota.rewardAmount),
-        ownerId: "950e8400-e29b-41d4-a716-446655440005",
+        ownerId: userId,
         speciesId: mascota.speciesId ?? "",
         breedId: mascota.breedId ?? "",
         images: mascota.images ?? [],
