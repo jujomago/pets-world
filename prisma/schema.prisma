@@ -59,7 +59,7 @@ model User {
 
   // 🚨 CAMPOS PARA NOTIFICACIONES POR GEOLOCALIZACIÓN 🚨
   // Preferencia del usuario
-  acceptNotifications  Boolean  @default(true)
+  acceptNotifications  Boolean  @default(false)
   // Coordenadas del centro de su zona de interés para alertas
   notificationLat      Decimal? @db.Decimal(10, 8)
   notificationLon      Decimal? @db.Decimal(11, 8)
