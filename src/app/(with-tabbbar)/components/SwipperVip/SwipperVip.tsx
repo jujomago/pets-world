@@ -2,7 +2,7 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 // import { Pet } from "@/interfaces/Pets";
 
 // Import Swiper styles
@@ -21,11 +21,15 @@ export const SwipperVip = ({ mascotas }: SwipperVipProps) => {
   return (
     <Swiper
       pagination={false}
-      modules={[Pagination]}
+      modules={[Pagination, Autoplay]}
       className={`mb-8 bg-gradient-to-r from-amber-500 to-pink-500 ${styles.swiper}`}
       // spaceBetween={16}
       slidesPerView={"auto"}
       centeredSlides={true}
+      autoplay={{
+        delay: 4000,
+        disableOnInteraction: false,
+      }}
     >
       {mascotas.map((mascota) => (
         <SwiperSlide key={mascota.id} className={styles.swiperSlide}>

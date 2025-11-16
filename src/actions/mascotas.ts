@@ -1,5 +1,6 @@
 "use server";
 
+import { cache } from "react";
 import { Pet } from "@/interfaces/Pets";
 
 import prisma from "@/lib/prisma";
@@ -7,6 +8,8 @@ import { handlePrismaError } from "@/utils/priisma-errors";
 import { PetStatus } from "@prisma/client";
 
 import { revalidatePath } from "next/cache";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 
 //import type { Pet, Sighting } from "@prisma/client";
 
@@ -70,7 +73,7 @@ export async function getMascotas(filters: PetFilters): Promise<Pet[] | null> {
       orderBy: {
         createdAt: "desc",
       },
-      ...(filters.rewardType === "withReward" && { take: 3 }),
+      ...(filters.rewardType === "withReward" && { take: 7 }),
     });
 
     // 3. Mapeo para normalizar los datos al formato de tu interfaz Pet[]
@@ -114,7 +117,10 @@ export async function getMascotas(filters: PetFilters): Promise<Pet[] | null> {
   }
 }
 
-export async function getMascota(id: string): Promise<Pet | null> {
+export const getMascota = cache(async (id: string): Promise<Pet | null> => {
+  // 1. Obtenemos la sesión del usuario para saber quién está consultando.
+  const session = await getServerSession(authOptions);
+  const userId = session?.user?.id;
   const mascota = await prisma.pet.findUnique({
     where: { id },
     select: {
@@ -153,15 +159,20 @@ export async function getMascota(id: string): Promise<Pet | null> {
           isPrimary: true,
         },
       },
+      // 2. En lugar de traer TODOS los favoritos, contamos solo si el usuario actual
+      //    lo tiene como favorito. Esto es mucho más eficiente.
       favoritedBy: {
-        select: {
-          userId: true,
+        where: {
+          userId: userId ?? "-1", // Si no hay usuario, no encontrará nada.
         },
       },
     },
   });
 
   if (!mascota) return null;
+
+  // 3. El resultado de `favoritedBy` será un array con 1 elemento si es favorito
+  //    para el usuario actual, o un array vacío si no lo es.
   return {
     id: mascota.id,
     name: mascota.name ?? "",
@@ -185,7 +196,7 @@ export async function getMascota(id: string): Promise<Pet | null> {
     images: mascota.images ?? [],
     isFavorite: mascota.favoritedBy.length > 0,
   };
-}
+});
 
 export async function getEspecies() {
   try {

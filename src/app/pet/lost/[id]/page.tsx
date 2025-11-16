@@ -9,7 +9,8 @@ import { RiMapPinAddFill } from "react-icons/ri";
 import { Suspense } from "react";
 import { AvistamientoSkeleton } from "@/components/skeletons/AvistamientosSkeleton";
 import Link from "next/link";
-// import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import { Gender } from "@prisma/client";
 import { IoScanCircle } from "react-icons/io5";
 import { FavoriteButton } from "@/components/Favorite/FavoriteButton";
@@ -25,37 +26,75 @@ interface LostPetDetailProps {
   };
 }
 
-/* export async function generateMetadata({
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+
+export async function generateMetadata({
   params,
 }: LostPetDetailProps): Promise<Metadata> {
-  const { id } = await params;
-
-  const mascota = (await getMascota(id)) || null;
-
-  const petName = mascota?.name || "Mascota Desconocida";
-  const lostLocation = mascota?.lostLocationDetails || "Lugar no especificado";
-  //const petType = mascota?.species?.name || "Animal";
-
-  return {
-    //title: `${petName} | ${petType} Perdido en ${lostLocation}`, // Título dinámico
-    // description: `Detalles completos sobre la mascota ${petName}, ${petType} perdido en ${lostLocation}. ¡Ayuda a encontrarlo Reportando!`, // Descripción dinámica
-    // ... otros metadatos como Open Graph o Twitter
-  };
-} */
-
-export default async function LostPetDetail({ params }: LostPetDetailProps) {
-  const { id } = await params;
-
+  const { id } = params; // `params` es un objeto, no una promesa.
   const mascota = await getMascota(id);
 
-  if (!mascota) return;
+  if (!mascota) {
+    return {
+      title: "Mascota no encontrada",
+      description: "La mascota que buscas no está disponible.",
+    };
+  }
+
+  const petName = mascota.name || "Mascota Desconocida";
+  const lostLocation = mascota.lostLocationDetails || "Lugar no especificado";
+  const breedName = mascota.breedName || "Raza no especificada";
+  const primaryImage =
+    mascota.images?.find((img) => img.isPrimary)?.url ||
+    "/images/collageAnimales.png";
+
+  const title = `¡Se busca a ${petName}! | ${breedName} perdido en ${lostLocation}`;
+  const description = `Ayuda a encontrar a ${petName}, un ${breedName} perdido en la zona de ${lostLocation}. Revisa los detalles y reporta si lo has visto.`;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `${BASE_URL}/pet/lost/${id}`,
+      siteName: "Mundo Mascotas",
+      images: [
+        {
+          url: primaryImage,
+          width: 800,
+          height: 600,
+          alt: `Foto de ${petName}, ${breedName}`,
+        },
+      ],
+      locale: "es_ES",
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: [primaryImage],
+    },
+  };
+}
+
+export default async function LostPetDetail({ params }: LostPetDetailProps) {
+  const { id } = params; // `params` es un objeto, no una promesa.
+  const mascota = await getMascota(id);
+
+  if (!mascota) {
+    notFound();
+  }
 
   const unidadEdad = mascota.ageUnit === "YEARS" ? "años" : "meses";
   const fechaInicialPerdida = mascota.lostDate;
   const formatoDeseado = "dd 'de' MMMM, yyyy";
-  const resultado = format(fechaInicialPerdida + "", formatoDeseado, {
-    locale: es,
-  });
+  const fechaFormateada = fechaInicialPerdida
+    ? format(fechaInicialPerdida, formatoDeseado, {
+        locale: es,
+      })
+    : "Fecha no especificada";
 
   return (
     <div className="relative">
@@ -83,7 +122,7 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
           <FaRegCalendar className="text-xl text-[var(--rojizo)]" />
           <span className="-mb-1 text-gray-500 text-sm">
             Perdido en fecha{" "}
-            <span className="text-gray-800 font-medium">{resultado}</span>
+            <span className="text-gray-800 font-medium">{fechaFormateada}</span>
           </span>
         </div>
         <div className="flex gap-2 items-center mb-6">
@@ -133,8 +172,8 @@ export default async function LostPetDetail({ params }: LostPetDetailProps) {
       {/* Botones de accion */}
       <div className="px-6 py-8 flex justify-between gap-4 ">
         <ContactButton
-          phone={mascota.owner?.phone as string}
-          ownwerName={mascota.owner?.name as string}
+          phone={mascota.owner?.phone ?? ""}
+          ownwerName={mascota.owner?.name ?? "el dueño"}
           petName={mascota.name}
         />
         <Link href={`/pet/sighting/${id}`} className="flex-1">

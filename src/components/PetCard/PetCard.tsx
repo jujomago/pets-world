@@ -17,13 +17,24 @@ interface PetCardProps {
   vip: boolean;
 }
 
+const DEFAULT_IMAGE_URL = "/images/crillo.jpeg";
+
 const getImageToShow = (images: PetImageI[]): string => {
   if (!images || images.length === 0) {
-    return "/images/crillo.jpeg";
+    return DEFAULT_IMAGE_URL;
   }
   const imageToShow = images.find((item) => item.isPrimary);
 
-  return imageToShow ? imageToShow.url : "/images/crillo.jpeg";
+  return imageToShow?.url ?? DEFAULT_IMAGE_URL;
+};
+
+const GenderIcon = ({ gender }: { gender: Gender }) => {
+  const isMale = gender === Gender.MALE;
+  const icon = isMale ? <IoIosMale /> : <IoIosFemale />;
+  const className = isMale ? "text-blue-500 -mb-1" : "text-pink-600 -mb-3";
+  return React.cloneElement(icon, {
+    className: `text-2xl stroke-16 ${className}`,
+  });
 };
 
 export const PetCard = ({ mascota, vip }: PetCardProps) => {
@@ -38,14 +49,14 @@ export const PetCard = ({ mascota, vip }: PetCardProps) => {
         {/* Imagen */}
         <div className="relative h-36">
           <PetImage
-            url={getImageToShow(mascota.images)}
+            url={getImageToShow(mascota.images) ?? DEFAULT_IMAGE_URL}
             alt={`Foto de ${mascota.name}`}
           />
           {vip && (
             <div className="absolute top-2 right-2 flex items-center gap-1 bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-bold">
               <MdEmojiEvents className="text-lg" />
               <span className={`${comicRelief.className} text-sm`}>
-                {mascota.rewardAmount?.toString() || "0"} Bs
+                {mascota.rewardAmount ?? 0} Bs
               </span>
             </div>
           )}
@@ -55,12 +66,7 @@ export const PetCard = ({ mascota, vip }: PetCardProps) => {
             <Title classes={`${vip ? "text-2xl" : "text-xl"}`}>
               {mascota.name}
             </Title>
-            {mascota.gender === Gender.MALE ? (
-              <IoIosMale className="text-2xl text-blue-500 stroke-16 -mb-1" />
-            ) : (
-              <IoIosFemale className="text-2xl -mb-3 text-pink-600 stroke-16" />
-            )}
-
+            <GenderIcon gender={mascota.gender as Gender} />
             {/* <span>{mascota.status === "LOST" ? "Perdida" : "Encontrada"}</span> */}
           </div>
           {vip && (
